@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rhema CBC Revision</title>
+<style>
+:root{--nav:#0a0a0a;--blue:#1a56d6;--bg:#eef3fb;--card:#fff;--ink:#14213d;--mute:#65748f;--line:#d5dfef;--ok:#1b8a4b;--okbg:#e2f5e9;--bad:#c62828;--badbg:#fdeaea;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1428;--card:#14213d;--ink:#e8eefb;--mute:#9fb0cf;--line:#26385f;--okbg:#14382a;--badbg:#3d1d1d}}
+:root[data-theme="dark"]{--bg:#0b1428;--card:#14213d;--ink:#e8eefb;--mute:#9fb0cf;--line:#26385f;--okbg:#14382a;--badbg:#3d1d1d}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Trebuchet MS",Verdana,sans-serif;line-height:1.4}
+#app{max-width:480px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+header{background:var(--nav);color:#fff;display:flex;align-items:center;gap:8px;padding:12px 14px;position:sticky;top:0;z-index:2}
+header h2{margin:0;font-size:1.1rem;flex:1;text-align:center}
+.bk{background:none;border:0;color:#fff;font-size:1.8rem;line-height:1;width:32px;cursor:pointer}
+section{flex:1;padding:16px 14px 90px}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--card);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;background:none;border:0;padding:8px 0;color:var(--mute);font:inherit;font-size:.75rem;cursor:pointer}
+nav button span{display:block;font-size:1.3rem}nav button.on{color:var(--blue);font-weight:bold}
+button{font:inherit}
+.splash{text-align:center;padding-top:14vh}
+.logo{font-size:3.4rem}.splash h1{margin:4px 0;color:var(--nav);font-size:1.9rem;letter-spacing:1px}
+@media (prefers-color-scheme:dark){.splash h1{color:#cfe0ff}}
+.splash p{color:var(--mute);margin:10px 24px 40px}
+.btn{display:block;width:100%;background:var(--blue);color:#fff;border:0;border-radius:24px;padding:13px;font-weight:bold;cursor:pointer;margin-top:10px}
+.btn.ghost{background:var(--card);color:var(--blue);border:2px solid var(--blue)}.btn:disabled{opacity:.4}
+.gr{display:flex;align-items:center;width:100%;border:0;border-radius:14px;padding:16px;margin-bottom:12px;color:#fff;text-align:left;cursor:pointer}
+.gr b{font-size:1.1rem;display:block}.gr small{opacity:.9}.gr span:first-child{font-size:1.7rem;margin-right:14px}.gr i{margin-left:auto;font-style:normal;font-size:1.5rem}
+.gr.off{opacity:.55}
+.seg{display:flex;border-bottom:2px solid var(--line);margin-bottom:14px}
+.seg button{flex:1;background:none;border:0;padding:10px;color:var(--mute);cursor:pointer}.seg .on{color:var(--blue);font-weight:bold;border-bottom:3px solid var(--blue)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 8px;text-align:center;color:var(--ink);cursor:pointer}
+.tile .ic{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 8px}
+.tile small{display:block;color:var(--mute)}
+.row{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;width:100%;color:var(--ink);text-align:left;cursor:pointer}
+.row .ic{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex:none}
+.row div{flex:1}.row small{display:block;color:var(--mute)}.row i{font-style:normal;color:var(--mute);font-size:1.3rem}
+.hero{background:#dbe8ff;color:#0a0a0a;border-radius:14px;padding:14px;margin-bottom:14px;display:flex;gap:12px;align-items:center}
+.hero .ic{font-size:2rem}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;background:var(--blue)}
+.qh{display:flex;justify-content:space-between;font-weight:bold;margin-bottom:6px}
+.q{font-size:1.1rem;margin:14px 0}
+.opt{display:flex;gap:12px;align-items:center;width:100%;background:var(--card);border:2px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;color:var(--ink);text-align:left;cursor:pointer}
+.opt b{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex:none}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.bad{border-color:var(--bad);background:var(--badbg)}
+.ex{border-radius:12px;padding:10px 14px;margin:10px 0}.ex.g{background:var(--okbg)}.ex.r{background:var(--badbg)}.ex p{margin:4px 0}
+.two{display:flex;gap:10px}
+.ring{width:130px;height:130px;border-radius:50%;margin:10px auto;display:flex;align-items:center;justify-content:center}
+.ring span{width:98px;height:98px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1.7rem;font-weight:bold}
+.stats{display:flex;gap:8px;margin:14px 0}.stats div{flex:1;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}.stats b{display:block;font-size:1.2rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px}
+.flip{min-height:200px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:1.15rem;cursor:pointer;padding:20px}
+button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.dg{background:#fff;border-radius:10px;padding:6px;margin:8px 0;text-align:center}.dg svg{max-width:100%;height:auto}.in{width:100%;padding:12px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;margin:8px 0}summary{cursor:pointer;font-weight:bold}
+:root{--blue:#1f4fd8;--gold:#f5b800;--bg:#f3f5fb}
+header{background:linear-gradient(135deg,#0b1f4d,#1a3a8f);border-bottom:3px solid var(--gold)}
+header h2{letter-spacing:.3px}
+.btn{border-radius:14px;padding:14px;box-shadow:0 3px 0 rgba(0,0,0,.18)}
+.btn.ghost{box-shadow:none}
+.tile{border:0;border-radius:20px;box-shadow:0 3px 12px rgba(11,31,77,.14);padding:20px 8px;font-weight:bold}
+.tile .ic{width:60px;height:60px;border-radius:50%;font-size:1.9rem}
+.row,.card,.opt{border-radius:16px;box-shadow:0 1px 6px rgba(11,31,77,.08)}
+.gr{border-radius:18px;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.bar{height:10px;border-radius:5px}.bar i{background:linear-gradient(90deg,var(--blue),var(--gold))}
+nav{border-top:3px solid var(--gold)}nav button.on{color:#0b1f4d;font-weight:bold}
+#app:has(.splash){background:linear-gradient(160deg,#0b1f4d,#1d44a6);color:#fff}
+.splash h1{color:#fff;font-size:2.4rem;letter-spacing:4px}.splash b{color:var(--gold);letter-spacing:3px}.splash p{color:#cfe0ff}
+.splash .btn{background:var(--gold);color:#0b1f4d;font-size:1.05rem}
+.logo{width:100px;height:100px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:3.2rem;box-shadow:0 0 0 8px rgba(245,184,0,.25)}
+
+:root{--nav:#0a0a0a;--blue:#2563eb;--bg:#f4f6fa;--ink:#0a0a0a;--line:#e1e6ee}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0a0a;--card:#161616;--ink:#fff;--mute:#a3a3a3;--line:#2a2a2a}}
+header{background:#0a0a0a;border-bottom:3px solid var(--blue)}
+nav{border-top:3px solid var(--blue)}nav button.on{color:var(--blue)}
+.bar i{background:var(--blue)}
+.tile .ic,.row .ic{background:#e8f0ff!important}
+.gr{background:#2563eb!important}.gr:nth-child(odd){background:#0a0a0a!important}
+.hero{background:#e8f0ff;color:#0a0a0a}
+#app:has(.splash){background:radial-gradient(circle at 50% 30%,#12306e,#0a0a0a 65%);color:#fff}
+.splash b{color:#60a5fa}.splash p{color:#d4d4d8}
+.splash .btn{background:#2563eb;color:#fff}
+.logo{background:#2563eb;color:#fff;box-shadow:0 0 0 8px rgba(37,99,235,.3)}
+</style><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0a0a0a"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"></head><body><div id="app"></div>
+<script>
+const DATA={
+"Mathematics":[
+["Simplify 3/4 + 2/5",["5/9","23/20","6/20","1"],1,"LCM of 4 and 5 is 20: 15/20 + 8/20 = 23/20."],
+["Solve 2x + 5 = 17",["x = 11","x = 6","x = 5","x = 12"],1,"2x = 12, so x = 6."],
+["Area of a circle of radius 7 cm (π = 22/7)",["44 cm²","154 cm²","49 cm²","22 cm²"],1,"A = πr² = 22/7 × 7 × 7 = 154."],
+["A right-angled triangle has shorter sides 6 cm and 8 cm. The hypotenuse is:",["10 cm","14 cm","12 cm","9 cm"],0,"6² + 8² = 100, so the hypotenuse is 10."],
+["2³ × 2⁴ =",["2¹²","4⁷","2⁷","2¹"],2,"Add indices when multiplying the same base: 3 + 4 = 7. So 2⁷ = 128."]],
+"Integrated Science":[
+["Chemical symbol for sodium",["So","S","Na","Sd"],2,"Na comes from the Latin 'natrium'."],
+["The SI unit of force is the",["Joule","Watt","Pascal","Newton"],3,"Force is measured in newtons (N)."],
+["Process by which plants make food using light",["Respiration","Photosynthesis","Digestion","Transpiration"],1,"Photosynthesis makes glucose from CO₂ and water using light."],
+["The pH of a neutral solution is",["0","14","7","1"],2,"Below 7 is acidic, above 7 is basic."],
+["Which system transports blood around the body?",["Circulatory","Digestive","Excretory","Skeletal"],0,"The heart and blood vessels form the circulatory system."]],
+"English":[
+["Past tense of 'begin'",["begun","began","beginned","begins"],1,"Begin – began – begun."],
+["Opposite of 'generous'",["kind","rich","stingy","brave"],2,"Stingy means unwilling to give."],
+["'As brave as a lion' is an example of a",["metaphor","simile","personification","idiom"],1,"A simile compares using 'as' or 'like'."],
+["In 'She sings beautifully', 'beautifully' is a(n)",["adjective","noun","adverb","verb"],2,"It describes how she sings, so it is an adverb."],
+["'A team of players' – 'team' is a",["proper noun","collective noun","abstract noun","pronoun"],1,"A collective noun names a group."]],
+"Kiswahili":[
+["Wingi wa 'kitabu' ni",["kitabu","vitabu","mitabu","bitabu"],1,"Ki- hubadilika kuwa vi- (kitabu → vitabu)."],
+["Kinyume cha 'mrefu' ni",["mnene","mfupi","mzito","mdogo"],1,"Mrefu ≠ mfupi."],
+["Wingi wa 'mti' ni",["miti","viti","mati","mitu"],0,"M- hubadilika kuwa mi- (mti → miti)."],
+["Katika 'Mtoto anacheza', neno 'anacheza' ni",["nomino","kielezi","kitenzi","kivumishi"],2,"Linaonyesha tendo, hivyo ni kitenzi."],
+["Kisawe cha 'rafiki' ni",["adui","swahiba","jirani","mgeni"],1,"Swahiba na rafiki ni maneno yenye maana sawa."]],
+"Social Studies":[
+["How many counties does Kenya have?",["37","42","47","50"],2,"The 2010 Constitution established 47 counties."],
+["The supreme law of Kenya is the",["Penal Code","Constitution","Land Act","Parliament"],1,"The Constitution of Kenya, 2010."],
+["The largest freshwater lake in Africa is Lake",["Turkana","Victoria","Naivasha","Baringo"],1,"Lake Victoria."],
+["Kenya gained independence in",["1960","1963","1964","1978"],1,"Independence was on 12 December 1963."],
+["The Prime Meridian (0° longitude) passes through",["Nairobi","Cairo","Greenwich","Paris"],2,"It passes through Greenwich, London."]],
+"Agriculture & Nutrition":[
+["Which nutrient is mainly for body building and repair?",["Carbohydrates","Proteins","Fats","Water"],1,"Proteins build and repair tissues."],
+["Lack of vitamin C causes",["Rickets","Scurvy","Anaemia","Goitre"],1,"Scurvy; eat citrus fruits and vegetables."],
+["Growing different crops one after another on the same land is",["Mulching","Crop rotation","Terracing","Pruning"],1,"Crop rotation improves soil fertility and reduces pests."],
+["Kwashiorkor is mainly caused by lack of",["protein","iron","iodine","vitamin A"],0,"Severe protein deficiency."],
+["A balanced diet contains",["only carbohydrates","all nutrients in the right amounts","only proteins","only fruits"],1,"Carbohydrates, proteins, fats, vitamins, minerals, water and fibre."]],
+"Pre-Technical Studies":[
+["Which tool is used to cut metal?",["Handsaw","Hacksaw","Chisel","Plane"],1,"A hacksaw has fine teeth made for cutting metal."],
+["Which of these is a hardwood?",["Pine","Cypress","Mahogany","Cedar"],2,"Mahogany is a hardwood; pine, cypress and cedar are softwoods."],
+["A drawing showing an object from the front, top and side is called",["Orthographic projection","Sketch","Map","Perspective"],0,"Orthographic projection shows separate flat views of an object."],
+["A red safety sign usually means",["Information","Prohibition or danger","Safe condition","Caution only"],1,"Red signs warn of danger or prohibit an action."],
+["Which is an input device?",["Monitor","Printer","Keyboard","Speaker"],2,"A keyboard sends data into the computer."]],
+"Creative Arts & Sports":[
+["The primary colours are",["Red, yellow, blue","Red, green, blue","Orange, green, purple","Black, white, grey"],0,"Primary colours cannot be made by mixing other colours (in paint)."],
+["Mixing blue and yellow paint gives",["Orange","Purple","Green","Brown"],2,"Blue + yellow = green."],
+["How many players does a football team have on the pitch?",["9","10","11","12"],2,"Eleven players, including the goalkeeper."],
+["An athletics event where a baton is passed is the",["Marathon","Relay","Long jump","Hurdles"],1,"Relay teams pass a baton between runners."],
+["In music, 'tempo' means the",["Loudness","Speed","Pitch","Words"],1,"Tempo is how fast or slow music is played."]],
+"Religious Education (CRE)":[
+["The first book of the Bible is",["Exodus","Genesis","Matthew","Psalms"],1,"Genesis means 'beginning'."],
+["The Ten Commandments were given to Moses on Mount",["Sinai","Carmel","Zion","Olives"],0,"God gave the law to Moses on Mount Sinai."],
+["Who baptised Jesus?",["Peter","Paul","John the Baptist","Moses"],2,"John the Baptist baptised Jesus in the River Jordan."],
+["How many disciples did Jesus choose?",["7","10","12","40"],2,"Twelve disciples."],
+["Which is a fruit of the Holy Spirit?",["Pride","Love","Envy","Anger"],1,"Love, joy, peace, patience, kindness, goodness, faithfulness, gentleness and self-control (Galatians 5:22-23)."]]
+};
+
+const EXTRA={
+"Mathematics":[
+["A shopkeeper buys a radio for KSh 2,000 and sells it at a 25% profit. The selling price is",["KSh 2,250","KSh 2,500","KSh 2,750","KSh 3,000"],1,"25% of 2,000 = 500, so 2,000 + 500 = 2,500."],
+["0.00045 in standard form is",["4.5 × 10⁻⁴","4.5 × 10⁻³","45 × 10⁻⁵","4.5 × 10⁴"],0,"Move the decimal 4 places right: 4.5 × 10⁻⁴."],
+["Simplify 3x + 4y − x + 2y",["2x + 6y","4x + 6y","2x + 2y","2xy + 6"],0,"Collect like terms: (3x − x) + (4y + 2y)."],
+["A car covers 180 km in 3 hours. Its average speed is",["54 km/h","60 km/h","90 km/h","540 km/h"],1,"Speed = distance ÷ time = 180 ÷ 3 = 60 km/h."],
+["KSh 400 is shared in the ratio 3 : 5. The larger share is",["KSh 150","KSh 200","KSh 250","KSh 300"],2,"400 ÷ 8 = 50 per part; 5 × 50 = 250."]],
+"Integrated Science":[
+["Which method is best for getting salt from salty water?",["Filtration","Evaporation","Decanting","Magnetism"],1,"Water evaporates and the salt remains."],
+["A learner runs 20 m in 4 s. Her speed is",["5 m/s","16 m/s","80 m/s","24 m/s"],0,"Speed = 20 ÷ 4 = 5 m/s."],
+["White blood cells mainly",["Carry oxygen","Fight infections","Clot blood","Carry food"],1,"They defend the body against disease-causing germs."],
+["Which gas turns lime water milky?",["Oxygen","Nitrogen","Carbon dioxide","Hydrogen"],2,"Carbon dioxide forms insoluble calcium carbonate."],
+["The mass number of an atom is the number of",["Protons only","Electrons only","Protons plus neutrons","Neutrons minus protons"],2,"Mass number = protons + neutrons."]],
+"English":[
+["Choose the correct sentence.",["Neither of the boys were present.","Neither of the boys was present.","Neither of the boys are present.","Neither of the boys be present."],1,"'Neither' is singular, so it takes 'was'."],
+["Change to reported speech: Mary said, \"I am tired.\"",["Mary said that she was tired.","Mary said that she is tired.","Mary said that I was tired.","Mary says she were tired."],0,"Present tense moves back to past tense, and 'I' becomes 'she'."],
+["The idiom 'to let the cat out of the bag' means to",["Free an animal","Reveal a secret","Make a mistake","Go shopping"],1,"It means to give away a secret."],
+["Choose the correct word: ___ books are on the desk.",["There","They're","Their","Thier"],2,"'Their' shows ownership."],
+["A short story with animal characters that teaches a lesson is a",["Fable","Biography","Diary","Report"],0,"Fables use animals to teach morals."]],
+"Kiswahili":[
+["Ngeli ya 'mtu' ni",["A-WA","U-I","LI-YA","KI-VI"],0,"Mtu – watu ni ngeli ya A-WA."],
+["Methali 'Haraka haraka haina baraka' ina maana ya",["Kufanya jambo kwa pupa huleta hasara","Kukimbia ni vizuri","Baraka huja haraka","Kazi ni polepole"],0,"Pupa husababisha makosa."],
+["Wingi wa 'ukuta' ni",["ukuta","kuta","nkuta","wakuta"],1,"Ukuta – kuta."],
+["Sentensi ipi iko katika wakati uliopita?",["Anasoma","Atasoma","Alisoma","Husoma"],2,"Kiambishi 'li' kinaonyesha wakati uliopita."],
+["Kinyume cha 'furaha' ni",["huzuni","amani","upendo","bahati"],0,"Furaha ≠ huzuni."]],
+"Social Studies":[
+["Which arm of government interprets the law?",["Legislature","Executive","Judiciary","Police"],2,"The Judiciary (courts) interprets and applies laws."],
+["Tea in Kenya is mainly grown in",["Turkana","Kericho","Lamu","Garissa"],1,"Kericho has cool, wet highlands good for tea."],
+["Which is a renewable source of energy?",["Coal","Petroleum","Solar","Natural gas"],2,"The sun's energy cannot be used up."],
+["The national language of Kenya is",["English","Kiswahili","Kikuyu","Luo"],1,"The Constitution names Kiswahili as the national language."],
+["The head of state and government in Kenya is the",["Chief Justice","Speaker","President","Governor"],2,"The President leads the Executive."]],
+"Agriculture & Nutrition":[
+["Which method best controls soil erosion on a steep slope?",["Terracing","Bush fallowing","Monocropping","Overgrazing"],0,"Terraces slow down running water."],
+["The mineral needed for strong bones and teeth is",["Iron","Calcium","Iodine","Sodium"],1,"Milk and small fish are good sources of calcium."],
+["Keeping bees for honey is called",["Apiculture","Aquaculture","Horticulture","Silviculture"],0,"Apiculture means beekeeping."],
+["A rake is used in the farm to",["Dig deep","Level soil and collect debris","Cut trees","Spray crops"],1,"A rake smooths and clears the seedbed."],
+["A common pest of stored maize is the",["Weevil","Aphid","Locust","Armyworm"],0,"Maize weevils bore into stored grain."]],
+"Pre-Technical Studies":[
+["Which tool measures angles?",["Ruler","Protractor","Try square","Tape measure"],1,"A protractor measures angles in degrees."],
+["Which material is a good conductor of electricity?",["Copper","Rubber","Plastic","Wood"],0,"Metals like copper let electric current flow easily."],
+["An entrepreneur is a person who",["Works only for pay","Starts and runs a business, taking risks","Sells old goods","Only saves money"],1,"Entrepreneurs spot opportunities and take business risks."],
+["First aid for a minor burn is to",["Apply cooking oil","Cool it under running water","Burst the blisters","Cover with ash"],1,"Cool running water reduces damage and pain."],
+["Which application is used for calculations in rows and columns?",["Word processor","Spreadsheet","Presentation","Browser"],1,"Spreadsheets such as Excel handle tables and formulas."]],
+"Creative Arts & Sports":[
+["Which is a percussion instrument?",["Flute","Drum","Trumpet","Violin"],1,"Percussion instruments are struck or shaken."],
+["Carving or shaping 3-D forms from wood, clay or stone is",["Painting","Sculpture","Printing","Weaving"],1,"Sculpture creates three-dimensional art."],
+["We warm up before exercise mainly to",["Get tired","Prevent injuries","Win easily","Rest"],1,"Warming up prepares muscles and joints."],
+["How many players are on court for one netball team?",["5","7","9","11"],1,"A netball team has 7 players on court."],
+["A group of people singing together is a",["Choir","Band","Orchestra","Duet"],0,"A choir is a singing group."]],
+"Religious Education (CRE)":[
+["Who led the Israelites out of Egypt?",["Joshua","Moses","David","Samuel"],1,"God used Moses to free the Israelites."],
+["The parable of the Good Samaritan teaches",["Love and kindness to everyone","Fasting","Tithing","Building temples"],0,"Jesus taught us to help anyone in need."],
+["Jesus was born in",["Nazareth","Bethlehem","Jerusalem","Capernaum"],1,"Jesus was born in Bethlehem."],
+["Who defeated Goliath?",["Saul","David","Samson","Elijah"],1,"David defeated Goliath with a sling and a stone."],
+["The prayer Jesus taught His disciples is",["The Creed","The Lord's Prayer","Psalm 23","The Magnificat"],1,"Also called 'Our Father'."]]
+};
+for(const s in EXTRA)DATA[s].push(...EXTRA[s]);
+
+DATA["Mathematics"].push(
+["Indices: Simplify (2³)² ÷ 2⁴",["2","4","8","16"],1,"(2³)² = 2⁶; 2⁶ ÷ 2⁴ = 2² = 4."],
+["Indices: Solve 2ˣ = 32",["x = 4","x = 5","x = 6","x = 16"],1,"32 = 2⁵, so x = 5."],
+["Logarithms: Evaluate log₃ 81",["3","4","9","27"],1,"3⁴ = 81, so log₃ 81 = 4."],
+["Rational numbers: The recurring decimal 0.666… as a fraction is",["3/5","2/3","6/10","1/6"],1,"Let x = 0.666…; 10x − x = 6, so x = 6/9 = 2/3."],
+["Rational numbers: 2/3 ÷ 4/9 =",["3/2","8/27","1/2","2"],0,"2/3 × 9/4 = 18/12 = 3/2."],
+["GCD: Ropes of 24 m and 36 m are cut into equal pieces of the greatest possible length. Each piece is",["6 m","8 m","12 m","72 m"],2,"GCD of 24 and 36 is 12."],
+["LCM: Two bells ring every 12 and 18 minutes. If they ring together now, they next ring together after",["6 min","30 min","36 min","216 min"],2,"LCM of 12 and 18 is 36."],
+["Compound interest: KSh 10,000 at 10% p.a. compounded yearly for 2 years amounts to",["KSh 12,000","KSh 12,100","KSh 12,200","KSh 11,000"],1,"10,000 × 1.1² = 12,100."],
+["VAT: An item costs KSh 5,000 before 16% VAT. The price with VAT is",["KSh 5,016","KSh 5,160","KSh 5,800","KSh 8,000"],2,"16% of 5,000 = 800; 5,000 + 800 = 5,800."],
+["Customs duty: Goods worth KSh 40,000 attract 20% duty. The duty is",["KSh 2,000","KSh 4,000","KSh 8,000","KSh 20,000"],2,"20/100 × 40,000 = 8,000."],
+["Compound proportion: 6 men finish a job in 8 days. How long will 4 men take?",["5 days","12 days","16 days","32 days"],1,"6 × 8 = 48 man-days; 48 ÷ 4 = 12 days."],
+["Rates of work: Tap A fills a tank in 6 h and tap B in 3 h. Together they fill it in",["2 h","3 h","4.5 h","9 h"],0,"1/6 + 1/3 = 1/2 of the tank per hour, so 2 h."],
+["Matrices: A matrix with 2 rows and 3 columns has order",["3 × 2","2 × 3","6","2 + 3"],1,"Order is rows × columns."],
+["Matrices: Multiply [1 2; 3 4] by the column [1; 1]",["[3; 7]","[2; 6]","[1; 7]","[4; 6]"],0,"Row 1: 1+2 = 3. Row 2: 3+4 = 7."],
+["Straight lines: The gradient of the line through (1, 2) and (3, 8) is",["2","3","4","6"],1,"(8 − 2) ÷ (3 − 1) = 3."],
+["Straight lines: The y-intercept of y = 2x − 5 is",["2","5","−5","−2"],2,"In y = mx + c, c = −5."],
+["Simultaneous equations: If x + y = 7 and x − y = 1, then x =",["3","4","5","6"],1,"Add the equations: 2x = 8, so x = 4 (and y = 3)."],
+["Inequalities: Solve 3x − 2 > 10",["x > 4","x < 4","x > 12","x > 3"],0,"3x > 12, so x > 4."],
+["Volume: A cylinder has radius 7 cm and height 10 cm (π = 22/7). Its volume is",["440 cm³","1,540 cm³","154 cm³","3,080 cm³"],1,"V = πr²h = 22/7 × 49 × 10 = 1,540."],
+["Arc length: A 90° sector has radius 14 cm (π = 22/7). The arc length is",["11 cm","22 cm","44 cm","88 cm"],1,"¼ × 2 × 22/7 × 14 = 22 cm."],
+["Sector area: A sector of angle 120° and radius 21 cm (π = 22/7) has area",["154 cm²","231 cm²","462 cm²","1,386 cm²"],2,"⅓ × 22/7 × 21² = 462 cm²."],
+["Errors: A length of 20 cm is measured as 20.5 cm. The percentage error is",["0.5%","2.5%","5%","25%"],1,"0.5 ÷ 20 × 100 = 2.5%."],
+["Similarity: Two similar triangles have linear scale factor 3. The smaller has area 5 cm². The larger has area",["15 cm²","25 cm²","45 cm²","135 cm²"],2,"Area scale factor = 3² = 9; 5 × 9 = 45."],
+["Trigonometry: In a right-angled triangle the opposite side is 3 and the hypotenuse is 5. sin θ =",["3/5","4/5","3/4","5/3"],0,"sin θ = opposite ÷ hypotenuse."],
+["Elevation: From a point 10 m from the base of a 10 m tall tower, the angle of elevation of the top is",["30°","45°","60°","90°"],1,"tan θ = 10/10 = 1, so θ = 45°."],
+["Scale drawing: On a map with scale 1 : 50,000, 4 cm represents",["200 m","2 km","20 km","50 km"],1,"4 × 50,000 = 200,000 cm = 2 km."],
+["Bearings: The bearing of B from A is 060°. The bearing of A from B is",["120°","240°","300°","030°"],1,"060° + 180° = 240°."],
+["Statistics: The mean of 2, 4, 6, 8 and 10 is",["5","6","7","30"],1,"30 ÷ 5 = 6."],
+["Statistics: The median of 5, 3, 9, 7 is",["5","6","7","8"],1,"Ordered: 3, 5, 7, 9. Median = (5 + 7) ÷ 2 = 6."],
+["Probability: A bag has 3 red and 5 blue balls. P(red) =",["3/5","3/8","5/8","1/3"],1,"3 red out of 8 balls."],
+["Probability: A coin is tossed 50 times and shows heads 28 times. The experimental probability of heads is",["0.5","0.56","0.28","0.44"],1,"28 ÷ 50 = 0.56."]
+);
+
+DATA["Mathematics"].push(
+["Grouped data: Classes 0–9, 10–19, 20–29, 30–39 have frequencies 2, 5, 8, 5. The modal class is",["0–9","10–19","20–29","30–39"],2,"The modal class has the highest frequency (8)."],
+["Grouped data: Using the same table (2, 5, 8, 5), the estimated mean is",["20.5","22.5","24.5","25"],1,"Midpoints 4.5, 14.5, 24.5, 34.5: Σfx = 450; 450 ÷ 20 = 22.5."],
+["Grouped data: In the same table, the median class is",["0–9","10–19","20–29","30–39"],2,"20 values; the 10th and 11th fall in the third class (cumulative 2, 7, 15, 20)."],
+["Statistics: The mode of 2, 3, 3, 4, 5, 3, 6 is",["3","4","5","6"],0,"3 appears most often."],
+["Inequalities: A solid dot at 2 with an arrow to the right shows",["x > 2","x ≥ 2","x < 2","x ≤ 2"],1,"A solid dot includes 2; the arrow shows larger values."],
+["Inequalities: An open circle at −1 with shading to the left shows",["x < −1","x > −1","x ≤ −1","x ≥ −1"],0,"An open circle excludes −1; shading left means smaller values."],
+["Inequalities: Solve −2x < 6",["x < −3","x > −3","x > 3","x < 3"],1,"Dividing by a negative number reverses the sign: x > −3."],
+["Inequalities: A bus holds at most 50 people and 18 are on board. If n more board, which inequality applies?",["18 + n ≥ 50","18 + n ≤ 50","n ≥ 50","18n ≤ 50"],1,"'At most' means ≤."],
+["Graphs: Lines y = x + 1 and y = 7 − x meet at",["(2, 3)","(3, 4)","(4, 3)","(6, 7)"],1,"x + 1 = 7 − x gives x = 3, so y = 4."],
+["Simultaneous equations: 2x + y = 10 and x + y = 7. The value of x is",["2","3","4","7"],1,"Subtract: x = 3 (then y = 4)."],
+["Frustum: A cone of height 12 cm has a small cone of height 4 cm cut off by a plane parallel to the base. The small cone's volume is what fraction of the original?",["1/3","1/9","1/27","1/12"],2,"Linear ratio 1/3, so volume ratio (1/3)³ = 1/27."],
+["Frustum: A cone has radius 9 cm and height 12 cm. A cone of radius 3 cm and height 4 cm is removed from the top. The frustum's volume is",["312π cm³","324π cm³","12π cm³","336π cm³"],0,"Big cone ⅓π(81)(12) = 324π; small cone ⅓π(9)(4) = 12π; difference = 312π."],
+["Surface area: A closed cylinder has radius 7 cm and height 10 cm (π = 22/7). Its total surface area is",["440 cm²","748 cm²","880 cm²","1,540 cm²"],1,"2πr(r + h) = 44 × 17 = 748."],
+["Indices: 8^(2/3) =",["2","4","16","5.33"],1,"Cube root of 8 is 2; 2² = 4."],
+["Exponential equation: Solve 3^(x+1) = 27",["x = 1","x = 2","x = 3","x = 8"],1,"27 = 3³, so x + 1 = 3 and x = 2."],
+["Logarithms: log₁₀ 2 + log₁₀ 5 =",["0","1","7","10"],1,"log 2 + log 5 = log 10 = 1."],
+["Rational numbers: 1/2 + 1/3 × 3/4 =",["5/24","3/4","5/8","1"],1,"Multiply first: 1/3 × 3/4 = 1/4; 1/2 + 1/4 = 3/4."],
+["Simple interest: KSh 5,000 at 8% p.a. for 3 years earns interest of",["KSh 400","KSh 1,200","KSh 1,250","KSh 6,200"],1,"5,000 × 0.08 × 3 = 1,200."],
+["Depreciation: A car worth KSh 1,000,000 loses 10% of its value each year. After 2 years it is worth",["KSh 800,000","KSh 810,000","KSh 900,000","KSh 1,200,000"],1,"1,000,000 × 0.9² = 810,000."],
+["VAT: A price including 16% VAT is KSh 11,600. The price before VAT is",["KSh 9,744","KSh 10,000","KSh 11,000","KSh 13,456"],1,"11,600 ÷ 1.16 = 10,000."],
+["Matrices: [1 2; 3 4] + [2 0; 1 5] =",["[3 2; 4 9]","[2 0; 3 20]","[3 2; 3 9]","[1 2; 4 9]"],0,"Add matching entries."],
+["Matrices: Multiply [2 1] by the column [3; 4]",["[10]","[6; 4]","[7]","[14]"],0,"2 × 3 + 1 × 4 = 10."],
+["Straight lines: The line with gradient 2 passing through (0, 3) is",["y = 3x + 2","y = 2x + 3","y = 2x − 3","y = x + 5"],1,"y = mx + c with m = 2, c = 3."],
+["Straight lines: A line parallel to y = 3x + 1 has gradient",["1","3","−3","1/3"],1,"Parallel lines share the same gradient."],
+["Errors: A length of 20 cm is measured as 20.5 cm. The relative error is",["0.025","0.25","2.5","0.5"],0,"Absolute error 0.5 ÷ 20 = 0.025."],
+["Similarity: Two similar cans have height ratio 2 : 3. The smaller holds 80 cm³. The larger holds",["120 cm³","180 cm³","270 cm³","720 cm³"],2,"Volume ratio 8 : 27; 80 × 27 ÷ 8 = 270."],
+["Trigonometry: cos 60° =",["1/2","√3/2","1","√2/2"],0,"cos 60° = 0.5."],
+["Depression: From the top of a 20 m cliff, the angle of depression of a boat is 45°. The boat is how far from the cliff's base?",["10 m","20 m","40 m","28 m"],1,"tan 45° = 1, so the distance equals the height, 20 m."],
+["Bearings: A bearing of 180° points",["North","East","South","West"],2,"North = 000°, East = 090°, South = 180°, West = 270°."],
+["Probability: Two fair coins are tossed. P(two heads) =",["1/2","1/3","1/4","1/8"],2,"Outcomes HH, HT, TH, TT: 1 out of 4."],
+["Probability: A fair die is rolled. P(a prime number) =",["1/6","1/3","1/2","2/3"],2,"Primes are 2, 3, 5: 3 out of 6."]
+);
+
+DATA["Integrated Science"].push(
+["Lab safety: The three parts of the fire triangle are",["Heat, fuel, oxygen","Heat, water, wood","Smoke, fuel, air","Spark, gas, water"],0,"Remove any one of heat, fuel or oxygen and the fire goes out."],
+["Lab safety: Which extinguisher is safe for an electrical fire?",["Water","Carbon dioxide","Wet blanket","Sand bucket of water"],1,"Water conducts electricity; CO₂ extinguishers are safe on electrical fires."],
+["Lab safety: First aid for an acid splash on the skin is to",["Rub with a cloth","Wash with plenty of running water","Apply oil","Cover it at once"],1,"Running water dilutes and washes the acid away."],
+["Apparatus: Which tool is best for measuring 25 cm³ of a liquid accurately?",["Beaker","Measuring cylinder","Test tube","Conical flask"],1,"A measuring cylinder has a graduated scale."],
+["SI units: The SI unit of mass is the",["Gram","Kilogram","Newton","Litre"],1,"The kilogram (kg) is the SI base unit of mass."],
+["SI units: The SI unit of temperature is the",["Celsius","Fahrenheit","Kelvin","Degree"],2,"Kelvin (K) is the SI unit; °C is commonly used in labs."],
+["SI units: 2.5 litres equals",["25 cm³","250 cm³","2,500 cm³","25,000 cm³"],2,"1 litre = 1,000 cm³."],
+["Microscope: The part that holds the slide is the",["Stage","Eyepiece","Diaphragm","Objective"],0,"The slide sits on the stage."],
+["Microscope: An eyepiece of 10× and an objective of 40× give a total magnification of",["50×","400×","4×","140×"],1,"Multiply: 10 × 40 = 400."],
+["Matter: Which of these is a compound?",["Oxygen","Water","Iron","Hydrogen"],1,"Water (H₂O) has hydrogen and oxygen chemically combined."],
+["Matter: Which is a homogeneous mixture?",["Sand and water","Salt solution","Oil and water","Soil"],1,"Salt dissolved in water looks uniform throughout."],
+["Separation: Iron filings can be removed from sulphur powder using a",["Filter paper","Magnet","Funnel","Evaporating dish"],1,"Iron is magnetic; sulphur is not."],
+["Separation: Distillation separates liquids by their different",["Colours","Boiling points","Densities only","Sizes"],1,"The liquid with the lower boiling point evaporates first."],
+["Separation: Sand is best separated from water by",["Filtration","Distillation","Magnetism","Evaporation"],0,"Sand is insoluble and is trapped by filter paper."],
+["Acids: Acids turn blue litmus paper",["Red","Green","Yellow","Purple"],0,"Acids turn blue litmus red."],
+["pH: A solution with pH 9 is",["Strongly acidic","Neutral","Weakly basic","Strongly basic"],2,"pH above 7 is basic; 9 is weakly basic."],
+["Neutralisation: An acid reacting with a base forms",["Salt and water","Metal and gas","Oxygen and water","Only salt"],0,"Acid + base → salt + water."],
+["Atoms: The chemical symbol for iron is",["Ir","I","Fe","In"],2,"Fe comes from the Latin 'ferrum'."],
+["Atoms: Rusting needs",["Oxygen and water","Nitrogen and light","Carbon dioxide only","Heat only"],0,"Iron rusts when exposed to both oxygen and water."],
+["Cells: The part of a plant cell where photosynthesis takes place is the",["Nucleus","Chloroplast","Vacuole","Cell membrane"],1,"Chloroplasts contain chlorophyll."],
+["Cells: Which is found in plant cells but not animal cells?",["Nucleus","Cell wall","Cell membrane","Cytoplasm"],1,"The cell wall gives plant cells their rigid shape."],
+["Cells: Mitochondria are where",["Food is stored","Respiration releases energy","Proteins are digested","Light is absorbed"],1,"Mitochondria release energy from food."],
+["Life processes: Which is NOT a life process?",["Excretion","Growth","Erosion","Respiration"],2,"Erosion is a geological process."],
+["Nutrition: Iodine solution turns blue-black in the presence of",["Starch","Protein","Fat","Sugar"],0,"This is the test for starch."],
+["Digestion: Digested food is mainly absorbed in the",["Stomach","Small intestine","Large intestine","Mouth"],1,"The small intestine has villi that give a large absorbing surface."],
+["Excretion: The kidneys mainly",["Digest food","Filter blood and remove urea","Make bile","Pump blood"],1,"They remove urea and excess water as urine."],
+["Disease prevention: Malaria spread is best reduced by",["Sleeping under a treated net","Eating more fruit","Washing clothes","Boiling milk"],0,"Treated nets stop mosquito bites."],
+["Force: A force of 100 N acts on an area of 0.5 m². The pressure is",["50 Pa","200 Pa","100 Pa","0.005 Pa"],1,"Pressure = force ÷ area = 100 ÷ 0.5."],
+["Force: The weight of a 5 kg mass (g = 10 N/kg) is",["5 N","15 N","50 N","500 N"],2,"Weight = mass × g = 5 × 10."],
+["Force: A spring balance measures",["Mass","Force","Volume","Temperature"],1,"It measures force (weight) in newtons."],
+["Energy: A falling stone changes",["Kinetic to potential energy","Potential to kinetic energy","Heat to sound only","Light to chemical"],1,"Height energy is converted to movement energy."],
+["Energy: A solar panel changes light energy to",["Chemical energy","Electrical energy","Sound energy","Nuclear energy"],1,"Solar cells make electricity from sunlight."],
+["Electricity: Which material is an insulator?",["Copper","Plastic","Aluminium","Iron"],1,"Plastic does not let current flow easily."],
+["Electricity: An ammeter is connected in",["Series","Parallel","Either way","A battery"],0,"It must be in series to measure the current in the circuit."],
+["Waves: A wave has frequency 5 Hz and wavelength 2 m. Its speed is",["2.5 m/s","7 m/s","10 m/s","3 m/s"],2,"Speed = frequency × wavelength = 5 × 2."],
+["Waves: Sound cannot travel through a",["Solid","Liquid","Gas","Vacuum"],3,"Sound needs particles (a medium) to travel."]
+);
+
+const SV=(w,h,b)=>`<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" font-family="Verdana,sans-serif" font-size="13" fill="none" stroke="#14213d" stroke-width="2">${b}</svg>`;
+const TX=(x,y,t,a='middle')=>`<text x="${x}" y="${y}" fill="#14213d" stroke="none" text-anchor="${a}">${t}</text>`;
+const LN=(a,b,c,d,e='')=>`<line x1="${a}" y1="${b}" x2="${c}" y2="${d}" ${e}/>`;
+const CI=(x,y,r,f='#fff')=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${f}"/>`;
+const nl=(v,solid,dir)=>SV(350,70,LN(10,35,340,35)+[0,1,2,3,4,5,6].map(i=>LN(30+i*50,29,30+i*50,41)+TX(30+i*50,58,i)).join('')+LN(30+v*50,35,dir>0?335:15,35,'stroke="#1a56d6" stroke-width="5"')+CI(30+v*50,35,7,solid?'#14213d':'#fff'));
+const gr=SV(270,215,LN(40,190,260,190)+LN(40,190,40,15)+LN(40,170,180,30,'stroke="#1a56d6"')+CI(80,130,4,'#14213d')+CI(160,50,4,'#14213d')+TX(86,150,'A(1, 3)','start')+TX(100,45,'B(3, 7)','end')+TX(262,206,'x','end')+TX(28,22,'y','end'));
+const tri=(a,b,c,t)=>SV(260,180,`<path d="M30 160 L230 160 L30 40 Z"/><path d="M30 148 H42 V160"/>`+TX(14,105,a,'end')+TX(130,176,b)+TX(150,90,c,'start')+(t?TX(190,152,'θ'):''));
+const sim=SV(290,185,`<path d="M20 175 L80 175 L20 95 Z"/><path d="M130 175 L250 175 L130 15 Z"/>`+TX(50,160,'3 cm')+TX(190,168,'6 cm')+TX(14,140,'4 cm','end')+TX(122,95,'x','end'));
+const bar=SV(300,190,LN(30,150,290,150)+LN(30,150,30,15)+[['Maths',8],['English',5],['Science',12],['Kiswahili',5]].map(([n,v],i)=>`<rect x="${45+i*62}" y="${150-v*10}" width="40" height="${v*10}" fill="#9db9ee"/>`+TX(65+i*62,168,n)+TX(65+i*62,144-v*10,v)).join('')+TX(12,20,'Learners','start'));
+const mic=SV(230,195,`<rect x="50" y="175" width="110" height="10"/><path d="M150 175 V70 Q150 25 112 25" stroke-width="6"/><rect x="92" y="15" width="20" height="70" fill="#fff"/><rect x="96" y="85" width="12" height="15" fill="#fff"/><rect x="60" y="120" width="90" height="6" fill="#14213d"/><ellipse cx="105" cy="160" rx="18" ry="5"/>`+LN(112,20,185,20)+TX(195,24,'P','start')+LN(96,92,30,92)+TX(20,96,'Q','end')+LN(60,123,30,123)+TX(20,127,'R','end')+LN(87,160,30,160)+TX(20,164,'S','end'));
+const cell=SV(270,185,`<rect x="30" y="30" width="200" height="130" rx="14" stroke-width="4"/><rect x="36" y="36" width="188" height="118" rx="10" stroke-width="1"/>`+CI(135,95,22,'#f4dca0')+`<ellipse cx="70" cy="62" rx="16" ry="9" fill="#7ac27a"/><ellipse cx="190" cy="62" rx="16" ry="9" fill="#7ac27a"/>`+LN(70,62,30,15)+TX(24,12,'X')+LN(30,110,12,110)+TX(6,114,'Y','end')+LN(157,95,248,95)+TX(256,99,'Z','start'));
+const bulb=(x,y)=>CI(x,y,14)+LN(x-10,y-10,x+10,y+10)+LN(x-10,y+10,x+10,y-10);
+const bat=LN(15,68,45,68)+LN(22,78,38,78);
+const ser=SV(280,160,`<rect x="30" y="25" width="220" height="110"/><rect x="22" y="69" width="16" height="8" fill="#fff" stroke="none"/>`+bat+bulb(100,25)+bulb(180,25)+TX(100,60,'1')+TX(180,60,'2'));
+const par=SV(280,160,`<rect x="30" y="20" width="220" height="120"/><rect x="22" y="74" width="16" height="8" fill="#fff" stroke="none"/>`+LN(18,72,42,72)+LN(25,82,35,82)+LN(110,20,110,140)+LN(190,20,190,140)+bulb(110,80)+bulb(190,80)+TX(145,75,'1 ',)+TX(145,95,'2 '));
+const cyl=SV(170,200,`<rect x="60" y="65" width="40" height="105" fill="#bfe0ff" stroke="none"/><rect x="60" y="20" width="40" height="150"/>`+[0,10,20,30,40,50].map(m=>LN(60,170-3*m,72,170-3*m)+TX(52,174-3*m,m,'end')).join('')+TX(135,100,'mL'));
+const fire=SV(260,205,`<path d="M130 25 L230 170 L30 170 Z"/>`+TX(130,16,'Heat')+TX(34,192,'Fuel')+TX(226,192,'X'));
+const dis=SV(310,190,CI(55,110,30)+LN(55,80,55,45)+`<path d="M55 45 H135"/><rect x="135" y="32" width="100" height="22" fill="#cfe6ff"/><path d="M235 43 H272 V100"/><path d="M250 100 V160 H295 V100"/>`+TX(185,26,'A')+TX(272,180,'B')+TX(55,160,'C'));
+const atom=SV(240,180,CI(120,90,45)+CI(120,90,75)+CI(120,90,22,'#f4c9a0')+TX(120,87,'3 p')+TX(120,101,'4 n')+CI(75,90,5,'#1a56d6')+CI(165,90,5,'#1a56d6')+CI(195,90,5,'#1a56d6'));
+const ph=SV(340,100,`<defs><linearGradient id="g"><stop offset="0" stop-color="#e53935"/><stop offset=".3" stop-color="#fdd835"/><stop offset=".5" stop-color="#43a047"/><stop offset=".75" stop-color="#1e88e5"/><stop offset="1" stop-color="#6a1b9a"/></linearGradient></defs><rect x="20" y="40" width="300" height="26" fill="url(#g)"/>`+TX(20,86,'0')+TX(170,86,'7')+TX(320,86,'14')+`<path d="M63 36 l-8 -16 h16 z" fill="#14213d"/>`+TX(63,14,'Y'));
+const wave=SV(300,110,`<path d="M10 50 C40 0 70 0 100 50 S160 100 190 50 S250 0 280 50" stroke="#1a56d6"/>`+LN(10,50,290,50,'stroke-dasharray="4"')+LN(55,5,235,5)+TX(145,22,'X')+LN(55,50,55,13)+TX(47,36,'Y','end'));
+const frc=SV(300,160,`<rect x="110" y="55" width="70" height="45" fill="#e6edf9"/><path d="M180 78 H255"/><path d="M265 78 l-14 -8 v16 z" fill="#14213d"/><path d="M110 78 H55"/><path d="M45 78 l14 -8 v16 z" fill="#14213d"/>`+TX(222,66,'10 N')+TX(78,66,'4 N')+TX(145,82,'Box'));
+DATA["Mathematics"].push(
+["Which inequality does the number line show?",["x > 3","x ≥ 3","x < 3","x ≤ 3"],1,"A solid dot at 3 includes 3, and the arrow points to larger values.",nl(3,1,1)],
+["Which inequality does the number line show?",["x > 4","x ≥ 4","x < 4","x ≤ 4"],2,"An open circle excludes 4, and the arrow points to smaller values.",nl(4,0,-1)],
+["The gradient of the line through A and B is",["1","2","3","4"],1,"(7 − 3) ÷ (3 − 1) = 2.",gr],
+["The line in the graph crosses the y-axis at",["0","1","2","3"],1,"The line y = 2x + 1 meets the y-axis where x = 0, at y = 1.",gr],
+["Find x, the hypotenuse of the right-angled triangle (sides 5 cm and 12 cm).",["13 cm","17 cm","11 cm","7 cm"],0,"x² = 5² + 12² = 169, so x = 13.",tri('5 cm','12 cm','x')],
+["In the triangle, tan θ =",["5/13","12/13","5/12","12/5"],2,"tan θ = opposite ÷ adjacent = 5/12.",tri('5 cm','12 cm','13 cm',1)],
+["In the triangle, cos θ =",["12/13","5/13","5/12","13/12"],0,"cos θ = adjacent ÷ hypotenuse = 12/13.",tri('5 cm','12 cm','13 cm',1)],
+["The two triangles are similar. The value of x is",["6 cm","8 cm","9 cm","12 cm"],1,"Scale factor 6 ÷ 3 = 2, so x = 4 × 2 = 8.",sim],
+["How many learners were surveyed altogether?",["25","28","30","35"],2,"8 + 5 + 12 + 5 = 30.",bar],
+["How many more learners chose Science than English?",["5","7","12","17"],1,"12 − 5 = 7.",bar]);
+DATA["Integrated Science"].push(
+["The part of the microscope labelled R is the",["Eyepiece","Stage","Mirror","Objective lens"],1,"The slide is placed on the stage.",mic],
+["The part labelled P, which you look through, is the",["Eyepiece","Stage","Mirror","Base"],0,"The eyepiece lens magnifies the image for the eye.",mic],
+["The part labelled S reflects light up through the specimen. It is the",["Objective lens","Mirror","Diaphragm","Tube"],1,"The mirror directs light onto the slide.",mic],
+["The part of the plant cell labelled X is the",["Nucleus","Chloroplast","Vacuole","Cell wall"],1,"Chloroplasts are green and carry out photosynthesis.",cell],
+["The part labelled Y is the",["Cell wall","Cytoplasm","Nucleus","Mitochondrion"],0,"The cell wall is the tough outer layer of a plant cell.",cell],
+["The part labelled Z controls the activities of the cell. It is the",["Vacuole","Nucleus","Chloroplast","Membrane"],1,"The nucleus holds the genetic material.",cell],
+["If bulb 1 blows in this circuit, bulb 2 will",["Stay lit","Go off","Get brighter","Explode"],1,"In a series circuit, a break stops the current everywhere.",ser],
+["If bulb 1 blows in this circuit, bulb 2 will",["Go off","Stay lit","Get dimmer","Change colour"],1,"In a parallel circuit, each bulb has its own path.",par],
+["The volume of liquid in the measuring cylinder is",["30 mL","35 mL","40 mL","45 mL"],1,"The level is half-way between 30 and 40.",cyl],
+["In the fire triangle, X stands for",["Water","Oxygen","Smoke","Carbon"],1,"A fire needs heat, fuel and oxygen.",fire],
+["Smothering a fire with a blanket puts it out by removing",["Heat","Fuel","Oxygen","Smoke"],2,"The blanket stops air (oxygen) reaching the fire.",fire],
+["The apparatus labelled A is a",["Condenser","Funnel","Burette","Thermometer"],0,"The condenser cools vapour back into liquid.",dis],
+["The liquid collected in B is called the",["Residue","Distillate","Filtrate","Solute"],1,"Distillate is the condensed liquid.",dis],
+["For this atom, the atomic number is",["3","4","7","1"],0,"Atomic number is the number of protons.",atom],
+["For this atom, the mass number is",["3","4","7","10"],2,"Protons plus neutrons = 3 + 4.",atom],
+["The pH marked Y is about 2. The solution is",["Strongly acidic","Weakly acidic","Neutral","Basic"],0,"pH below 3 is strongly acidic.",ph],
+["The distance marked X on the wave is the",["Amplitude","Wavelength","Frequency","Period"],1,"Wavelength is the distance between two successive crests.",wave],
+["The distance marked Y on the wave is the",["Amplitude","Wavelength","Frequency","Speed"],0,"Amplitude is the maximum displacement from the rest position.",wave],
+["The resultant force on the box is",["14 N to the right","6 N to the right","6 N to the left","0 N"],1,"10 − 4 = 6 N in the direction of the larger force.",frc],
+["Fertilisation in humans takes place in the",["Uterus","Fallopian tube","Ovary","Vagina"],1,"The sperm and egg usually meet in the fallopian tube."],
+["Changes in the body during adolescence are controlled by",["Hormones","Vitamins","Enzymes","Minerals"],0,"Hormones trigger puberty."],
+["The male sex cell is the",["Egg","Sperm","Zygote","Embryo"],1,"Sperm cells are made in the testes."],
+["The surest way to avoid sexually transmitted infections is",["Abstinence","Washing often","Taking vitamins","Sleeping early"],0,"Abstaining from sex gives complete protection."],
+["Which food mainly provides energy?",["Ugali","Spinach","Beans","Oranges"],0,"Ugali is rich in carbohydrates."],
+["Dietary fibre helps prevent",["Constipation","Rickets","Scurvy","Night blindness"],0,"Fibre keeps food moving through the gut."],
+["A lack of vitamin A can cause",["Night blindness","Scurvy","Rickets","Goitre"],0,"Vitamin A is needed for healthy eyes."],
+["The skin removes water, salts and urea as",["Sweat","Bile","Saliva","Mucus"],0,"Sweat glands excrete these wastes."],
+["Cholera spreads mainly through",["Contaminated water","Mosquito bites","Sunlight","Soil nutrients"],0,"Drink safe, boiled or treated water."],
+["Vaccines protect us by",["Building immunity","Killing all germs","Adding vitamins","Cooling the body"],0,"They train the body to fight a disease."],
+["The products of photosynthesis are",["Glucose and oxygen","Carbon dioxide and water","Starch and nitrogen","Protein and water"],0,"Plants make glucose and release oxygen."],
+["When wood burns, chemical energy changes mainly to",["Heat and light","Sound only","Electrical energy","Kinetic energy"],0,"Burning releases heat and light."],
+["Cell sap is stored in the",["Vacuole","Nucleus","Ribosome","Cell wall"],0,"The vacuole holds water and dissolved substances."]);
+
+const dig=SV(240,290,`<ellipse cx="60" cy="18" rx="22" ry="10"/>`+LN(60,28,60,85)+`<ellipse cx="72" cy="105" rx="32" ry="20" fill="#f2c7c7"/><rect x="30" y="140" width="120" height="115" rx="6" stroke="#d9a066" stroke-width="8"/><path d="M60 125 V140 Q110 148 110 162 Q60 170 60 184 Q110 192 110 206 Q60 214 60 228" stroke="#1a56d6" stroke-width="5"/>`+LN(90,255,90,280)+LN(104,105,190,105)+TX(200,109,'A','start')+LN(112,176,190,176)+TX(200,180,'B','start')+LN(150,215,190,215)+TX(200,219,'C','start')+LN(60,55,190,55)+TX(200,59,'D','start'));
+const kid=SV(220,260,`<ellipse cx="70" cy="50" rx="18" ry="30" fill="#e8a6a6"/><ellipse cx="150" cy="50" rx="18" ry="30" fill="#e8a6a6"/><path d="M78 78 Q96 120 104 162 M142 78 Q124 120 116 162"/>`+CI(110,185,25,'#cfe6ff')+LN(110,210,110,250)+LN(52,50,15,50)+TX(8,54,'P','end')+LN(96,118,190,118)+TX(200,122,'Q','start')+LN(135,185,190,185)+TX(200,189,'R','start')+LN(110,235,190,235)+TX(200,239,'S','start'));
+const tb=(x,c,l)=>`<rect x="${x}" y="60" width="30" height="70" rx="14" fill="${c}" stroke="none"/><rect x="${x}" y="20" width="30" height="110" rx="14"/>`+TX(x+15,155,l);
+const tubes=SV(280,170,tb(40,'#1b1b4b','Test 1')+tb(125,'#d9531e','Test 2')+tb(210,'#7e57c2','Test 3'));
+DATA["Integrated Science"].push(
+["In the digestive system, the part labelled A is where protein digestion begins. It is the",["Stomach","Small intestine","Large intestine","Oesophagus"],0,"The stomach uses acid and enzymes to start digesting protein.",dig],
+["Most digested food is absorbed into the blood through the part labelled",["A","B","C","D"],1,"B is the small intestine, lined with villi that absorb nutrients.",dig],
+["The part labelled C, which absorbs water from undigested food, is the",["Stomach","Small intestine","Large intestine","Oesophagus"],2,"The large intestine absorbs water and forms faeces.",dig],
+["The tube labelled D that carries food from the mouth to the stomach is the",["Windpipe","Oesophagus","Rectum","Ureter"],1,"The oesophagus pushes food down by peristalsis.",dig],
+["The organ labelled P filters blood and makes urine. It is the",["Kidney","Bladder","Ureter","Liver"],0,"The kidneys remove urea and excess water from the blood.",kid],
+["The tube labelled Q that carries urine from the kidney to the bladder is the",["Urethra","Ureter","Oesophagus","Artery"],1,"Each kidney has a ureter.",kid],
+["The organ labelled R, which stores urine, is the",["Kidney","Bladder","Stomach","Liver"],1,"The bladder stores urine until it is passed out.",kid],
+["The tube labelled S that carries urine out of the body is the",["Ureter","Urethra","Vein","Intestine"],1,"Urine leaves through the urethra.",kid],
+["Iodine solution was added to a food in Test 1 and turned blue-black. The food contains",["Starch","Protein","Fat","Vitamin C"],0,"Blue-black is the positive result for starch.",tubes],
+["Benedict's solution was heated with a food in Test 2 and turned brick red. The food contains",["Starch","Reducing sugar","Protein","Fat"],1,"Blue changes to green, yellow, then orange or brick red as the sugar amount increases.",tubes],
+["Biuret reagent was added to a food in Test 3 and turned purple. The food contains",["Protein","Starch","Sugar","Fat"],0,"Purple or violet is the positive result for protein.",tubes]);
+
+const IC={"Mathematics":["🧮","#d6e6ff"],"Integrated Science":["🧪","#eadcff"],"English":["📖","#ffdcdc"],"Kiswahili":["📗","#d8f3e2"],"Social Studies":["🌍","#ffecc9"],"Agriculture & Nutrition":["🌱","#e1f3d0"],"Pre-Technical Studies":["⚙️","#d3f0f5"],"Creative Arts & Sports":["🎨","#ffd9ec"],"Religious Education (CRE)":["✝️","#e4e4f7"]};
+const SUBS=Object.keys(DATA),app=document.getElementById('app');
+let prog={},nav=[],tmr;try{prog=JSON.parse(localStorage.getItem('g9p')||'{}')}catch(e){}
+const sv=()=>{try{localStorage.setItem('g9p',JSON.stringify(prog))}catch(e){}};
+const sh=a=>a.slice().sort(()=>Math.random()-.5),L="ABCD";
+const pct=s=>prog[s]||0,mmss=t=>String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');
+function go(fn,reset){if(reset)nav=[];nav.push(fn);fn()}
+function back(){nav.pop();(nav[nav.length-1]||grades)()}
+function render(title,body,tab,nb){clearInterval(tmr);
+app.innerHTML=`<header>${nb?'':'<button class="bk" id="bk" aria-label="Back">‹</button>'}<h2>${title}</h2>${nb?'':'<span style="width:32px"></span>'}</header><section>${body}</section>`+(tab?`<nav>${[['Home','🏠'],['Subjects','📚'],['Progress','📊']].map(([n,i])=>`<button data-t="${n}" class="${tab===n?'on':''}"><span>${i}</span>${n}</button>`).join('')}</nav>`:'');
+const b=document.getElementById('bk');if(b)b.onclick=back;
+app.querySelectorAll('nav button').forEach(x=>x.onclick=()=>{const t=x.dataset.t;t==='Home'?go(grades,1):go(()=>subjects(t==='Progress'?'p':'s'),1)});scrollTo(0,0)}
+function splash(){app.innerHTML=`<section class="splash"><div class="logo">📖</div><h1>RHEMA</h1><b>CBC REVISION</b><p>Preparing learners for KPSEA &amp; KJSEA</p><button class="btn" id="gs">Get Started</button></section>`;document.getElementById('gs').onclick=()=>go(grades,1)}
+function grades(){const G=[[4,'CBC','#2e9e5b','🧒'],[5,'CBC','#f28c1e','👦'],[6,'KPSEA','#1f6fd1','🎓'],[7,'CBC','#7b3fc4','🧑‍🎓'],[8,'CBC','#12a3a3','📚'],[9,'KJSEA','#e8474c','🏫']];
+render('Select Grade',G.map(([n,t,c,e])=>`<button class="gr ${n==9?'':'off'}" style="background:${c}" data-g="${n}"><span>${e}</span><div><b>Grade ${n}</b><small>${t}${n==9?'':' · coming soon'}</small></div><i>›</i></button>`).join(''),'Home',1);
+app.querySelectorAll('.gr').forEach(b=>b.onclick=()=>{if(b.dataset.g==9)go(()=>subjects('s'));else b.querySelector('small').textContent='Grade '+b.dataset.g+' content is coming soon'})}
+function subjects(t){render('Grade 9 - KJSEA',`<div class="seg"><button class="${t=='s'?'on':''}" data-x="s">Subjects</button><button class="${t=='p'?'on':''}" data-x="p">My Progress</button></div>`+(t=='s'?`<div class="grid">${SUBS.map(s=>`<button class="tile" data-s="${s}"><div class="ic" style="background:${IC[s][1]}">${IC[s][0]}</div>${s}</button>`).join('')}</div>`:SUBS.map(s=>`<div class="card"><b>${s}</b><div class="bar"><i style="width:${pct(s)}%"></i></div><small>Best score: ${pct(s)}%</small></div>`).join('')),t=='s'?'Subjects':'Progress');
+app.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{nav.pop();go(()=>subjects(b.dataset.x))});
+app.querySelectorAll('.tile').forEach(b=>b.onclick=()=>go(()=>modes(b.dataset.s)))}
+function modes(s){const M=[['Learn','Notes & worked examples','📘','#dbe8ff',()=>learn(s)],['Practice','Topic-based questions','✏️','#ffe3c4',()=>quiz(s,Math.min(15,DATA[s].length),'Practice - '+s)],['Mock Exams','Full exam simulations','📝','#e4e4f7',()=>mock()],['Quick Revision','Short questions','⚡','#d8f3e2',()=>quiz(s,3,'Quick Revision')],['Flashcards','Key concepts','🗂️','#ffd9ec',()=>cards(s)]];
+render(s,`<div class="hero"><span class="ic">${IC[s][0]}</span><div><b>${s}</b><br><small>Grade 9 - KJSEA</small><div class="bar"><i style="width:${pct(s)}%"></i></div><small>${pct(s)}% best score</small></div></div>`+M.map((m,i)=>`<button class="row" data-m="${i}"><span class="ic" style="background:${m[3]}">${m[2]}</span><div><b>${m[0]}</b><small>${m[1]}</small></div><i>›</i></button>`).join(''));
+app.querySelectorAll('.row').forEach(b=>b.onclick=()=>go(M[b.dataset.m][4]))}
+function learn(s){render('Learn - '+s,DATA[s].map(([q,o,a,w,d])=>`<div class="card"><b>${q}</b>${d?`<div class="dg">${d}</div>`:""}<p>Answer: <b>${o[a]}</b></p><small>${w}</small></div>`).join(''))}
+function cards(s){let d=sh(DATA[s].filter(x=>!x[4])),i=0,f=0;(function r(){const [q,o,a,w]=d[i];render('Flashcards',`<div class="qh"><span>${i+1} / ${d.length}</span></div><button class="card flip" id="fc" style="width:100%;color:var(--ink)">${f?`<div><b>${o[a]}</b><p><small>${w}</small></p></div>`:q}</button><div class="two"><button class="btn ghost" id="pv">Previous</button><button class="btn" id="nx">Next</button></div>`);
+document.getElementById('fc').onclick=()=>{f=!f;r()};document.getElementById('nx').onclick=()=>{i=(i+1)%d.length;f=0;r()};document.getElementById('pv').onclick=()=>{i=(i-1+d.length)%d.length;f=0;r()}})()}
+function mock(){render('Mock Exams',SUBS.map(s=>`<div class="row" style="cursor:default"><span class="ic" style="background:${IC[s][1]}">${IC[s][0]}</span><div><b>${s}</b><small>${DATA[s].length} questions</small></div><button class="btn" style="width:auto;margin:0;padding:8px 18px" data-s="${s}">Start</button></div>`).join(''),'Subjects');
+app.querySelectorAll('button[data-s]').forEach(b=>b.onclick=()=>go(()=>quiz(b.dataset.s,DATA[b.dataset.s].length,'Mock - '+b.dataset.s)))}
+function quiz(s,n,title){const qs=sh(DATA[s]).slice(0,n);let i=0,sc=0,rec=[];const t0=Date.now();
+function q(){const [t,o,a,w,d]=qs[i],ord=sh(o.map((_,k)=>k));let done=0;
+render(title,`<div class="qh"><span>${i+1} / ${qs.length}</span><span id="tm">${mmss(Math.round((Date.now()-t0)/1000))}</span></div><div class="bar"><i style="width:${i/qs.length*100}%"></i></div><p class="q">${t}</p>${d?`<div class="dg">${d}</div>`:""}<div id="o"></div><div id="fb"></div><div class="two"><button class="btn ghost" id="sk">Skip</button><button class="btn" id="nx" disabled>${i+1<qs.length?'Next':'Finish'}</button></div>`);
+tmr=setInterval(()=>{const e=document.getElementById('tm');if(e)e.textContent=mmss(Math.round((Date.now()-t0)/1000))},1000);
+const box=document.getElementById('o'),nx=document.getElementById('nx'),step=()=>{i++;i<qs.length?q():fin()};
+ord.forEach((k,n)=>{const b=document.createElement('button');b.className='opt';b.innerHTML=`<b>${L[n]}</b>${o[k]}`;
+b.onclick=()=>{if(done)return;done=1;const ok=k===a;if(ok)sc++;rec.push([t,o[k],o[a],ok]);
+[...box.children].forEach((x,m)=>{if(ord[m]===a)x.classList.add('ok')});if(!ok)b.classList.add('bad');
+document.getElementById('fb').innerHTML=`<div class="ex ${ok?'g':'r'}"><b>${ok?'Correct!':'Incorrect'}</b><p>The correct answer is ${L[ord.indexOf(a)]}: ${o[a]}</p><p>${w}</p></div>`;nx.disabled=false;document.getElementById('sk').disabled=true};box.appendChild(b)});
+nx.onclick=step;document.getElementById('sk').onclick=()=>{rec.push([t,'Skipped',o[a],false]);step()}}
+function fin(){const p=Math.round(sc/qs.length*100),tt=Math.round((Date.now()-t0)/1000);if(n>=3&&p>pct(s)){prog[s]=p;sv()}
+render('Results',`<div class="ring" style="background:conic-gradient(var(--blue) ${p}%,var(--line) 0)"><span>${p}%</span></div><p style="text-align:center">You scored <b>${sc} / ${qs.length}</b></p><div class="stats"><div><b>${mmss(tt)}</b><small>Time</small></div><div><b style="color:var(--ok)">${sc}</b><small>Correct</small></div><div><b style="color:var(--bad)">${qs.length-sc}</b><small>Incorrect</small></div></div><button class="btn ghost" id="rv">Review Answers</button><button class="btn" id="ta">Try Again</button><button class="btn ghost" id="bs">Back to Subject</button><div id="rl"></div>`);
+document.getElementById('rv').onclick=()=>{document.getElementById('rl').innerHTML=rec.map(r=>`<div class="ex ${r[3]?'g':'r'}"><b>${r[0]}</b><p>Your answer: ${r[1]}</p><p>Correct: ${r[2]}</p></div>`).join('')};
+document.getElementById('ta').onclick=()=>{nav.pop();go(()=>quiz(s,n,title))};document.getElementById('bs').onclick=()=>{nav=nav.slice(0,nav.findIndex(f=>f.toString().includes('modes('))+1);back();go(()=>modes(s))}}
+q()}
+
+const FULL={};for(const s in DATA)FULL[s]=DATA[s].slice();
+const FREE=5,SECRET='5e339d1e1d8a8444f4af0404';
+// ---- EDIT THESE ----
+const CFG={wa:'254755671020',paybill:'400200',account:'01102499700001',plans:{M:{n:'Monthly',amt:100,days:30},T:{n:'Term (3 months)',amt:150,days:90}}};
+// ---------------------
+let prem=false;
+const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){}};
+const AL='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+function h(s){let a=0xdeadbeef,b=0x41c6ce57;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);a=Math.imul(a^c,2654435761);b=Math.imul(b^c,1597334677)}a=Math.imul(a^(a>>>16),2246822507)^Math.imul(b^(b>>>13),3266489909);b=Math.imul(b^(b>>>16),2246822507)^Math.imul(a^(a>>>13),3266489909);return 4294967296*(2097151&b)+(a>>>0)}
+function codeFor(p,id){let n=h(SECRET+p+id),m=h(id+p+SECRET),c='';for(let i=0;i<4;i++){c+=AL[n%32];n=Math.floor(n/32)}for(let i=0;i<4;i++){c+=AL[m%32];m=Math.floor(m/32)}return p+c}
+const fmt=c=>c[0]+'-'+c.slice(1,5)+'-'+c.slice(5);
+
+let did=ls('g9did');if(!did){did='';for(let i=0;i<6;i++)did+=AL[Math.floor(Math.random()*32)];ls('g9did',did)}
+const lic=()=>{try{return JSON.parse(ls('g9lic'))}catch(e){return null}};
+const left=l=>l&&CFG.plans[l.p]&&codeFor(l.p,did)===l.code?l.start+CFG.plans[l.p].days*864e5-Date.now():-1;
+function lockData(){prem=left(lic())>0;for(const s in FULL)DATA[s]=prem?FULL[s].slice():FULL[s].slice(0,FREE)}
+const ps=m=>{const e=document.getElementById('ps');if(e)e.textContent=m};
+function paywall(){let p='M';const L=()=>{document.getElementById('am').textContent='KSh '+CFG.plans[p].amt;app.querySelectorAll('[data-p]').forEach(b=>b.className=b.dataset.p===p?'btn':'btn ghost')};
+render('Go Premium',`<div style="text-align:center;font-size:2.4rem">👑</div><p style="text-align:center"><b>Unlock the full learning experience</b></p><div class="card">✓ Every question in all subjects<br>✓ Full mock exams<br>✓ Learn notes and flashcards<br>✓ Diagram questions</div><div class="two"><button class="btn" data-p="M">Monthly KSh ${CFG.plans.M.amt}</button><button class="btn ghost" data-p="T">Term KSh ${CFG.plans.T.amt}</button></div><div class="card"><b>1.</b> M-Pesa, then Lipa na M-Pesa, then Pay Bill.<br><b>2.</b> Business no: <b>${CFG.paybill}</b><br><b>3.</b> Account no: <b>${CFG.account}</b><br><b>4.</b> Amount: <b id="am"></b><br><b>5.</b> Type your M-Pesa receipt code below and tap Send on WhatsApp.</div><input id="rcp" class="in" placeholder="M-Pesa receipt code" maxlength="10" autocapitalize="characters"><a class="btn" id="wa" target="_blank" rel="noopener" href="#" style="display:block;text-align:center;text-decoration:none">Send on WhatsApp</a><p style="margin:6px 0">If WhatsApp does not open, copy this message and send it to <b>0755 671 020</b>:</p><textarea id="mt" class="in" rows="4" readonly onclick="this.select()"></textarea><p style="text-align:center">Your ID: <b>${did}</b></p><div class="card"><b>Got your access code?</b><input id="cd" class="in" placeholder="e.g. M-ABCD-EFGH" autocapitalize="characters"><button class="btn" id="ac">Activate</button></div><p id="ps" role="status"></p>`);
+app.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{p=b.dataset.p;L();if(window.__u)window.__u()});L();
+const W=document.getElementById('wa'),R=document.getElementById('rcp'),T=document.getElementById('mt');
+const upd=()=>{T.value=`Hello, I paid KSh ${CFG.plans[p].amt} for Rhema CBC Revision (${CFG.plans[p].n}). M-Pesa receipt: ${R.value.trim().toUpperCase()}. My ID: ${did}`;W.href='https://wa.me/'+CFG.wa+'?text='+encodeURIComponent(T.value)};
+window.__u=upd;R.oninput=upd;upd();W.onclick=e=>{if(R.value.trim().length<8){e.preventDefault();ps('Type your M-Pesa receipt code first.')}};
+document.getElementById('ac').onclick=()=>{const c=document.getElementById('cd').value.toUpperCase().replace(/[^A-Z0-9]/g,''),k=c[0];
+if(!CFG.plans[k]||codeFor(k,did)!==c)return ps('That code is not valid for this phone. Check it and your ID.');
+const l=lic();if(l&&l.code===c){return left(l)>0?ps('This code is already active.'):ps('This code has expired.')}
+ls('g9lic',JSON.stringify({p:k,code:c,start:Date.now()}));lockData();
+const d=new Date(Date.now()+CFG.plans[k].days*864e5).toDateString();
+render('Premium unlocked',`<div class="card"><b>Thank you!</b><p>Premium is active until <b>${d}</b>.</p></div><button class="btn" id="go">Start revising</button>`);document.getElementById('go').onclick=()=>go(grades,1)}}
+const _L=learn,_C=cards,_M=mock,_G=grades,_S=subjects;
+learn=s=>prem?_L(s):go(paywall);cards=s=>prem?_C(s):go(paywall);mock=()=>prem?_M():go(paywall);
+const banner=()=>{const s=document.querySelector('section');if(s&&!prem){const b=document.createElement('button');b.className='btn';b.textContent='👑 Go Premium';b.onclick=()=>go(paywall);s.prepend(b)}};
+grades=()=>{_G();banner()};subjects=t=>{_S(t);banner()};
+lockData();splash();
+if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script></body></html>
