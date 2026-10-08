@@ -80,7 +80,21 @@ nav{border-top:3px solid var(--blue)}nav button.on{color:var(--blue)}
 .splash b{color:#60a5fa}.splash p{color:#d4d4d8}
 .splash .btn{background:#2563eb;color:#fff}
 .logo{background:#2563eb;color:#fff;box-shadow:0 0 0 8px rgba(37,99,235,.3)}
-</style><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0a0a0a"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"></head><body><div id="app"></div>
+
+:root{--nav:#0b1f4d;--blue:#0f766e;--bg:#f2f6f9;--ink:#0b1f4d;--line:#dde5ee}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#07142f;--card:#0f2250;--ink:#fff;--mute:#a9b8d6;--line:#1d3a78;--blue:#0d9488}}
+header{background:#0b1f4d;border-bottom:3px solid #14b8a6}
+nav{border-top:3px solid #14b8a6}nav button.on{color:#0f766e}
+@media (prefers-color-scheme:dark){nav button.on{color:#5eead4}}
+.bar i{background:#14b8a6}
+.tile .ic,.row .ic{background:#d9f5f1!important}
+.gr{background:#0f766e!important}.gr:nth-child(odd){background:#0b1f4d!important}
+.hero{background:#d9f5f1;color:#0b1f4d}
+#app:has(.splash){background:radial-gradient(circle at 50% 30%,#14346f,#07142f 70%);color:#fff}
+.splash b{color:#5eead4}.splash p{color:#d6e2f5}
+.splash .btn{background:#14b8a6;color:#04222a}
+.logo{background:#14b8a6;color:#04222a;box-shadow:0 0 0 8px rgba(20,184,166,.3)}
+</style><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0b1f4d"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"></head><body><div id="app"></div>
 <script>
 const DATA={
 "Mathematics":[
@@ -434,7 +448,7 @@ q()}
 const FULL={};for(const s in DATA)FULL[s]=DATA[s].slice();
 const FREE=5,SECRET='5e339d1e1d8a8444f4af0404';
 // ---- EDIT THESE ----
-const CFG={wa:'254755671020',paybill:'400200',account:'01102499700001',plans:{M:{n:'Monthly',amt:100,days:30},T:{n:'Term (3 months)',amt:150,days:90}}};
+const CFG={wa:'254755671020',paybill:'400200',account:'01102499700001',plans:{M:{n:'Monthly',amt:60,days:30},T:{n:'Term (3 months)',amt:150,days:90}}};
 // ---------------------
 let prem=false;
 const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){}};
