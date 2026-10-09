@@ -1000,7 +1000,7 @@ const _L=learn,_C=cards,_M=mock,_G=grades,_S=subjects;
 learn=s=>prem?_L(s):go(paywall);cards=s=>prem?_C(s):go(paywall);mock=()=>prem?_M():go(paywall);
 const banner=()=>{const s=document.querySelector('section');if(s&&!prem){const b=document.createElement('button');b.className='btn';b.textContent='👑 Go Premium';b.onclick=()=>go(paywall);s.prepend(b)}};
 grades=()=>{_G();banner()};subjects=t=>{_S(t);banner()};
-const STATS_URL='';
+const STATS_URL='https://script.google.com/macros/s/AKfycbzYVDp7ayrev_ZRZIEcfLPJmZaMDith6L8E3pGR81zcF1p6F3j7tlVSTiJ_391-WhPu/exec';
 function ping(force){if(!STATS_URL)return;try{const d=new Date().toISOString().slice(0,10);if(!force&&ls('g9ping')===d)return;ls('g9ping',d);fetch(STATS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({id:did,g:+(ls('g9last')||CUR),p:prem?1:0})}).catch(()=>{})}catch(e){}}
 lockData();splash();ping();
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
