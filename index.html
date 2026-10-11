@@ -94,7 +94,27 @@ nav{border-top:3px solid #14b8a6}nav button.on{color:#0f766e}
 .splash b{color:#5eead4}.splash p{color:#d6e2f5}
 .splash .btn{background:#14b8a6;color:#04222a}
 .logo{background:#14b8a6;color:#04222a;box-shadow:0 0 0 8px rgba(20,184,166,.3)}
-.opt.sel{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}.th{margin:20px 0 8px;color:var(--blue);font-size:1.05rem}</style><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0b1f4d"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"></head><body><div id="app"></div>
+.opt.sel{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}.th{margin:20px 0 8px;color:var(--blue);font-size:1.05rem}
+:root:not([data-theme="none"]){--bg:#000;--card:#141416;--ink:#fff;--mute:#9b9ba1;--line:#26262a;--blue:#0f766e;--okbg:#0f2a1d;--badbg:#2c1416;--ok:#4ade80;--bad:#f87171}
+body{background:#000;color:#fff}
+header{background:#000;border-bottom:1px solid #1d1d20}
+header h2{text-align:left;font-size:1.1rem;font-weight:700}
+nav{background:#000;border-top:1px solid #1d1d20}nav button{color:#8a8a90}nav button.on{color:#2dd4bf}
+.row,.card,.opt,.tile{background:#141416;border:1px solid #26262a;box-shadow:none;border-radius:16px}
+.tile .ic,.row .ic{background:#0f2f2c!important}
+.gr,.gr:nth-child(odd){background:#141416!important;border:1px solid #26262a;box-shadow:none}
+.hero{background:#141416;color:#fff;border:1px solid #26262a}
+.in{background:#141416;border:1px solid #26262a;border-radius:16px;padding:15px;color:#fff;font:inherit;width:100%;box-sizing:border-box}
+select.in{appearance:none;-webkit-appearance:none}
+.btn{background:#0d4a45;color:#e8fffb;border-radius:16px;box-shadow:none}.btn.ghost{background:transparent;border:1px solid #2dd4bf;color:#2dd4bf}
+.splash .btn{background:#14b8a6;color:#031a18}
+.bar{background:#26262a}.bar i{background:#2dd4bf}
+.opt.sel{background:#0f2f2c;border-color:#2dd4bf}.opt.ok{background:#0f2a1d;border-color:#4ade80}.opt.bad{background:#2c1416;border-color:#f87171}
+.th{color:#2dd4bf}.lb{display:block;font-weight:700;margin:16px 0 6px}.sm{color:#9b9ba1;font-size:.85rem;margin:0 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{background:#141416;border:1px solid #26262a;color:#fff;border-radius:20px;padding:8px 12px;font:inherit;font-size:.85rem;cursor:pointer}.chip.on{background:#0f3f3b;border-color:#2dd4bf;color:#5eead4}
+#app:has(.splash){background:radial-gradient(circle at 50% 30%,#0b3b38,#000 70%)}
+.dg{background:#fff}
+</style><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#000000"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"></head><body><div id="app"></div>
 <script>
 const DATA={
 "Mathematics":[
@@ -421,7 +441,7 @@ app.querySelectorAll('.gr').forEach(b=>b.onclick=()=>{if(GR[b.dataset.g]){setGra
 function subjects(t){render('Grade '+CUR+(CUR==9?' - KJSEA':CUR==6?' - KPSEA':''),`<div class="seg"><button class="${t=='s'?'on':''}" data-x="s">Subjects</button><button class="${t=='p'?'on':''}" data-x="p">My Progress</button></div>`+(t=='s'?`<div class="grid">${SUBS.map(s=>`<button class="tile" data-s="${s}"><div class="ic" style="background:${IC[s][1]}">${IC[s][0]}</div>${s}</button>`).join('')}</div>`:SUBS.map(s=>`<div class="card"><b>${s}</b><div class="bar"><i style="width:${pct(s)}%"></i></div><small>Best score: ${pct(s)}%</small></div>`).join('')),t=='s'?'Subjects':'Progress');
 app.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{nav.pop();go(()=>subjects(b.dataset.x))});
 app.querySelectorAll('.tile').forEach(b=>b.onclick=()=>go(()=>modes(b.dataset.s)))}
-function modes(s){const M=[['Learn','Notes & worked examples','📘','#dbe8ff',()=>learn(s)],['Practice','Topic-based questions','✏️','#ffe3c4',()=>quiz(s,Math.min(15,DATA[s].length),'Practice - '+s)],['Mock Exams','Full exam simulations','📝','#e4e4f7',()=>mock()],['Quick Revision','Short questions','⚡','#d8f3e2',()=>quiz(s,3,'Quick Revision')],['Flashcards','Key concepts','🗂️','#ffd9ec',()=>cards(s)]];if(GR[CUR][s].some(x=>x[5]))M.splice(2,0,['Challenge','Harder, scenario-based questions','🔥','#ffd9d9',()=>prem?quiz(s,Math.min(10,GR[CUR][s].filter(x=>x[5]).length),'Challenge - '+s,1):go(paywall)]);
+function modes(s){const M=[['Learn','Notes & worked examples','📘','#dbe8ff',()=>learn(s)],['Practice','Topic-based questions','✏️','#ffe3c4',()=>quiz(s,Math.min(15,DATA[s].length),'Practice - '+s)],['Mock Exams','Full exam simulations','📝','#e4e4f7',()=>mock()],['Quick Revision','Short questions','⚡','#d8f3e2',()=>quiz(s,3,'Quick Revision')],['Flashcards','Key concepts','🗂️','#ffd9ec',()=>cards(s)]];if(CUR==9&&EXAM[s])M.splice(1,0,['Exam Focus','What the national exam tests','🎯','#fff0c9',()=>examFocus(s)]);if(GR[CUR][s].some(x=>x[5]))M.splice(2,0,['Challenge','Harder, scenario-based questions','🔥','#ffd9d9',()=>prem?quiz(s,Math.min(10,GR[CUR][s].filter(x=>x[5]).length),'Challenge - '+s,1):go(paywall)]);
 render(s,`<div class="hero"><span class="ic">${IC[s][0]}</span><div><b>${s}</b><br><small>Grade ${CUR}${CUR==9?' - KJSEA':CUR==6?' - KPSEA':''}</small><div class="bar"><i style="width:${pct(s)}%"></i></div><small>${pct(s)}% best score</small></div></div>`+M.map((m,i)=>`<button class="row" data-m="${i}"><span class="ic" style="background:${m[3]}">${m[2]}</span><div><b>${m[0]}</b><small>${m[1]}</small></div><i>›</i></button>`).join(''));
 app.querySelectorAll('.row').forEach(b=>b.onclick=()=>go(M[b.dataset.m][4]))}
 function learn(s){const T=topicsOf(s);if(!T){return render('Learn - '+s,DATA[s].map(([q,o,a,w,d])=>`<div class="card"><b>${q}</b>${d?`<div class="dg">${d}</div>`:''}<p>Answer: <b>${o[a]}</b></p><small>${w}</small></div>`).join(''))}
@@ -441,10 +461,10 @@ b.onclick=()=>{if(done)return;done=1;const ok=k===a;if(ok)sc++;rec.push([t,o[k],
 [...box.children].forEach((x,m)=>{if(ord[m]===a)x.classList.add('ok')});if(!ok)b.classList.add('bad');
 document.getElementById('fb').innerHTML=`<div class="ex ${ok?'g':'r'}"><b>${ok?'Correct!':'Incorrect'}</b><p>The correct answer is ${L[ord.indexOf(a)]}: ${o[a]}</p><p>${w}</p></div>`;nx.disabled=false;document.getElementById('sk').disabled=true};box.appendChild(b)});
 nx.onclick=step;document.getElementById('sk').onclick=()=>{rec.push([t,'Skipped',o[a],false]);step()}}
-function fin(){const p=Math.round(sc/qs.length*100),tt=Math.round((Date.now()-t0)/1000);if(n>=3&&p>pct(s)){prog[CUR+':'+s]=p;sv()}
+function fin(){const p=Math.round(sc/qs.length*100),tt=Math.round((Date.now()-t0)/1000);if(n>=3&&!pool&&p>pct(s)){prog[CUR+':'+s]=p;sv()}
 render('Results',`<div class="ring" style="background:conic-gradient(var(--blue) ${p}%,var(--line) 0)"><span>${p}%</span></div><p style="text-align:center">You scored <b>${sc} / ${qs.length}</b></p><div class="stats"><div><b>${mmss(tt)}</b><small>Time</small></div><div><b style="color:var(--ok)">${sc}</b><small>Correct</small></div><div><b style="color:var(--bad)">${qs.length-sc}</b><small>Incorrect</small></div></div><button class="btn ghost" id="rv">Review Answers</button><button class="btn" id="ta">Try Again</button><button class="btn ghost" id="bs">Back to Subject</button><div id="rl"></div>`);
 document.getElementById('rv').onclick=()=>{document.getElementById('rl').innerHTML=rec.map(r=>`<div class="ex ${r[3]?'g':'r'}"><b>${r[0]}</b><p>Your answer: ${r[1]}</p><p>Correct: ${r[2]}</p></div>`).join('')};
-document.getElementById('ta').onclick=()=>{nav.pop();go(()=>quiz(s,n,title))};document.getElementById('bs').onclick=()=>{nav=nav.slice(0,nav.findIndex(f=>f.toString().includes('modes('))+1);back();go(()=>modes(s))}}
+document.getElementById('ta').onclick=()=>{nav.pop();go(()=>quiz(s,n,title,hard,pool))};document.getElementById('bs').onclick=()=>{nav=nav.slice(0,nav.findIndex(f=>f.toString().includes('modes('))+1);back();go(()=>modes(s))}}
 q()}
 
 DATA["Agriculture & Nutrition"].push(
@@ -721,6 +741,49 @@ TOP[6]={
 {t:"Christian Living",k:/./,n:["<b>Fruit of the Holy Spirit:</b> love, joy, peace, patience, kindness, goodness, faithfulness, gentleness and self-control.","Christians normally worship on <b>Sunday</b>.","Support friends going through <b>adolescence</b>: be kind and encouraging."]}]
 };
 
+const EXAM={
+"Mathematics":{f:["Multiple-choice questions followed by structured questions where you show your working.","Word problems set in everyday situations (shops, farms, travel) are common."],t:[["Geometry & Trigonometry","Pythagoras in word problems, angles, bearings, scale and similar shapes","Geometry & Trigonometry"],["Measurement: Area, Volume & Units","Composite areas, cylinder volume to litres, unit conversion","Measurement: Area, Volume & Units"],["Ratios, Percentages & Financial Maths","Discounts, reverse percentages, profit, speed and money","Ratios, Percentages & Financial Maths"],["Numbers, Indices & Logarithms","Rounding, significant figures, indices, GCD and place value","Numbers, Indices & Logarithms"],["Algebra, Equations & Matrices","Gradient, inequalities, simultaneous equations, matrix order","Algebra, Equations & Matrices"],["Statistics & Probability","Bar graphs, mean and probability","Statistics & Probability"]],k:["Show every step in the structured section and write units.","Estimate first, then check your answer is sensible.","Read word problems twice and underline the numbers."]},
+"Integrated Science":{f:["The practical paper has short tasks where you observe, record, calculate and explain.","Theory papers use multiple-choice and short structured questions."],t:[["Matter, Acids & Atoms","Indicators for acids and bases, dissolving, filtering and evaporation","Matter, Acids & Atoms"],["Living Things: Cells, Nutrition & Health","Leaf parts, photosynthesis experiments, reading results tables","Living Things: Cells, Nutrition & Health"],["Force, Energy & Motion","Mass, weight (W = mg) and pressure (P = F ÷ A)","Force, Energy & Motion"],["Laboratory, Measurement & Microscopy","Measuring length and volume, units, safety and science skills","Laboratory, Measurement & Microscopy"]],k:["Practise filling in tables and finding a mean.","Learn the formulas and always give units.","Name the apparatus and the safety rule for each practical."]},
+"English":{f:["Paper 1: 50 multiple-choice questions on reading comprehension, oral skills and grammar.","Paper 2: a composition (15 marks) and literary analysis (35 marks) on oral literature, a poem, a play and a novella."],t:[["Comprehension passages","Health, attitudes, the environment and personality; meaning of words and the best title",null],["Grammar: conditionals, passive, reported speech","Sentence changes and question tags","Tenses, Verbs & Voice"],["Conjunctions, pronouns and agreement","Relative pronouns, neither/nor, unless, although","Sentence Structure & Grammar"],["Idioms and phrasal verbs","Put up with, look up to, bank on","Vocabulary, Idioms & Figures of Speech"],["Oral skills","Polite expressions, telephone talk and debates","Comprehension, Tone & Oral Skills"],["Literature","Opening and closing formulae, morals, character traits and setting",null]],k:["Read the passage before the questions, then return to the text for each answer.","In literature, support every answer with an example from the text.","Plan your composition: beginning, middle and end."]},
+"Kiswahili":{f:["Lugha: maswali 50 ya kuchagua jibu, saa 1 dakika 40.","Yanahusu vifungu vya ufahamu, jedwali, mazungumzo, kujaza nafasi na sarufi."],t:[["Ufahamu wa vifungu","Maana ya maneno, mawazo makuu na methali inayofaa",null],["Ngeli na nomino","Wingi, umoja, ngeli, udogo na ukubwa","Ngeli na Nomino"],["Vitenzi, nyakati na kauli","Ukanusho, kutendwa, kutendeka na kutendea","Vitenzi, Nyakati na Kauli"],["Msamiati, nahau na methali","Visawe, vinyume na maana za nahau","Msamiati, Nahau na Methali"],["Viunganishi, taarifa na uakifishaji","Usemi halisi, viunganishi na alama","Sarufi: Viunganishi, Taarifa na Uakifishaji"],["Mazungumzo na fasihi simulizi","Adabu katika mazungumzo na fomula za hadithi","Fasihi Simulizi na Mazungumzo"]],k:["Soma kifungu mara mbili kabla ya kujibu.","Jifunze ngeli na ukanusho kwa mifano.","Zingatia alama za uakifishaji."]},
+"Social Studies":{f:["Section A: 20 multiple-choice questions (20 marks).","Section B: 80 marks of structured questions, including a map-work question."],t:[["Map work and climate","Scale, direction, vegetation zones, effects of climate change and environmental degradation","Map Work, Time & Climate"],["History of Africa","Early humans, ancient Egypt, scramble and partition, money and trade","History of Africa"],["Governance and citizenship","National values, the National Assembly and the Constitution","Governance & Citizenship"],["Social relations","Conflict resolution, self-esteem, careers and pathways","Social Relations & Economics"]],k:["'Outline five' means five separate short points.","For map questions, measure carefully and give units.","Link causes to effects when you explain."]},
+"Agriculture & Nutrition":{f:["Section A: 30 multiple-choice questions (30 marks).","Section B: 40 marks of short structured questions, often using pictures."],t:[["Crop production and soil","Soil and water conservation, kitchen gardens, grafting, planting materials, weeds","Crop Production & Soil"],["Livestock and poultry","Egg grading and hygiene, forage conservation, milk hygiene, integrated farming","Livestock & Poultry"],["Food, nutrition and cooking","Cooking methods, nutrient retention, preserving food and meal planning","Food, Nutrition & Cooking"],["Home science and value addition","Laundry, soap making, knitting, cleaning and processing produce","Home Science & Value Addition"]],k:["For picture questions, first identify the practice, then give the reason.","Learn two reasons for every farming or cooking practice.","Link each nutrient to its function and deficiency."]},
+"Pre-Technical Studies":{f:["Paper 1: 30 multiple-choice questions followed by structured questions that include drawing tasks.","Paper 2: a group project completed over a month (for example making a sieve)."],t:[["Technical drawing","Line types, margins and title blocks, scales, oblique drawing, dimensions","Technical Drawing"],["Materials, tools and safety","Choosing tools, safe use, fire safety, metals, wood and ceramics","Materials, Tools & Workshop Safety"],["Entrepreneurship and financial literacy","Business ideas, budgets, financial statements and banking services","Entrepreneurship & Financial Literacy"],["ICT and computing","Computer parts, software, data safety and simple visual programming","ICT & Computing"]],k:["Use a ruler and sharp pencil for drawing tasks.","Learn the safety rule that goes with each tool.","Practise simple profit and capital calculations."]},
+"Creative Arts & Sports":{f:["Paper 1: a project over three months (a school festival with a poster, a folksong, a story and a sport).","Paper 2: written questions on music, visual art and sports."],t:[["Music and dance","Pitch, tempo, note values, scales and folk song performance","Music & Dance"],["Visual arts","Colour mixing, art elements and principles, techniques","Visual Arts"],["Theatre and storytelling","Setting, plot and delivery",  "Theatre & Storytelling"],["Sports and physical education","Athletics events, ball game skills, fair play and warm-ups","Sports & Physical Education"]],k:["Keep your project portfolio neat and dated.","Practise explaining the purpose of each activity.","Learn the key terms for music and art."]},
+"Religious Education (CRE)":{f:["Multiple-choice questions followed by short structured questions.","Questions link Bible teaching to everyday life."],t:[["Bible, creation and Old Testament leaders","Creation, covenants, Moses, kings and prophets","The Bible, Creation & Old Testament Leaders"],["Jesus Christ","Birth, miracles, parables and forgiveness","Jesus Christ: Birth, Teaching & Miracles"],["Christian living and values","Fruit of the Spirit, integrity, peer pressure and life skills","Christian Living & Values"]],k:["Quote the Bible reference when you can.","Apply each story to a real situation.","Learn the lesson for each parable."]}
+};
+function examFocus(s){const E=EXAM[s];
+render('Exam Focus - '+s,`<div class="card"><b>Paper format</b>${E.f.map(x=>`<p style="margin:6px 0">${x}</p>`).join('')}</div><h3 class="th">Topics that appeared in the papers</h3>`+E.t.map((x,i)=>`<button class="row" data-i="${i}"><span class="ic" style="background:#fff0c9">🎯</span><div><b>${x[0]}</b><small>${x[1]}${x[2]?' · tap to practise':''}</small></div><i>›</i></button>`).join('')+`<div class="card"><b>Exam tips</b>${E.k.map(x=>`<p style="margin:6px 0">• ${x}</p>`).join('')}</div><p style="font-size:.8rem;color:var(--mute)">Based on the KJSEA papers supplied. The questions in this app are original practice questions, not KNEC papers.</p>`);
+app.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{const x=E.t[+b.dataset.i];if(!x[2])return;const pool=DATA[s].filter(q=>classify(q,s)===x[2]);if(pool.length)go(()=>quiz(s,Math.min(10,pool.length),'Practice - '+x[0],0,pool))})}
+
+const BS={g:9,s:'',t:[],n:10,h:0,k:''};
+function poolFor(b){const old=CUR;CUR=b.g;let p=(GR[b.g][b.s]||[]).filter(q=>(!b.h||q[5])&&(!b.t.length||b.t.includes(classify(q,b.s))));CUR=old;
+const w=(b.k||'').toLowerCase().split(/[\s,]+/).filter(x=>x.length>2);if(w.length)p=p.filter(q=>{const x=(q[0]+' '+q[1].join(' ')+' '+q[3]).toLowerCase();return w.some(y=>x.includes(y))});return p}
+function builder(){BS.g=CUR;BS.s='';BS.t=[];BS.h=0;BS.k='';
+const gl=Object.keys(GR).map(Number).sort(),opt=(v,t,sel)=>`<option value="${v}"${sel?' selected':''}>${t}</option>`;
+render('Quiz builder',`<h1 style="font-size:1.8rem;margin:4px 0 6px">Quiz builder</h1><p style="color:var(--mute);margin:0 0 10px">Build a quiz from the question bank for what you are revising.</p>
+<label class="lb">Grade level</label><select id="bg" class="in">${opt('','Select a grade',0)+gl.map(g=>opt(g,'Grade '+g+(g==6?' (KPSEA)':g==9?' (KJSEA)':''),BS.g==g)).join('')}</select>
+<label class="lb">Subject</label><select id="bs" class="in"></select>
+<label class="lb">Topics <small style="font-weight:400;color:var(--mute)">(optional)</small></label><p class="sm">Leave unticked to cover the whole subject.</p><div id="bt" class="chips"></div>
+<label class="lb">Number of questions</label><select id="bn" class="in">${[5,10,15,20,30].map(v=>opt(v,v,BS.n==v)).join('')}</select>
+<div id="bh"></div>
+<label class="lb">Focus words <small style="font-weight:400;color:var(--mute)">(optional)</small></label><textarea id="bk" class="in" rows="3" placeholder="For example: fractions, soil, parallel circuits"></textarea><p id="bm" style="color:var(--bad);margin:6px 0"></p>
+<button class="btn" id="bgn">✨ Generate</button>`);
+const g=id=>document.getElementById(id);
+const fillS=()=>{const ss=Object.keys(GR[BS.g]||{});g('bs').innerHTML=`<option value="">${BS.g?'Select a subject':'Select a grade first'}</option>`+ss.map(x=>`<option value="${x}">${x}</option>`).join('');g('bs').disabled=!BS.g};
+const fillT=()=>{const T=BS.s?topicsOf(BS.s):null;g('bt').innerHTML=T?T.map((t,i)=>`<button class="chip" data-t="${i}">${t.t}</button>`).join(''):'<span class="sm">Select a subject first</span>';
+app.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{const nm=T[+b.dataset.t].t;BS.t=BS.t.includes(nm)?BS.t.filter(x=>x!==nm):BS.t.concat(nm);b.classList.toggle('on')})};
+const fillH=()=>{g('bh').innerHTML=BS.g==9?'<label class="lb">Difficulty</label><select id="bd" class="in"><option value="0">All questions</option><option value="1">Challenge questions only</option></select>':'';const d=g('bd');if(d)d.onchange=()=>{BS.h=+d.value}};
+fillS();fillT();fillH();
+g('bg').onchange=()=>{BS.g=+g('bg').value||0;BS.s='';BS.t=[];if(BS.g)setGrade(BS.g);fillS();fillT();fillH()};
+g('bs').onchange=()=>{BS.s=g('bs').value;BS.t=[];fillT()};
+g('bn').onchange=()=>{BS.n=+g('bn').value};
+g('bgn').onclick=()=>{BS.k=g('bk').value;const m=g('bm');if(!BS.g||!BS.s){m.textContent='Choose a grade and a subject first.';return}
+if(!prem){go(paywall);return}
+const p=poolFor(BS);if(!p.length){m.textContent='No questions match. Try fewer topics or different words.';return}
+go(()=>quiz(BS.s,Math.min(BS.n,p.length),'Custom quiz',0,p))}}
+function qbBtn(){const s=document.querySelector('section');if(!s)return;const b=document.createElement('button');b.className='row';b.innerHTML='<span class="ic" style="background:#0f2f2c">✨</span><div><b>Quiz builder</b><small>Choose grade, subject and topics, then generate a quiz</small></div><i>›</i>';b.onclick=()=>go(builder);s.prepend(b)}
+
 const DISP={9:{"Mathematics":["Numbers, Indices & Logarithms","Ratios, Percentages & Financial Maths","Algebra, Equations & Matrices","Geometry & Trigonometry","Measurement: Area, Volume & Units","Statistics & Probability"],"Integrated Science":["Laboratory, Measurement & Microscopy","Matter, Acids & Atoms","Living Things: Cells, Nutrition & Health","Force, Energy & Motion","Electricity, Light & Waves"]},6:{"Mathematics":["Whole Numbers & Place Value","Fractions, Decimals & Percentages","Time, Money & Measures","Geometry, Shapes & Area","Data Handling"],"English":["Everyday Conversation & Politeness","Tenses, Pronouns & Plurals","Prepositions, Conjunctions & Comparison","Vocabulary & Comprehension","Punctuation"],"Kiswahili":["Ngeli, Wingi na Umoja","Vitenzi, Nyakati na Ukanusho","Msamiati, Methali na Vinyume","Sarufi: Viunganishi, Uakifishaji na Adabu"],"Science & Technology":["Forces, Heat, Light, Sound & Electricity","Matter, Water & Materials","Living Things, Plants & Animals","Human Body, Health & Nutrition","Tools & Technology"],"Social Studies":["People & Communities of Kenya","Geography & Map Work","Government, Courts & Citizens"],"Creative Arts & Sports":["Music & Culture","Art & Craft","Sports & Games"],"Religious Education (CRE)":["Creation & Bible Stories","Jesus' Life & Teaching","Christian Living"]}};
 const topicsOf=s=>{const T=(TOP[CUR]||{})[s];if(!T)return null;const d=(DISP[CUR]||{})[s];return d?d.map(n=>T.find(t=>t.t===n)):T};
 function classify(q,s){const T=(TOP[CUR]||{})[s];if(!T)return 'Questions';const x=q[0]+' '+q[1].join(' ')+' '+q[3];for(const t of T)if(t.k.test(x))return t.t;return T[T.length-1].t}
@@ -836,6 +899,99 @@ HQ("The parable of the talents teaches that people should",["Use their abilities
 HQ("Daniel refused the king's food in Babylon to show that he would",["Remain faithful to God","Be famous","Please the king","Avoid work"],0,"He kept his faith in a foreign land."),
 HQ("Elijah's contest on Mount Carmel showed that",["Only the Lord is the true God","Baal was powerful","Prophets were weak","Fire is holy"],0,"God answered by fire."),
 HQ("Jesus told Peter to forgive another person",["Without limit","Once","Three times","Only family"],0,"Jesus said seventy times seven."));
+
+DATA["English"].push(
+["Your brother plays football, ___?",["doesn't he","does he","isn't he","didn't he"],0,"A positive statement takes a negative question tag."],
+HQ("Neither the teacher nor the learners ___ aware of the change.",["was","were","is","has been"],1,"The verb agrees with the nearer subject, 'learners'."),
+["The meeting was called off. 'Called off' means",["Cancelled","Started","Delayed","Recorded"],0,"To call something off is to cancel it."],
+["'Break the ice' means to",["Start a friendly conversation","Spoil a plan","Freeze water","Argue loudly"],0,"It means to ease tension when people first meet."],
+["The principal's speech was brief. 'Brief' means",["Short","Boring","Loud","Long"],0,"Brief means short."],
+HQ("Which reply is the most polite way to decline an invitation?",["Thank you for inviting me, but I am unable to come.","I will not come.","No way.","Why did you ask me?"],0,"Polite refusals thank the person and give a reason."),
+["In oral narratives, what helps the audience to take part?",["Songs and responses","Silence","Long explanations","Written notes"],0,"Songs and call-and-response involve listeners."],
+["'The moon is a silver coin.' This is a",["Metaphor","Simile","Hyperbole","Idiom"],0,"It says one thing is another without 'like' or 'as'."],
+["A poem has the end words cat, hat, dog, log. Its rhyme scheme is",["aabb","abab","abba","abcd"],0,"Lines 1 and 2 rhyme, then lines 3 and 4."],
+["In a play, words in brackets such as (shouting) are",["Stage directions","Titles","The setting","The plot"],0,"They tell actors how to speak or move."],
+["A character who changes during the story is called a",["Dynamic character","Flat character","Setting","Narrator"],0,"Dynamic characters grow or change."],
+HQ("\"She is too tired to walk.\" Which sentence means the same?",["She is so tired that she cannot walk.","She is tired but she can walk.","She is not tired so she walks.","She walks because she is tired."],0,"'Too… to' means 'so… that… cannot'."),
+["He asked, \"Where are you going?\" In reported speech this is",["He asked where I was going.","He asked where am I going.","He asked where you are going.","He asked me where was I going."],0,"Reported questions use statement word order."],
+["Which word is spelt correctly?",["necessary","neccessary","necesary","nessecary"],0,"One c and two s: necessary."]);
+DATA["Agriculture & Nutrition"].push(
+["Growing two or more crops in the same field at the same time is",["Mixed cropping","Mono cropping","Crop rotation","Relay cropping"],0,"Mixed cropping combines crops in one field."],
+["Which is a cover crop?",["Sweet potato vines","Maize","Sunflower","Coffee"],0,"Cover crops spread over the soil and protect it."],
+["Which factor is most important when choosing a site for a fish pond?",["A reliable water supply","Strong wind","Rocky ground","Tall trees"],0,"Fish need water all year."],
+["Which tool is used to water seedlings in a nursery?",["Watering can","Panga","Rake","Spade"],0,"A watering can gives a gentle spray."],
+["A heifer is a",["Young female cow that has not calved","Male calf","Old cow","Castrated bull"],0,"A heifer has not yet given birth."],
+["Chicks being brooded need",["A heat source","Cold water only","Dry hay","Hard feed"],0,"Chicks cannot keep themselves warm."],
+["Which pest sucks sap from the leaves of crops?",["Aphids","Cutworms","Weevils","Armyworms"],0,"Aphids pierce leaves and suck the sap."],
+["Late blight is a disease that mainly affects",["Tomatoes and potatoes","Bananas","Maize","Beans only"],0,"It is a fungal disease of these crops."],
+["Which food is a good source of iron?",["Spinach","White sugar","Cooking oil","Plain rice"],0,"Dark green vegetables are rich in iron."],
+["Cooking food in an oven using dry heat is called",["Baking","Boiling","Steaming","Stewing"],0,"Baking uses dry heat."],
+["Preserving food in vinegar or brine is called",["Pickling","Drying","Smoking","Freezing"],0,"Pickling uses acid or salt solution."],
+["Which of these fibres is natural?",["Cotton","Nylon","Polyester","Acrylic"],0,"Cotton comes from a plant."],
+["Drying mangoes helps to",["Make them last longer","Add water","Make them sour","Grow seeds"],0,"Removing water extends shelf life."],
+HQ("A farmer sells 20 crates of tomatoes at KSh 1,500 each and spent KSh 18,000 on production. The profit is",["KSh 12,000","KSh 30,000","KSh 18,000","KSh 48,000"],0,"Income 30,000 − costs 18,000 = 12,000."),
+["Which nutrient mainly promotes leaf growth in crops?",["Nitrogen","Phosphorus","Potassium","Calcium"],0,"Nitrogen gives dark green leaves."]);
+DATA["Kiswahili"].push(
+["Ngeli ya 'ndizi' ni",["I-ZI","A-WA","LI-YA","KI-VI"],0,"Ndizi – ndizi ni ngeli ya I-ZI."],
+["Wingi wa 'wimbo' ni",["nyimbo","wimbo","mawimbo","vimbo"],0,"Wimbo – nyimbo."],
+["Kinyume cha 'tajiri' ni",["maskini","mkarimu","mwerevu","mnene"],0,"Tajiri ≠ maskini."],
+["Kisawe cha 'haraka' ni",["upesi","polepole","taratibu","bila"],0,"Haraka na upesi yana maana sawa."],
+["Methali 'Ukiona vyaelea vimeundwa' ina maana kuwa",["Mafanikio hutokana na juhudi za mtu","Vitu vyote huelea","Maji huunda vitu","Kila kitu ni cha bure"],0,"Kinachoonekana kizuri kimetengenezwa kwa bidii."],
+["Nahau 'kufa moyo' ina maana ya",["Kukata tamaa","Kufa kwa ugonjwa","Kuwa na furaha","Kupenda sana"],0,"Ni kukosa matumaini."],
+["Chagua kiashiria sahihi: Kiti ___ ni changu.",["hiki","huyu","hii","hawa"],0,"Kiti ni KI-VI, hivyo 'hiki'."],
+["'Tutaondoka kesho' ni sentensi ya wakati",["Ujao","Uliopita","Uliopo","Timilifu"],0,"-ta- huonyesha wakati ujao."],
+["Kauli ya kutendana ya kitenzi 'penda' ni",["pendana","pendeka","pendwa","pendea"],0,"Penda – pendana."],
+["Alama inayotumika kutenganisha vitu katika orodha ni",["kituo (,)","nukta (.)","alama ya swali","alama ya mshangao"],0,"Kituo hutenganisha orodha."],
+HQ("Mwalimu alisema, \"Nyamazeni!\" Kwa taarifa ni",["Mwalimu aliwaamuru wanyamaze","Mwalimu alisema nyamazeni","Mwalimu aliomba kunyamaza","Mwalimu alinyamaza"],0,"Amri huwa taarifa kwa kuongeza 'aliamuru'."),
+HQ("Alifaulu ___ hakusoma sana.",["ingawa","kwa sababu","ili","hivyo"],0,"'Ingawa' huonyesha ukinzani."));
+DATA["Social Studies"].push(
+["The Equator lies at",["0° latitude","0° longitude","90° latitude","45° latitude"],0,"The Equator is 0° latitude."],
+["Lines of longitude run from",["Pole to pole","East to west","Equator to the tropics","Coast to coast"],0,"Longitude lines join the North and South poles."],
+["Population density is the",["Number of people per square kilometre","Total number of babies","Number of cities","Rate of death"],0,"It shows how crowded a place is."],
+["Which is a primary economic activity?",["Farming","Banking","Teaching","Selling clothes"],0,"Primary activities get raw materials from nature."],
+["Which means of transport is best for moving bulky goods over long distances?",["Railway","Bicycle","Donkey cart","Motorcycle"],0,"Trains carry heavy loads cheaply."],
+["Geothermal power in Kenya is mainly produced at",["Olkaria","Mombasa","Nyeri","Kisumu"],0,"Olkaria uses steam from underground."],
+["Kenya's government has how many arms?",["Three","Two","Four","Five"],0,"Legislature, Executive and Judiciary."],
+["Which is a responsibility of a citizen?",["Paying taxes","Ignoring laws","Wasting water","Avoiding school"],0,"Citizens must obey laws and pay taxes."],
+["The Industrial Revolution began in",["Britain","Kenya","Egypt","Brazil"],0,"It started in Britain in the 1700s."],
+["The longest river in Africa is the",["Nile","Congo","Niger","Zambezi"],0,"The Nile is about 6,650 km long."],
+["Which human activity can lead to desertification?",["Overgrazing","Planting trees","Terracing","Mulching"],0,"Too many animals strip the land of plants."],
+HQ("Which is an economic contribution of Africans in the Diaspora to their home countries?",["Sending money home","Building ships","Selling land abroad","Closing borders"],0,"Remittances support families and the economy."));
+DATA["Religious Education (CRE)"].push(
+["Which commandment forbids stealing?",["You shall not steal","You shall not kill","Honour your parents","Keep the Sabbath"],0,"Exodus 20:15."],
+["Who was the mother of Jesus?",["Mary","Elizabeth","Martha","Ruth"],0,"Mary was chosen by God."],
+["Which angel announced Jesus' birth to Mary?",["Gabriel","Michael","Raphael","Uriel"],0,"Luke 1:26-38."],
+["Jesus' first miracle at the wedding in Cana was",["Turning water into wine","Healing a leper","Feeding the crowd","Calming the storm"],0,"John 2:1-11."],
+["Which disciple betrayed Jesus?",["Judas Iscariot","Peter","Thomas","John"],0,"Judas handed Jesus over for thirty pieces of silver."],
+["On the day of Pentecost the disciples",["Were filled with the Holy Spirit","Went fishing","Built a temple","Slept"],0,"Acts 2."],
+["The Beatitudes are part of Jesus' teaching in the",["Sermon on the Mount","Last Supper","Baptism","Transfiguration"],0,"Matthew 5."],
+["The Golden Rule teaches Christians to",["Treat others as you want to be treated","Win every argument","Keep wealth","Avoid neighbours"],0,"Matthew 7:12."],
+["Ruth's loyalty to Naomi teaches",["Faithfulness","Pride","Jealousy","Revenge"],0,"Ruth stayed with Naomi."],
+["Solomon asked God for",["Wisdom","Gold","A long life","Victory in war"],0,"1 Kings 3."],
+["God sent Jonah to preach in",["Nineveh","Egypt","Babylon","Bethlehem"],0,"Jonah went to Nineveh."],
+HQ("Which of these is a form of worship that includes thanks and giving?",["Prayer, singing and offerings","Gossip","Arguing","Boasting"],0,"Worship expresses love and thanks to God."));
+DATA["Pre-Technical Studies"].push(
+["In an isometric drawing, the receding lines are drawn at",["30° to the horizontal","45° to the horizontal","60° to the vertical","90°"],0,"Isometric uses two 30° axes."],
+["Which instrument is used to draw circles?",["Compass","Try square","Rule","Protractor"],0,"A compass draws arcs and circles."],
+["A claw hammer is used to",["Drive and remove nails","Cut wood","Measure","Drill"],0,"The claw pulls nails."],
+["A welder should wear",["Dark protective goggles","Sunglasses","Sandals","A scarf"],0,"Goggles protect against sparks and bright light."],
+["Which metal is magnetic?",["Iron","Aluminium","Copper","Brass"],0,"Iron and steel are attracted to magnets."],
+["Plastics that soften when heated and can be reshaped are",["Thermoplastics","Thermosets","Ceramics","Metals"],0,"Thermoplastics can be remelted."],
+HQ("A trader buys 20 items at KSh 280 and sells each at KSh 350. The total profit is",["KSh 1,400","KSh 70","KSh 7,000","KSh 5,600"],0,"Profit per item 70; 20 × 70 = 1,400."),
+["The Shift key is used to",["Type capital letters","Delete text","Save a file","Print"],0,"Hold Shift to type capitals."],
+["Which item should you NOT share online?",["Your password","A school project title","A joke","A favourite colour"],0,"Passwords must stay private."],
+["A budget is a plan of",["Expected income and spending","Past mistakes","School rules","Business names"],0,"It guides how money is used."]);
+DATA["Creative Arts & Sports"].push(
+["A group of three singers is a",["Trio","Duet","Quartet","Solo"],0,"Trio means three."],
+["Which is a brass instrument?",["Trumpet","Flute","Drum","Guitar"],0,"Trumpets are made of brass."],
+["Which is a traditional Kenyan string instrument?",["Nyatiti","Drum","Whistle","Horn"],0,"The nyatiti is an eight-stringed lyre of the Luo."],
+["Perspective in drawing is used to show",["Depth","Colour","Rhythm","Loudness"],0,"It makes flat drawings look three-dimensional."],
+["How rough or smooth a surface feels or looks is its",["Texture","Tone","Line","Form"],0,"Texture is the surface quality."],
+["A standard football match lasts",["90 minutes","60 minutes","45 minutes","120 minutes"],0,"Two halves of 45 minutes."],
+["A handball team has how many players on court (including the goalkeeper)?",["7","6","9","11"],0,"Six court players plus a goalkeeper."],
+["A volleyball team has how many players on court?",["6","5","7","9"],0,"Six players per team."],
+["In first aid for a sprain (RICE), R stands for",["Rest","Run","Rub","Reach"],0,"Rest, Ice, Compression, Elevation."],
+["A hurdles race is a",["Track event","Field event","Throwing event","Jumping event"],0,"Hurdles are run on the track."]);
 
 const DATA6={
 "Mathematics":[
@@ -966,6 +1122,62 @@ const DATA6={
 ["Jesus fed five thousand people using",["Five loaves and two fish","Ten loaves","Many fish only","Rice and beans"],0,"A boy's five loaves and two fish were shared."]]
 };
 
+DATA6["Mathematics"].push(
+["Which is a prime number?",["15","17","21","27"],1,"17 has only two factors, 1 and 17."],
+["Half of 1,250 is",["525","625","650","750"],1,"1,250 ÷ 2 = 625."],
+["The perimeter of a rectangle 15 cm long and 8 cm wide is",["23 cm","46 cm","120 cm","92 cm"],1,"2 × (15 + 8) = 46."],
+["0.5 as a fraction is",["1/2","1/5","5/100","2/5"],0,"0.5 = 5/10 = 1/2."],
+["The average of 4, 6 and 8 is",["5","6","7","18"],1,"18 ÷ 3 = 6."],
+["2 hours 15 minutes in minutes is",["135","215","115","150"],0,"120 + 15 = 135."],
+["A teacher has 5 packets of 12 pencils and gives away 18. How many are left?",["42","60","48","30"],0,"60 − 18 = 42."],
+["Angles on a straight line add up to",["90°","180°","270°","360°"],1,"A straight line is 180°."],
+["Which is the largest number?",["0.9","0.09","0.19","0.91"],3,"0.91 > 0.9 > 0.19 > 0.09."],
+["How many faces does a cuboid have?",["4","6","8","12"],1,"A cuboid has 6 faces."]);
+DATA6["English"].push(
+["She is ___ honest girl.",["a","an","the","some"],1,"'Honest' begins with a vowel sound."],
+["I have lived here ___ 2019.",["since","for","from","at"],0,"'Since' points to a starting time."],
+["They ___ playing football now.",["is","are","was","be"],1,"'They' takes 'are'."],
+["The opposite of 'brave' is",["cowardly","strong","clever","kind"],0,"Brave ≠ cowardly."],
+["Which word is a noun?",["happiness","quickly","beautiful","run"],0,"Happiness names a feeling."],
+["The boys ___ their homework before supper.",["finished","finish","finishing","finishes"],0,"Past tense is needed."],
+["Sam hid his sweets because he wanted them all for himself. He is",["selfish","generous","kind","careless"],0,"He refused to share."],
+["The plural of 'tooth' is",["teeth","tooths","toothes","teethes"],0,"Tooth – teeth."]);
+DATA6["Kiswahili"].push(
+["Wingi wa 'kikombe' ni",["vikombe","kikombe","wikombe","mikombe"],0,"KI-VI: kikombe – vikombe."],
+["Kinyume cha 'juu' ni",["chini","mbali","kando","ndani"],0,"Juu ≠ chini."],
+["Ni sentensi ipi iko katika wakati uliopo?",["Anakula ugali","Alikula ugali","Atakula ugali","Hakula ugali"],0,"-na- huonyesha wakati uliopo."],
+["Ngeli ya 'mama' ni",["A-WA","KI-VI","U-I","LI-YA"],0,"Mama – mama (watu) ni A-WA."],
+["Ni neno lipi ni nomino?",["mwalimu","kimbia","vizuri","haraka"],0,"Mwalimu ni jina la mtu."],
+["Alama inayoonyesha swali ni",["?","!",".",","],0,"Alama ya swali ni ?."]);
+DATA6["Science & Technology"].push(
+["Which organ pumps blood around the body?",["Heart","Lungs","Liver","Kidney"],0,"The heart pumps blood."],
+["Plants make their own food by",["Photosynthesis","Digestion","Respiration","Evaporation"],0,"Photosynthesis uses light, water and carbon dioxide."],
+["A magnet attracts",["Iron","Wood","Plastic","Glass"],0,"Magnets attract magnetic materials."],
+["Which is a natural source of light?",["The Sun","A mirror","The Moon","A book"],0,"The Sun gives off its own light."],
+["Animals that have a backbone are called",["Vertebrates","Invertebrates","Insects","Plants"],0,"Vertebrates have backbones."],
+["Pure water boils at",["100°C","0°C","50°C","200°C"],0,"At sea level, water boils at 100°C."],
+["Which soil is best for growing most crops?",["Loam","Sand","Clay","Gravel"],0,"Loam holds water and nutrients well."],
+["Which disease can be spread by dirty water?",["Cholera","Malaria","Measles","Tooth decay"],0,"Drink clean, treated water."]);
+DATA6["Social Studies"].push(
+["The capital city of Kenya is",["Nairobi","Mombasa","Kisumu","Nakuru"],0,"Nairobi is the capital."],
+["Which colours are on Kenya's flag?",["Black, red, green and white","Blue, white and red","Green and yellow","Black and gold"],0,"They stand for the people, blood shed, land and peace."],
+["Lake Turkana is found in",["Northern Kenya","Western Kenya","Coastal Kenya","Central Kenya"],0,"It lies in the north."],
+["The money used in Kenya is the",["Shilling","Dollar","Rand","Pound"],0,"The Kenyan shilling."],
+["Which ocean borders Kenya?",["Indian Ocean","Atlantic Ocean","Pacific Ocean","Arctic Ocean"],0,"Kenya's coast is on the Indian Ocean."],
+["Which instrument is used to find direction?",["Compass","Ruler","Thermometer","Rain gauge"],0,"A compass shows north."]);
+DATA6["Creative Arts & Sports"].push(
+["Mixing blue and yellow gives",["Green","Orange","Purple","Brown"],0,"Blue + yellow = green."],
+["Which instrument is struck to make a sound?",["Drum","Flute","Violin","Whistle"],0,"Drums are percussion instruments."],
+["In football, the goalkeeper may use hands inside the",["Penalty area","Centre circle","Touchline","Corner"],0,"Only in the penalty area."],
+["A good warm-up helps to",["Prevent injuries","Make you tired","Lose the ball","Stop playing"],0,"It prepares muscles."],
+["Drawing with wax crayons then painting over with watery paint is",["Wax resist","Weaving","Printing","Carving"],0,"The wax repels the paint."]);
+DATA6["Religious Education (CRE)"].push(
+["Jesus was baptised in the River",["Jordan","Nile","Tigris","Galilee"],0,"John baptised Jesus in the Jordan."],
+["In the Good Samaritan story, the man helped had been",["Robbed and beaten","Lost","Arrested","Sick at home"],0,"The Samaritan cared for him."],
+["Moses led the Israelites across the",["Red Sea","Dead Sea","Mediterranean Sea","Sea of Galilee"],0,"God parted the Red Sea."],
+["The last book of the Bible is",["Revelation","Genesis","Psalms","John"],0,"Revelation is the final book."],
+["Which of these is a way of showing love to others?",["Sharing and helping","Teasing","Boasting","Quarrelling"],0,"Love is shown by kind actions."]);
+
 const GR={9:Object.fromEntries(Object.entries(DATA).map(([k,v])=>[k,v.slice()])),6:DATA6};let CUR=9;
 function setGrade(n){CUR=n;ls('g9last',n);lockData();SUBS=Object.keys(DATA)}
 const FREE=5,SECRET='5e339d1e1d8a8444f4af0404';
@@ -999,8 +1211,8 @@ render('Premium unlocked',`<div class="card"><b>Thank you!</b><p>Premium is acti
 const _L=learn,_C=cards,_M=mock,_G=grades,_S=subjects;
 learn=s=>prem?_L(s):go(paywall);cards=s=>prem?_C(s):go(paywall);mock=()=>prem?_M():go(paywall);
 const banner=()=>{const s=document.querySelector('section');if(s&&!prem){const b=document.createElement('button');b.className='btn';b.textContent='👑 Go Premium';b.onclick=()=>go(paywall);s.prepend(b)}};
-grades=()=>{_G();banner()};subjects=t=>{_S(t);banner()};
-const STATS_URL='https://script.google.com/macros/s/AKfycbzYVDp7ayrev_ZRZIEcfLPJmZaMDith6L8E3pGR81zcF1p6F3j7tlVSTiJ_391-WhPu/exec';
+grades=()=>{_G();banner();qbBtn()};subjects=t=>{_S(t);banner()};
+const STATS_URL='';
 function ping(force){if(!STATS_URL)return;try{const d=new Date().toISOString().slice(0,10);if(!force&&ls('g9ping')===d)return;ls('g9ping',d);fetch(STATS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({id:did,g:+(ls('g9last')||CUR),p:prem?1:0})}).catch(()=>{})}catch(e){}}
 lockData();splash();ping();
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
