@@ -114,6 +114,50 @@ select.in{appearance:none;-webkit-appearance:none}
 .chips{display:flex;flex-wrap:wrap;gap:8px}.chip{background:#141416;border:1px solid #26262a;color:#fff;border-radius:20px;padding:8px 12px;font:inherit;font-size:.85rem;cursor:pointer}.chip.on{background:#0f3f3b;border-color:#2dd4bf;color:#5eead4}
 #app:has(.splash){background:radial-gradient(circle at 50% 30%,#0b3b38,#000 70%)}
 .dg{background:#fff}
+
+section{padding:20px 16px 100px;animation:fadein .25s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.row,.card,.opt,.tile{border-radius:18px}
+.row{padding:16px;margin-bottom:12px}
+.opt{padding:16px}.q{font-size:1.2rem;line-height:1.5}
+.pr{width:72px;height:72px;border-radius:50%;background:conic-gradient(#2dd4bf calc(var(--p)*1%),#26262a 0);display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.pr .ic{margin:0!important;width:60px;height:60px;font-size:1.7rem}
+.tile small{display:block;color:var(--mute);font-size:.75rem;margin-top:4px;font-weight:400}
+.hero2{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#0d4a45,#0b2f2c);border-radius:20px;padding:18px;margin-bottom:12px}
+.hero2 small{color:#a7f3e5;display:block}.big2{display:block;font-size:1.5rem;margin:4px 0}
+.ringsm{position:relative;width:78px;height:78px;border-radius:50%;background:conic-gradient(#2dd4bf calc(var(--p)*1%),#0b2f2c 0);display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none}
+.ringsm::before{content:'';position:absolute;inset:7px;border-radius:50%;background:#0b2f2c}
+.ringsm span,.ringsm small{position:relative;line-height:1.1}.ringsm span{font-size:1.3rem;font-weight:700}.ringsm small{font-size:.65rem}
+.qa{flex:1;background:#141416;border:1px solid #26262a;border-radius:18px;padding:16px;color:#fff;font:inherit;font-weight:700;cursor:pointer;text-align:center}
+.qa span{display:block;font-size:1.5rem;margin-bottom:4px}
+.two{margin-bottom:6px}
+
+.bgs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px}
+.bg{background:#141416;border:1px solid #26262a;border-radius:16px;padding:12px 6px;text-align:center;opacity:.4}
+.bg.on{opacity:1;border-color:#2dd4bf}.bg span{display:block;font-size:1.6rem}.bg small{display:block;font-size:.7rem;margin-top:4px;color:var(--mute)}
+html[data-size="1"]{font-size:18px}html[data-size="2"]{font-size:20px}
+:root[data-theme="light"]{--bg:#f4f6fa;--card:#fff;--ink:#0b1f4d;--mute:#5a6b85;--line:#dde5ee;--okbg:#e2f5e9;--badbg:#fdeaea;--ok:#1b8a4b;--bad:#c62828}
+:root[data-theme="light"] body{background:#f4f6fa;color:#0b1f4d}
+:root[data-theme="light"] header{background:#0b1f4d;border-bottom:1px solid #0b1f4d}
+:root[data-theme="light"] nav{background:#fff;border-top:1px solid #dde5ee}
+:root[data-theme="light"] nav button{color:#7a889f}:root[data-theme="light"] nav button.on{color:#0f766e}
+:root[data-theme="light"] :is(.row,.card,.opt,.tile,.hero,.qa,.stats3 div,.chip,.bg){background:#fff;border:1px solid #dde5ee;color:#0b1f4d}
+:root[data-theme="light"] .gr,:root[data-theme="light"] .gr:nth-child(odd){background:#fff!important;border:1px solid #dde5ee;color:#0b1f4d}
+:root[data-theme="light"] .tile .ic,:root[data-theme="light"] .row .ic{background:#d9f5f1!important}
+:root[data-theme="light"] .in{background:#fff;border:1px solid #dde5ee;color:#0b1f4d}
+:root[data-theme="light"] .btn{background:#0f766e;color:#fff}
+:root[data-theme="light"] .btn.ghost{background:transparent;border:1px solid #0f766e;color:#0f766e}
+:root[data-theme="light"] .bar{background:#dde5ee}
+:root[data-theme="light"] .opt.sel{background:#d9f5f1;border-color:#0f766e}
+:root[data-theme="light"] .opt.ok{background:#e2f5e9;border-color:#1b8a4b}
+:root[data-theme="light"] .opt.bad{background:#fdeaea;border-color:#c62828}
+:root[data-theme="light"] .th{color:#0f766e}
+:root[data-theme="light"] small,:root[data-theme="light"] .sm{color:#5a6b85}
+:root[data-theme="light"] .chip.on{background:#d9f5f1;border-color:#0f766e;color:#0f766e}
+:root[data-theme="light"] .pr{background:conic-gradient(#14b8a6 calc(var(--p)*1%),#dde5ee 0)}
+:root[data-theme="light"] .splash .btn{background:#14b8a6;color:#031a18}
+:root[data-theme="light"] .hero2 small,:root[data-theme="light"] .ringsm small{color:#a7f3e5}
+:root[data-theme="light"] .hero2,:root[data-theme="light"] .hero2 b{color:#fff}
 </style><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#000000"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"></head><body><div id="app"></div>
 <script>
 const DATA={
@@ -433,15 +477,15 @@ function back(){nav.pop();(nav[nav.length-1]||grades)()}
 function render(title,body,tab,nb){clearInterval(tmr);
 app.innerHTML=`<header>${nb?'':'<button class="bk" id="bk" aria-label="Back">‹</button>'}<h2>${title}</h2>${nb?'':'<span style="width:32px"></span>'}</header><section>${body}</section>`+(tab?`<nav>${[['Home','🏠'],['Subjects','📚'],['Progress','📊']].map(([n,i])=>`<button data-t="${n}" class="${tab===n?'on':''}"><span>${i}</span>${n}</button>`).join('')}</nav>`:'');
 const b=document.getElementById('bk');if(b)b.onclick=back;
-app.querySelectorAll('nav button').forEach(x=>x.onclick=()=>{const t=x.dataset.t;t==='Home'?go(grades,1):go(()=>subjects(t==='Progress'?'p':'s'),1)});scrollTo(0,0)}
+app.querySelectorAll('nav button').forEach(x=>x.onclick=()=>{const t=x.dataset.t;t==='Home'?go(grades,1):t==='Progress'?go(myProgress,1):go(()=>subjects('s'),1)});scrollTo(0,0)}
 function splash(){app.innerHTML=`<section class="splash"><div class="logo">📖</div><h1>RHEMA</h1><b>CBC REVISION</b><p>Preparing learners for KPSEA &amp; KJSEA</p><button class="btn" id="gs">Get Started</button>${(STATS_URL||STATS_FORM.url)?'<p style="font-size:.75rem;opacity:.8;margin-top:18px">This app counts installs anonymously. No names or phone numbers are collected.</p>':''}</section>`;document.getElementById('gs').onclick=()=>go(grades,1)}
 function grades(){const G=[[4,'CBC','#2e9e5b','🧒'],[5,'CBC','#f28c1e','👦'],[6,'KPSEA','#1f6fd1','🎓'],[7,'CBC','#7b3fc4','🧑‍🎓'],[8,'CBC','#12a3a3','📚'],[9,'KJSEA','#e8474c','🏫']];
 render('Select Grade',G.map(([n,t,c,e])=>`<button class="gr ${GR[n]?'':'off'}" style="background:${c}" data-g="${n}"><span>${e}</span><div><b>Grade ${n}</b><small>${t}${GR[n]?'':' · coming soon'}</small></div><i>›</i></button>`).join(''),'Home',1);
 app.querySelectorAll('.gr').forEach(b=>b.onclick=()=>{if(GR[b.dataset.g]){setGrade(+b.dataset.g);go(()=>subjects('s'))}else b.querySelector('small').textContent='Grade '+b.dataset.g+' content is coming soon'})}
-function subjects(t){render('Grade '+CUR+(CUR==9?' - KJSEA':CUR==6?' - KPSEA':''),`<div class="seg"><button class="${t=='s'?'on':''}" data-x="s">Subjects</button><button class="${t=='p'?'on':''}" data-x="p">My Progress</button></div>`+(t=='s'?`<div class="grid">${SUBS.map(s=>`<button class="tile" data-s="${s}"><div class="ic" style="background:${IC[s][1]}">${IC[s][0]}</div>${s}</button>`).join('')}</div>`:SUBS.map(s=>`<div class="card"><b>${s}</b><div class="bar"><i style="width:${pct(s)}%"></i></div><small>Best score: ${pct(s)}%</small></div>`).join('')),t=='s'?'Subjects':'Progress');
+function subjects(t){render('Grade '+CUR+(CUR==9?' - KJSEA':CUR==6?' - KPSEA':''),`<div class="seg"><button class="${t=='s'?'on':''}" data-x="s">Subjects</button><button class="${t=='p'?'on':''}" data-x="p">My Progress</button></div>`+(t=='s'?`<div class="grid">${SUBS.map(s=>`<button class="tile" data-s="${s}"><div class="pr" style="--p:${pct(s)}"><div class="ic" style="background:${IC[s][1]}">${IC[s][0]}</div></div>${s}<small>${pct(s)?'Best '+pct(s)+'%':'Not started'}</small></button>`).join('')}</div>`:SUBS.map(s=>`<div class="card"><b>${s}</b><div class="bar"><i style="width:${pct(s)}%"></i></div><small>Best score: ${pct(s)}%</small></div>`).join('')),t=='s'?'Subjects':'Progress');
 app.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{nav.pop();go(()=>subjects(b.dataset.x))});
 app.querySelectorAll('.tile').forEach(b=>b.onclick=()=>go(()=>modes(b.dataset.s)))}
-function modes(s){const M=[['Learn','Notes & worked examples','📘','#dbe8ff',()=>learn(s)],['Practice','Topic-based questions','✏️','#ffe3c4',()=>quiz(s,Math.min(15,DATA[s].length),'Practice - '+s)],['Mock Exams','Full exam simulations','📝','#e4e4f7',()=>mock()],['Quick Revision','Short questions','⚡','#d8f3e2',()=>quiz(s,3,'Quick Revision')],['Flashcards','Key concepts','🗂️','#ffd9ec',()=>cards(s)]];if(getEx(s))M.splice(1,0,['Exam Focus','What the national exam tests','🎯','#fff0c9',()=>examFocus(s)]);if(CUR==9&&s==='Mathematics')M.splice(2,0,['Predicted Paper','Latest prediction practice paper','🔮','#e9d9ff',()=>predOverview(0)]);if((CUR==7||CUR==8)&&s==='Mathematics')M.splice(2,0,['Assessment Paper','Section A and B practice paper','📝','#e9d9ff',()=>predOverview(CUR==7?1:2)]);if(GR[CUR][s].some(x=>x[5]))M.splice(2,0,['Challenge','Harder, scenario-based questions','🔥','#ffd9d9',()=>prem?quiz(s,Math.min(10,GR[CUR][s].filter(x=>x[5]).length),'Challenge - '+s,1):go(paywall)]);
+function modes(s){try{ls('g9cont',JSON.stringify({g:CUR,s}))}catch(e){}const M=[['Learn','Notes & worked examples','📘','#dbe8ff',()=>learn(s)],['Practice','Topic-based questions','✏️','#ffe3c4',()=>quiz(s,Math.min(15,DATA[s].length),'Practice - '+s)],['Mock Exams','Full exam simulations','📝','#e4e4f7',()=>mock()],['Quick Revision','Short questions','⚡','#d8f3e2',()=>quiz(s,3,'Quick Revision')],['Flashcards','Key concepts','🗂️','#ffd9ec',()=>cards(s)]];if(getEx(s))M.splice(1,0,['Exam Focus','What the national exam tests','🎯','#fff0c9',()=>examFocus(s)]);if(CUR==9&&s==='Mathematics')M.splice(2,0,['Predicted Paper','Latest prediction practice paper','🔮','#e9d9ff',()=>predOverview(0)]);if(CUR==6&&s==='Mathematics')M.splice(2,0,['KPSEA Prediction Paper','30-question practice paper','🔮','#e9d9ff',()=>predOverview(3)]);if((CUR==7||CUR==8)&&s==='Mathematics')M.splice(2,0,['Assessment Paper','Section A and B practice paper','📝','#e9d9ff',()=>predOverview(CUR==7?1:2)]);if(GR[CUR][s].some(x=>x[5]))M.splice(2,0,['Challenge','Harder, scenario-based questions','🔥','#ffd9d9',()=>prem?quiz(s,Math.min(10,GR[CUR][s].filter(x=>x[5]).length),'Challenge - '+s,1):go(paywall)]);
 render(s,`<div class="hero"><span class="ic">${IC[s][0]}</span><div><b>${s}</b><br><small>Grade ${CUR}${CUR==9?' - KJSEA':CUR==6?' - KPSEA':''}</small><div class="bar"><i style="width:${pct(s)}%"></i></div><small>${pct(s)}% best score</small></div></div>`+M.map((m,i)=>`<button class="row" data-m="${i}"><span class="ic" style="background:${m[3]}">${m[2]}</span><div><b>${m[0]}</b><small>${m[1]}</small></div><i>›</i></button>`).join(''));
 app.querySelectorAll('.row').forEach(b=>b.onclick=()=>go(M[b.dataset.m][4]))}
 function learn(s){const T=topicsOf(s);if(!T){return render('Learn - '+s,DATA[s].map(([q,o,a,w,d])=>`<div class="card"><b>${q}</b>${d?`<div class="dg">${d}</div>`:''}<p>Answer: <b>${o[a]}</b></p><small>${w}</small></div>`).join(''))}
@@ -457,14 +501,14 @@ render(title,`<div class="qh"><span>${i+1} / ${qs.length}</span><span id="tm">${
 tmr=setInterval(()=>{const e=document.getElementById('tm');if(e)e.textContent=mmss(Math.round((Date.now()-t0)/1000))},1000);
 const box=document.getElementById('o'),nx=document.getElementById('nx'),step=()=>{i++;i<qs.length?q():fin()};
 ord.forEach((k,n)=>{const b=document.createElement('button');b.className='opt';b.innerHTML=`<b>${L[n]}</b>${o[k]}`;
-b.onclick=()=>{if(done)return;done=1;const ok=k===a;if(ok)sc++;rec.push([t,o[k],o[a],ok]);
+b.onclick=()=>{if(done)return;done=1;const ok=k===a;if(ok)sc++;rec.push([t,o[k],o[a],ok]);note(qs[i],s,ok);
 [...box.children].forEach((x,m)=>{if(ord[m]===a)x.classList.add('ok')});if(!ok)b.classList.add('bad');
 document.getElementById('fb').innerHTML=`<div class="ex ${ok?'g':'r'}"><b>${ok?'Correct!':'Incorrect'}</b><p>The correct answer is ${L[ord.indexOf(a)]}: ${o[a]}</p><p>${w}</p></div>`;nx.disabled=false;document.getElementById('sk').disabled=true};box.appendChild(b)});
-nx.onclick=step;document.getElementById('sk').onclick=()=>{rec.push([t,'Skipped',o[a],false]);step()}}
+nx.onclick=step;document.getElementById('sk').onclick=()=>{rec.push([t,'Skipped',o[a],false]);note(qs[i],s,false);step()}}
 function fin(){const p=Math.round(sc/qs.length*100),tt=Math.round((Date.now()-t0)/1000);if(n>=3&&!pool&&p>pct(s)){prog[CUR+':'+s]=p;sv()}
-render('Results',`<div class="ring" style="background:conic-gradient(var(--blue) ${p}%,var(--line) 0)"><span>${p}%</span></div><p style="text-align:center">You scored <b>${sc} / ${qs.length}</b></p><div class="stats"><div><b>${mmss(tt)}</b><small>Time</small></div><div><b style="color:var(--ok)">${sc}</b><small>Correct</small></div><div><b style="color:var(--bad)">${qs.length-sc}</b><small>Incorrect</small></div></div><button class="btn ghost" id="rv">Review Answers</button><button class="btn" id="ta">Try Again</button><button class="btn ghost" id="bs">Back to Subject</button><div id="rl"></div>`);
+track(sc,qs.length);render('Results',`<div class="ring" style="background:conic-gradient(var(--blue) ${p}%,var(--line) 0)"><span>${p}%</span></div><p style="text-align:center">You scored <b>${sc} / ${qs.length}</b></p><div class="stats"><div><b>${mmss(tt)}</b><small>Time</small></div><div><b style="color:var(--ok)">${sc}</b><small>Correct</small></div><div><b style="color:var(--bad)">${qs.length-sc}</b><small>Incorrect</small></div></div><button class="btn ghost" id="rv">Review Answers</button><button class="btn" id="ta">Try Again</button><button class="btn ghost" id="bs">Back to Subject</button>${shareA(sc,qs.length,title)}<div id="rl"></div>`);
 document.getElementById('rv').onclick=()=>{document.getElementById('rl').innerHTML=rec.map(r=>`<div class="ex ${r[3]?'g':'r'}"><b>${r[0]}</b><p>Your answer: ${r[1]}</p><p>Correct: ${r[2]}</p></div>`).join('')};
-document.getElementById('ta').onclick=()=>{nav.pop();go(()=>quiz(s,n,title,hard,pool))};document.getElementById('bs').onclick=()=>{nav=nav.slice(0,nav.findIndex(f=>f.toString().includes('modes('))+1);back();go(()=>modes(s))}}
+document.getElementById('ta').onclick=()=>{nav.pop();go(()=>quiz(s,n,title,hard,pool))};document.getElementById('bs').onclick=()=>{if(s==='Mistakes'||!GR[CUR][s]){go(myProgress,1);return}nav=nav.slice(0,nav.findIndex(f=>f.toString().includes('modes('))+1);back();go(()=>modes(s))}}
 q()}
 
 DATA["Agriculture & Nutrition"].push(
@@ -854,9 +898,9 @@ render('Mock - '+s,`<div class="qh"><span id="cnt">0 / ${pick.length} answered</
 const ans={},t0=Date.now();
 app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;ans[i]=+b.dataset.n;app.querySelectorAll('.opt[data-i="'+i+'"]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');document.getElementById('cnt').textContent=Object.keys(ans).length+' / '+pick.length+' answered'});
 tmr=setInterval(()=>{const e=document.getElementById('tm');if(e)e.textContent=mmss(Math.round((Date.now()-t0)/1000))},1000);
-document.getElementById('sb').onclick=()=>{let sc=0;const by={};pick.forEach((x,i)=>{const ok=ans[i]!==undefined&&x.o[ans[i]]===x.q[2];(by[x.t]=by[x.t]||[0,0])[1]++;if(ok){sc++;by[x.t][0]++}x.ok=ok});
+document.getElementById('sb').onclick=()=>{let sc=0;const by={};pick.forEach((x,i)=>{const ok=ans[i]!==undefined&&x.o[ans[i]]===x.q[2];note(x.q,s,ok);(by[x.t]=by[x.t]||[0,0])[1]++;if(ok){sc++;by[x.t][0]++}x.ok=ok});
 const p=Math.round(sc/pick.length*100),tt=Math.round((Date.now()-t0)/1000);if(p>pct(s)){prog[CUR+':'+s]=p;sv()}
-render('Mock results',`<div class="ring" style="background:conic-gradient(var(--blue) ${p}%,var(--line) 0)"><span>${p}%</span></div><p style="text-align:center">You scored <b>${sc} / ${pick.length}</b> in ${mmss(tt)}</p><h3 class="th">Score by topic</h3>`+Object.entries(by).map(([t,v])=>`<div class="row" style="cursor:default"><div><b>${t}</b></div><b>${v[0]} / ${v[1]}</b></div>`).join('')+`<h3 class="th">Review</h3>`+pick.map((x,i)=>`<div class="ex ${x.ok?'g':'r'}"><b>${i+1}. ${x.q[0]}</b><p>Your answer: ${ans[i]===undefined?'Not answered':x.q[1][x.o[ans[i]]]}</p><p>Correct: ${x.q[1][x.q[2]]}</p><p>${x.q[3]}</p></div>`).join(''))}}
+track(sc,pick.length);render('Mock results',`<div class="ring" style="background:conic-gradient(var(--blue) ${p}%,var(--line) 0)"><span>${p}%</span></div><p style="text-align:center">You scored <b>${sc} / ${pick.length}</b> in ${mmss(tt)}</p><h3 class="th">Score by topic</h3>`+Object.entries(by).map(([t,v])=>`<div class="row" style="cursor:default"><div><b>${t}</b></div><b>${v[0]} / ${v[1]}</b></div>`).join('')+`<h3 class="th">Review</h3>`+pick.map((x,i)=>`<div class="ex ${x.ok?'g':'r'}"><b>${i+1}. ${x.q[0]}</b><p>Your answer: ${ans[i]===undefined?'Not answered':x.q[1][x.o[ans[i]]]}</p><p>Correct: ${x.q[1][x.q[2]]}</p><p>${x.q[3]}</p></div>`).join(''))}}
 
 const HQ=(q,o,a,w)=>[q,o,a,w,0,1];
 DATA["Mathematics"].push(
@@ -1431,6 +1475,155 @@ function examFocus(s){const E=getEx(s),list=(t,a)=>`<div class="card"><b>${t}</b
 render('Exam Focus - '+s,`<div class="card"><b>Paper format</b>${E.f.map(x=>`<p style="margin:6px 0">${x}</p>`).join('')}</div>`+(E.a?list('Section A: multiple choice',E.a):'')+(E.b?list('Section B: structured questions',E.b):'')+`<h3 class="th">${E.h||'Topics that appeared in the papers'}</h3>`+E.t.map((x,i)=>`<button class="row" data-i="${i}"><span class="ic" style="background:#fff0c9">🎯</span><div><b>${x[0]}</b><small>${x[1]}${x[2]?' · tap to practise':''}</small></div><i>›</i></button>`).join('')+list('Exam tips',E.k)+(E.l?`<h3 class="th">More practice online</h3>`+E.l.map(x=>`<a class="row" style="text-decoration:none" href="${x[1]}" target="_blank" rel="noopener"><span class="ic" style="background:#0f2f2c">🔗</span><div><b>${x[0]}</b><small>${x[2]}</small></div><i>›</i></a>`).join(''):'')+`<p style="font-size:.8rem;color:var(--mute)">${E.n||'Based on the KJSEA papers supplied. The questions in this app are original practice questions, not KNEC papers.'}</p>`);
 app.querySelectorAll('button[data-i]').forEach(b=>b.onclick=()=>{const x=E.t[+b.dataset.i];if(!x[2])return;const pool=DATA[s].filter(q=>classify(q,s)===x[2]);if(pool.length)go(()=>quiz(s,Math.min(10,pool.length),'Practice - '+x[0],0,pool))})}
 
+const clk=(h,m)=>{const pt=(a,l)=>[90+l*Math.sin(a*Math.PI/180),90-l*Math.cos(a*Math.PI/180)];const ha=(h%12)*30+m*.5,ma=m*6,H=pt(ha,38),M=pt(ma,56);
+return SV(180,180,CI(90,90,72)+[...Array(12).keys()].map(i=>{const a=i*30,p1=pt(a,64),p2=pt(a,72),t=pt(a,52);return LN(p1[0].toFixed(1),p1[1].toFixed(1),p2[0].toFixed(1),p2[1].toFixed(1))+TX(t[0].toFixed(1),(t[1]+4).toFixed(1),i||12)}).join('')+LN(90,90,H[0].toFixed(1),H[1].toFixed(1),'stroke-width="5"')+LN(90,90,M[0].toFixed(1),M[1].toFixed(1),'stroke-width="3"')+CI(90,90,4,'#14213d'))};
+const g6frac=SV(240,70,`<rect x="20" y="10" width="200" height="50"/>`+[1,2,3,4,5,6,7].map(i=>LN(20+i*25,10,20+i*25,60)).join('')+[0,1,2].map(i=>`<rect x="${20+i*25}" y="10" width="25" height="50" fill="#14b8a6" fill-opacity=".5"/>`).join(''));
+const g6angle=SV(220,130,LN(110,110,210,110)+LN(110,110,65,32)+`<path d="M140 110 A30 30 0 0 0 95 84"/>`);
+const g6bars=SV(280,190,LN(30,150,270,150)+LN(30,150,30,0)+[0,5,10,15].map(v=>LN(26,150-v*10,34,150-v*10)+TX(22,154-v*10,v,'end')).join('')+[['Mango',10],['Banana',6],['Orange',14],['Pawpaw',8]].map(([n,v],i)=>`<rect x="${45+i*55}" y="${150-v*10}" width="40" height="${v*10}" fill="#9db9ee"/>`+TX(65+i*55,168,n)).join('')+TX(8,12,'No.','start'));
+const g6line=SV(240,80,LN(20,50,220,50)+[...Array(11).keys()].map(i=>LN(20+i*20,44,20+i*20,56)).join('')+TX(20,72,'4')+TX(220,72,'5')+`<path d="M140 12 V40 M133 32 L140 41 L147 32" stroke="#1a56d6" stroke-width="3"/>`);
+const g6circ=cl=>SV(240,140,`<rect x="30" y="30" width="180" height="80"/><rect x="24" y="62" width="14" height="16" fill="#fff" stroke="none"/>`+LN(18,60,42,60)+LN(26,78,34,78)+bulb(120,30)+(cl?'':'<rect x="100" y="104" width="40" height="12" fill="#fff" stroke="none"/>')+(cl?'':LN(100,110,132,92))+(cl?'':CI(100,110,3,'#14213d')+CI(140,110,3,'#14213d'))+TX(120,132,'Switch'));
+const g6plant=SV(220,170,LN(110,30,110,120)+`<ellipse cx="82" cy="60" rx="24" ry="10" fill="#7ac27a"/><ellipse cx="138" cy="85" rx="24" ry="10" fill="#7ac27a"/>`+LN(30,120,190,120,'stroke-dasharray="4"')+LN(110,120,85,155)+LN(110,120,110,160)+LN(110,120,135,155)+LN(60,60,25,30)+TX(18,26,'A')+LN(110,100,185,40)+TX(194,38,'B')+LN(110,150,185,150)+TX(194,154,'C'));
+DATA6["Mathematics"].push(
+["Which number is four hundred and six thousand and fifty-nine?",["46,059","406,059","460,059","406,590"],1,"406 thousand and 59."],
+["What is the value of digit 7 in 3,472,150?",["700","7,000","70,000","700,000"],2,"The 7 is in the ten-thousands place."],
+["Four schools enrolled 3,408, 3,048, 3,840 and 3,084 learners. Which number of learners is the smallest?",["3,408","3,048","3,840","3,084"],1,"Compare from the left: 3,048 is the smallest."],
+["A farmer packed 48 eggs in each tray. How many eggs are in 125 trays?",["5,000","5,800","6,000","6,400"],2,"48 × 125 = 6,000."],
+["A school bought 1,260 exercise books to share equally among 36 classes. How many books does each class get?",["30","35","40","45"],1,"1,260 ÷ 36 = 35."],
+["Complete the pattern: 3, 6, 12, 24, __",["30","36","48","54"],2,"Each number is doubled."],
+["Which fraction of the rectangle is shaded?",["3/5","3/8","5/8","3/7"],1,"3 of the 8 equal parts are shaded.",g6frac],
+["Wanjiru ate 1/4 of a cake and Brian ate 1/3 of the same cake. What fraction of the cake was left?",["1/12","5/12","7/12","2/7"],1,"1/4 + 1/3 = 7/12 eaten; 1 − 7/12 = 5/12."],
+["In a class of 40 learners, 25% walk to school. How many learners walk to school?",["4","10","15","25"],1,"25% is a quarter; 40 ÷ 4 = 10."],
+["Atieno bought 2.5 kg of sugar and 1.75 kg of rice. What was the total mass of the goods?",["3.25 kg","4.25 kg","4.75 kg","42.5 kg"],1,"2.50 + 1.75 = 4.25."],
+["A pen costs KSh 12.50. Mary paid with KSh 50. How much change did she get?",["KSh 37.50","KSh 38.50","KSh 62.50","KSh 36.50"],0,"50.00 − 12.50 = 37.50."],
+["6,468 rounded to the nearest thousand is",["6,000","6,400","6,500","7,000"],0,"The hundreds digit 4 is less than 5, so round down."],
+["A rope is 3 m 40 cm long. Its length in centimetres is",["34","304","340","3,040"],2,"3 × 100 + 40 = 340 cm."],
+["A jug holds 2 litres 500 millilitres of juice. How many 250 ml cups can be filled from it?",["5","8","10","25"],2,"2,500 ÷ 250 = 10."],
+["A lorry carried 4 tonnes of maize packed in 50 kg bags. How many bags were there?",["8","40","80","800"],2,"4 tonnes = 4,000 kg; 4,000 ÷ 50 = 80."],
+["What time is shown by the clock? (It is in the morning.)",["7:20 a.m.","4:35 a.m.","7:04 a.m.","4:07 a.m."],0,"The hour hand is just past 7 and the minute hand points to 4, which is 20 minutes.",clk(7,20)],
+["A film started at 3:45 p.m. and lasted 2 hours 30 minutes. At what time did it end?",["5:15 p.m.","6:15 p.m.","6:30 p.m.","7:15 p.m."],1,"3:45 + 2:30 = 6:15 p.m."],
+["Express 8:25 p.m. in the 24-hour system.",["0825 hours","1825 hours","2025 hours","2125 hours"],2,"8 p.m. is 20:00, so 8:25 p.m. is 2025 hours."],
+["Joy sold 15 books at KSh 80 each. The books had cost her KSh 900 altogether. What was her profit?",["KSh 120","KSh 300","KSh 1,200","KSh 2,100"],1,"Sales 1,200 − cost 900 = 300."],
+["What type of angle is shown?",["Acute angle","Right angle","Obtuse angle","Reflex angle"],2,"It is bigger than 90° but less than 180°.",g6angle],
+["Two angles on a straight line are 70° and x. The value of x is",["20°","90°","110°","290°"],2,"Angles on a straight line add up to 180°."],
+["How many vertices does a triangular prism have?",["4","5","6","9"],2,"It has 6 vertices, 9 edges and 5 faces."],
+["A rectangular garden is 14 m long and 9 m wide. How much fencing is needed to go round it once?",["23 m","46 m","126 m","92 m"],1,"2 × (14 + 9) = 46."],
+["A classroom floor measures 8 m by 6 m. It is covered with square tiles of side 2 m. How many tiles are needed?",["12","24","48","96"],0,"Floor 48 m²; each tile 4 m²; 48 ÷ 4 = 12."],
+["The graph shows the fruits chosen by learners. How many more learners chose oranges than bananas?",["4","6","8","14"],2,"Orange 14 − banana 6 = 8.",g6bars],
+["How many learners were surveyed altogether in the graph?",["30","34","38","42"],2,"10 + 6 + 14 + 8 = 38.",g6bars],
+["Which number is shown by the arrow on the number line?",["4.1","4.5","4.6","5.6"],2,"The arrow is at the 6th tick after 4, which is 4.6.",g6line],
+["A shopkeeper bought 6 pineapples for KSh 360 and sold each at KSh 75. What was his total profit?",["KSh 15","KSh 90","KSh 450","KSh 810"],1,"Sales 6 × 75 = 450; 450 − 360 = 90."],
+["A school bought 56 pairs of games shoes at KSh 450 each. How much money did the school spend?",["KSh 2,520","KSh 20,200","KSh 25,200","KSh 252,000"],2,"56 × 450 = 25,200."],
+["The ages of three children are 7, 9 and 14 years. What is their mean age?",["9 years","10 years","11 years","30 years"],1,"30 ÷ 3 = 10."]);
+PRED.push({id:'k6m',grade:6,subject:'Mathematics',title:'Grade 6 Mathematics: KPSEA Prediction Paper 1',A:DATA6["Mathematics"].slice(-30).map(q=>q.length>4?[q[0],q[1],q[2],q[3],q[4]]:[q[0],q[1],q[2],q[3]]),B:[]});
+DATA6["English"].push(
+["Kip planted maize in March. By June the plants were taller than him. In August he harvested many cobs and shared them with his neighbours. Kip shared the cobs because he was",["selfish","generous","lazy","angry"],1,"Sharing with neighbours shows generosity."],
+["Kip planted maize in March and harvested in August. How many months passed from planting to harvesting?",["3 months","4 months","5 months","6 months"],2,"March to August is 5 months."],
+["The teacher asked, \"Why are you late?\" Which reply is the most polite?",["I am sorry, Teacher. The bus broke down.","It is not my fault.","Leave me alone.","I don't know."],0,"A polite reply apologises and gives a reason."],
+["My mother ___ to the market every Saturday.",["go","goes","going","gone"],1,"'Mother' takes 'goes' in the present tense."],
+["The book is ___ the shelf.",["on","at","with","for"],0,"'On' shows the book rests on the shelf."],
+["Which sentence is correct?",["She don't like milk.","She doesn't like milk.","She not like milk.","She doesn't likes milk."],1,"'Doesn't' is followed by the base form."],
+["Kamau is ___ than his brother.",["tall","taller","tallest","more tall"],1,"Use -er to compare two people."],
+["The plural of 'mouse' is",["mouses","mice","mices","mouse"],1,"Mouse – mice."]);
+DATA6["Kiswahili"].push(
+["Wingi wa 'mwalimu' ni",["mwalimu","walimu","wamwalimu","mealimu"],1,"Mwalimu – walimu."],
+["Kinyume cha neno 'mpya' ni",["kuukuu","mzuri","kubwa","mrefu"],0,"Mpya ≠ kuukuu."],
+["Chagua sentensi sahihi.",["Watoto wanacheza uwanjani","Watoto anacheza uwanjani","Mtoto wanacheza uwanjani","Watoto unacheza uwanjani"],0,"Kiambishi cha wingi 'wa-' kinapatana na 'watoto'."],
+["Ni neno lipi ni kivumishi?",["kimbia","mrefu","shule","jana"],1,"Mrefu hueleza sifa ya nomino."]);
+DATA6["Science & Technology"].push(
+["Look at the circuit. The bulb will",["light","not light","burst","become cold"],0,"The circuit is complete with the switch closed.",g6circ(1)],
+["Look at the circuit. The bulb will not light because",["The circuit is open","The bulb is too big","The wire is long","There is a cell"],0,"The switch is open, so the current cannot flow.",g6circ(0)],
+["In the picture of a plant, which part absorbs water from the soil?",["A","B","C","None of them"],2,"C points to the roots, which take in water.",g6plant],
+["A learner heated water in a metal pot. The handle became too hot to touch. Which material is best for the handle?",["Iron","Wood","Copper","Steel"],1,"Wood is a poor conductor of heat."],
+["A ball rolls farther on a smooth floor than on a carpet because the smooth floor has",["more friction","less friction","more gravity","less light"],1,"Less friction slows the ball less."],
+["When a drum is hit harder, the sound becomes",["louder","softer","higher in pitch only","silent"],0,"A stronger vibration gives a louder sound."],
+["Why should drinking water from a river be boiled?",["To add colour","To kill germs","To make it salty","To make it heavy"],1,"Boiling kills germs that cause disease."],
+["A nurse visits school to talk about hygiene. Which habit helps to prevent typhoid?",["Washing hands before eating","Sleeping early","Playing outside","Reading daily"],0,"Clean hands stop germs entering the mouth."]);
+DATA6["Social Studies"].push(
+["On a map, 1 cm represents 5 km. Two towns are 4 cm apart on the map. The real distance between them is",["9 km","20 km","25 km","40 km"],1,"4 × 5 = 20 km."],
+["A learner faces north and turns 90° clockwise. Which direction is she now facing?",["East","West","South","North-west"],0,"A clockwise quarter turn from north faces east."],
+["A farmer sold 20 bags of maize at KSh 3,000 each and spent KSh 15,000 on fertiliser. How much money was left?",["KSh 45,000","KSh 60,000","KSh 75,000","KSh 15,000"],0,"60,000 − 15,000 = 45,000."],
+["Which activity is an example of trade?",["A trader selling clothes at the market","A child reading a book","A family watching TV","A teacher marking books"],0,"Trade is buying and selling goods."]);
+const KNECART6=['How KNEC sets assessments (article)','https://educationnews.co.ke/debunking-the-knec-assessment-setting-myths-2/','Explains that KNEC bases assessments on curriculum designs and sample papers'];
+const mc=['Read every question carefully and underline the numbers or key words.','Rule out options you know are wrong, then choose the best one.','Study the picture or table before reading the choices.','Do not leave any question blank; shade one circle for every question.'];
+EXAMG[6]={
+"Mathematics":{al:'How to tackle the multiple-choice paper',h:'Topics to focus on',n:'A practice guide based on the 2025 KPSEA papers supplied. The questions in this app are original practice questions, not KNEC papers.',f:['KPSEA Mathematics: 30 multiple-choice questions in 1 hour 20 minutes (October 2025 paper).','Every question is multiple choice, so use the margin for working.'],a:mc,t:[['Whole numbers and place value','Number words, place value, ordering, rounding, patterns','Whole Numbers & Place Value'],['Fractions, decimals and percentages','Adding fractions, decimals, percentage of an amount','Fractions, Decimals & Percentages'],['Time, money and measures','12- and 24-hour time, profit, change, length, capacity and mass','Time, Money & Measures'],['Geometry, shapes and area','Angles, 3-D shapes, parallel lines, perimeter and area','Geometry, Shapes & Area'],['Data handling','Bar graphs and tables','Data Handling']],k:['Practise word problems: they appear often.','Learn the unit conversions (cm, m, km, ml, litres, kg, tonnes).','Check your answer makes sense before shading.'],l:[KNECART6]},
+"English":{al:'How to tackle the multiple-choice paper',h:'Topics to focus on',n:'A practice guide based on the 2025 KPSEA papers supplied. The questions in this app are original practice questions.',f:['KPSEA English: 30 multiple-choice questions in 1 hour (October 2025 paper).','It includes a conversation to complete, reading passages, fill-in-the-blank passages and grammar questions.'],a:mc,t:[['Everyday conversation and politeness','Completing conversations and choosing polite replies','Everyday Conversation & Politeness'],['Vocabulary and comprehension','Meaning of words, character, inference','Vocabulary & Comprehension'],['Tenses, pronouns and plurals','Present, past and perfect tenses, pronouns and plurals','Tenses, Pronouns & Plurals'],['Prepositions, conjunctions and comparison','On, under, unless, -er and -est','Prepositions, Conjunctions & Comparison'],['Punctuation','Question marks and speech marks','Punctuation']],k:['Read each passage twice before the questions.','For fill-in-the-blank passages, read the whole sentence first.','Check that the verb agrees with its subject.'],l:[KNECART6]},
+"Kiswahili":{al:'Jinsi ya kujibu maswali ya kuchagua',h:'Mada za kuzingatia',n:'Mwongozo wa mazoezi kutokana na karatasi za KPSEA 2025 zilizotolewa. Maswali ya programu hii ni ya mazoezi ya asili.',f:['KPSEA Kiswahili: maswali ya kuchagua jibu sahihi.','Yanahusu vifungu vya kusoma, mazungumzo, kujaza nafasi na sarufi.'],a:['Soma kifungu mara mbili kabla ya kujibu.','Ondoa majibu yasiyofaa, kisha chagua lililo bora.','Zingatia ngeli na wakati wa vitenzi.'],t:[['Ngeli, wingi na umoja','Ngeli, wingi, umoja na vivumishi','Ngeli, Wingi na Umoja'],['Vitenzi, nyakati na ukanusho','Nyakati na ukanusho','Vitenzi, Nyakati na Ukanusho'],['Msamiati, methali na vinyume','Vinyume, methali na maana za maneno','Msamiati, Methali na Vinyume'],['Viunganishi, uakifishaji na adabu','Viunganishi, alama za uakifishaji na adabu katika mazungumzo','Sarufi: Viunganishi, Uakifishaji na Adabu']],k:['Jifunze ngeli kwa mifano.','Fanya mazoezi ya kila siku.'],l:[KNECART6]},
+"Science & Technology":{al:'How to tackle the multiple-choice paper',h:'Topics to focus on',n:'A practice guide based on the 2025 KPSEA papers supplied. The questions in this app are original practice questions.',f:['KPSEA Science and Technology: 50 multiple-choice questions in 1 hour 40 minutes (October 2025 paper).','Many questions use pictures, so study the picture before answering.'],a:mc,t:[['Forces, heat, light, sound and electricity','Friction, conduction, shadows, vibrations and simple circuits','Forces, Heat, Light, Sound & Electricity'],['Matter, water and materials','States of matter, evaporation and rusting','Matter, Water & Materials'],['Living things, plants and animals','Plant parts, planting materials, weeds, compost and erosion','Living Things, Plants & Animals'],['Human body, health and nutrition','Nutrients, hygiene and preventing disease','Human Body, Health & Nutrition'],['Tools and technology','Caring for tools, preserving food and instruments','Tools & Technology']],k:['Link every practice (weeding, planting, cooking) to its reason.','Learn the order of steps in a process.','Revise household topics such as laundry and food preservation.'],l:[KNECART6]},
+"Social Studies":{al:'How to tackle the multiple-choice paper',h:'Topics to focus on',n:'A practice guide based on the 2025 KPSEA papers supplied. The questions in this app are original practice questions.',f:['Social Studies is part of the Creative Arts and Social Studies (CASS) paper: 50 multiple-choice questions in 1 hour 40 minutes.','The paper has three parts. Part III is Religious Education, and the learner answers the one registered for (CRE, IRE or HRE).'],a:mc,t:[['People and communities of Kenya','Language groups and trade','People & Communities of Kenya'],['Geography and map work','Directions, mountains, national parks, scale','Geography & Map Work'],['Government, courts and citizens','Counties, courts and rights','Government, Courts & Citizens']],k:['Use the map key and the compass when a map is shown.','Learn the main communities and their language groups.'],l:[KNECART6]},
+"Creative Arts & Sports":{al:'How to tackle the multiple-choice paper',h:'Topics to focus on',n:'A practice guide based on the 2025 KPSEA papers supplied. The questions in this app are original practice questions.',f:['Creative Arts is tested in the Creative Arts and Social Studies (CASS) paper: 50 multiple-choice questions in 1 hour 40 minutes.'],a:mc,t:[['Music and culture','Tempo, instruments and folk songs','Music & Culture'],['Art and craft','Colours, wax resist and mitre joints','Art & Craft'],['Sports and games','Warm-ups, rounders and athletics','Sports & Games']],k:['Learn the key terms for music and art.','Link each game to its rules and skills.'],l:[KNECART6]},
+"Religious Education (CRE)":{al:'How to tackle the multiple-choice paper',h:'Topics to focus on',n:'A practice guide based on the 2025 KPSEA papers supplied. The questions in this app are original practice questions.',f:['Religious Education is Part III of the Creative Arts and Social Studies (CASS) paper. Learners answer the section they registered for: CRE, IRE or HRE.'],a:mc,t:[['Creation and Bible stories','Creation, Noah, David','Creation & Bible Stories'],['Jesus\' life and teaching','The Last Supper, Lazarus, miracles','Jesus\' Life & Teaching'],['Christian living','Fruit of the Spirit, worship, helping others','Christian Living']],k:['Remember the lesson from each Bible story.','Apply each story to everyday life.'],l:[KNECART6]}};
+function predictions(){render('Latest predictions',`<div class="card"><b>Practice papers modelled on recent exams</b><p style="margin:6px 0;color:var(--mute)">Each paper is written to match the format, topics and difficulty of national-style papers. They are practice and prediction papers for revision, not the real exam, and nothing in them is guaranteed to be set.</p></div>`+PRED.map((P,i)=>`<button class="row" data-i="${i}"><span class="ic" style="background:#2a1f45">🔮</span><div><b>${P.title}</b><small>${P.B.length?`Section A: ${P.A.length} multiple-choice (${P.A.length} marks) · Section B: ${P.B.length} structured (${bmarks(P)} marks)`:`${P.A.length} multiple-choice questions, like the real paper`}</small></div><i>›</i></button>`).join(''));
+app.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>go(()=>predOverview(+b.dataset.i)))}
+function predOverview(i){const P=PRED[i],B=P.B.length;render(P.title,`<div class="card"><b>${P.title}</b><p style="margin:6px 0;color:var(--mute)">${B?`Section A has ${P.A.length} multiple-choice questions you answer here and mark instantly. Section B has ${P.B.length} structured questions: write your answers on paper, then open the marking scheme to mark yourself.`:`${P.A.length} multiple-choice questions in the style of the real KPSEA paper. Answer them here, then see your score and a review with explanations.`}</p></div><button class="btn" id="pa">${B?`Start Section A (${P.A.length} marks)`:`Start the paper (${P.A.length} questions)`}</button>${B?`<button class="btn ghost" id="pb">Open Section B (${bmarks(P)} marks)</button>`:''}<p style="font-size:.8rem;color:var(--mute)">A practice paper for revision. Not the real exam.</p>`);
+document.getElementById('pa').onclick=()=>prem?go(()=>predA(i)):go(paywall);const pb=document.getElementById('pb');if(pb)pb.onclick=()=>prem?go(()=>predB(i)):go(paywall)}
+function predA(i){const P=PRED[i],N=P.A.length,ans={},t0=Date.now(),sec=P.B.length?'Section A':'Paper';
+render(sec,`<div class="qh"><span id="cnt">0 / ${N} answered</span><span id="tm">00:00</span></div>`+P.A.map((x,k)=>`<div class="card"><p class="q">${k+1}. ${x[0]}</p>${x[4]?`<div class="dg">${x[4]}</div>`:''}${x[1].map((o,n)=>`<button class="opt" data-i="${k}" data-n="${n}"><b>${L[n]}</b>${o}</button>`).join('')}</div>`).join('')+`<button class="btn" id="sb">Submit ${sec.toLowerCase()}</button>`);
+app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const k=+b.dataset.i;ans[k]=+b.dataset.n;app.querySelectorAll('.opt[data-i="'+k+'"]').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');document.getElementById('cnt').textContent=Object.keys(ans).length+' / '+N+' answered'});
+tmr=setInterval(()=>{const e=document.getElementById('tm');if(e)e.textContent=mmss(Math.round((Date.now()-t0)/1000))},1000);
+document.getElementById('sb').onclick=()=>{let sc=0;P.A.forEach((x,k)=>{if(ans[k]===x[2])sc++});const p=Math.round(sc/N*100);
+track(sc,N);render(sec+' results',`<div class="ring" style="background:conic-gradient(var(--blue) ${p}%,var(--line) 0)"><span>${sc}/${N}</span></div><p style="text-align:center">${sec}: <b>${sc} out of ${N} marks</b> in ${mmss(Math.round((Date.now()-t0)/1000))}</p><h3 class="th">Review</h3>`+P.A.map((x,k)=>`<div class="ex ${ans[k]===x[2]?'g':'r'}"><b>${k+1}. ${x[0]}</b><p>Your answer: ${ans[k]===undefined?'Not answered':x[1][ans[k]]}</p><p>Correct: ${x[1][x[2]]}</p><p>${x[3]}</p></div>`).join(''))}}
+function examFocus(s){const E=getEx(s),list=(t,a)=>`<div class="card"><b>${t}</b>${a.map(x=>`<p style="margin:6px 0">• ${x}</p>`).join('')}</div>`;
+render('Exam Focus - '+s,`<div class="card"><b>Paper format</b>${E.f.map(x=>`<p style="margin:6px 0">${x}</p>`).join('')}</div>`+(E.a?list(E.al||'Section A: multiple choice',E.a):'')+(E.b?list('Section B: structured questions',E.b):'')+`<h3 class="th">${E.h||'Topics that appeared in the papers'}</h3>`+E.t.map((x,i)=>`<button class="row" data-i="${i}"><span class="ic" style="background:#fff0c9">🎯</span><div><b>${x[0]}</b><small>${x[1]}${x[2]?' · tap to practise':''}</small></div><i>›</i></button>`).join('')+list('Exam tips',E.k)+(E.l?`<h3 class="th">More practice online</h3>`+E.l.map(x=>`<a class="row" style="text-decoration:none" href="${x[1]}" target="_blank" rel="noopener"><span class="ic" style="background:#0f2f2c">🔗</span><div><b>${x[0]}</b><small>${x[2]}</small></div><i>›</i></a>`).join(''):'')+`<p style="font-size:.8rem;color:var(--mute)">${E.n||'Based on the KJSEA papers supplied. The questions in this app are original practice questions, not KNEC papers.'}</p>`);
+app.querySelectorAll('button[data-i]').forEach(b=>b.onclick=()=>{const x=E.t[+b.dataset.i];if(!x[2])return;const pool=DATA[s].filter(q=>classify(q,s)===x[2]);if(pool.length)go(()=>quiz(s,Math.min(10,pool.length),'Practice - '+x[0],0,pool))})}
+
+function track(c,t){try{const st=JSON.parse(ls('g9st')||'{}');st.q=(st.q||0)+t;st.c=(st.c||0)+c;st.n=(st.n||0)+1;ls('g9st',JSON.stringify(st))}catch(e){}}
+function homeTop(){const s=document.querySelector('section');if(!s)return;
+let st={};try{st=JSON.parse(ls('g9st')||'{}')}catch(e){}
+const q=st.q||0,c=st.c||0,n=st.n||0,acc=q?Math.round(c/q*100):0;let cont=null;try{cont=JSON.parse(ls('g9cont')||'null')}catch(e){}
+const ok=cont&&GR[cont.g]&&GR[cont.g][cont.s],h=document.createElement('div');
+h.innerHTML=`<div class="hero2"><div><small>Your progress</small><b class="big2">${q?acc+'% correct':'Ready to start'}</b><small>${q?c+' of '+q+' questions':'Pick a grade below'}</small></div><div class="ringsm" style="--p:${acc}"><span>${n}</span><small>quizzes</small></div></div>`+(ok?`<button class="row" id="cn"><span class="ic" style="background:#0f2f2c">▶</span><div><b>Continue where you left off</b><small>Grade ${cont.g} · ${cont.s}</small></div><i>›</i></button>`:'')+(prem?'':'<button class="btn" id="gp">👑 Go Premium</button>')+`<div class="two"><button class="qa" id="qb"><span>✨</span>Quiz builder</button><button class="qa" id="pd"><span>🔮</span>Predictions</button></div><h3 class="th">Choose your grade</h3>`;
+s.prepend(h);const g=id=>h.querySelector('#'+id);
+if(g('cn'))g('cn').onclick=()=>{setGrade(cont.g);go(()=>modes(cont.s))};if(g('gp'))g('gp').onclick=()=>go(paywall);
+g('qb').onclick=()=>go(builder);g('pd').onclick=()=>go(predictions)}
+
+const jget=(k,d)=>{try{const v=JSON.parse(ls(k));return v==null?d:v}catch(e){return d}},jset=(k,v)=>ls(k,JSON.stringify(v));
+const today=()=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+function streak(){const D=new Set(jget('g9days',[]));let n=0,d=new Date(Date.now()-new Date().getTimezoneOffset()*6e4);if(!D.has(d.toISOString().slice(0,10)))d=new Date(d.getTime()-864e5);while(D.has(d.toISOString().slice(0,10))){n++;d=new Date(d.getTime()-864e5)}return n}
+function dayMark(){try{const D=jget('g9days',[]),t=today();if(!D.includes(t)){D.push(t);jset('g9days',D.slice(-400))}const sk=streak(),st=jget('g9st',{});if(sk>(st.b||0)){st.b=sk;jset('g9st',st)}}catch(e){}}
+const subjOf=q=>{for(const s in GR[CUR])if(GR[CUR][s].includes(q))return s;return null};
+function note(q,s,ok){try{if(s==='Mistakes')s=subjOf(q)||s;const k=CUR+'|'+s+'|'+classify(q,s),T=jget('g9top',{});T[k]=T[k]||[0,0];T[k][1]++;if(ok)T[k][0]++;jset('g9top',T);
+const M=jget('g9mis',[]),id=CUR+'|'+s+'|'+q[0],i=M.indexOf(id);
+if(ok){if(i>=0){M.splice(i,1);const st=jget('g9st',{});st.f=(st.f||0)+1;jset('g9st',st)}}else if(i<0)M.push(id);jset('g9mis',M.slice(-300));dayMark()}catch(e){}}
+function track(c,t){try{const st=jget('g9st',{});st.q=(st.q||0)+t;st.c=(st.c||0)+c;st.n=(st.n||0)+1;if(t>=5&&c===t)st.p=(st.p||0)+1;jset('g9st',st);dayMark()}catch(e){}}
+const badges=(st,sk)=>{const b=Math.max(st.b||0,sk);return[['🌱','First quiz',(st.n||0)>=1],['🔥','3-day streak',b>=3],['🔥','7-day streak',b>=7],['📅','30-day streak',b>=30],['🎯','10 quizzes',(st.n||0)>=10],['🏅','100 questions',(st.q||0)>=100],['🏆','500 questions',(st.q||0)>=500],['⭐','Perfect score',(st.p||0)>=1],['🧠','20 mistakes fixed',(st.f||0)>=20]]};
+const APPURL='https://thairurobert65-ai.github.io/Rev/';
+const appLink=()=>(location.protocol.indexOf('http')===0&&!/claude/.test(location.host))?location.origin+location.pathname:APPURL;
+const shareHref=t=>'https://wa.me/?text='+encodeURIComponent(t+'\n'+appLink());
+const shareA=(sc,n,t)=>`<a class="btn ghost" target="_blank" rel="noopener" href="${shareHref('📚 I scored '+sc+'/'+n+' in '+t+' on Rhema CBC Revision!')}" style="display:block;text-align:center;text-decoration:none">Share score on WhatsApp</a>`;
+function applySet(){const S=jget('g9set',{}),r=document.documentElement;if(r&&r.setAttribute){r.setAttribute('data-theme',S.theme||'dark');r.setAttribute('data-size',S.size||0)}}
+const daysTo=d=>Math.ceil((new Date(d+'T00:00:00')-new Date(today()+'T00:00:00'))/864e5);
+function weak(){const T=jget('g9top',{});return Object.entries(T).map(([k,v])=>{const a=k.split('|');return{g:+a[0],s:a[1],t:a.slice(2).join('|'),c:v[0],n:v[1],p:Math.round(v[0]/v[1]*100)}}).filter(x=>x.n>=3&&x.p<80&&GR[x.g]).sort((a,b)=>a.p-b.p||b.n-a.n).slice(0,5)}
+function practiseTopic(x){setGrade(x.g);const pool=(GR[x.g][x.s]||[]).filter(q=>classify(q,x.s)===x.t);if(pool.length)go(()=>quiz(x.s,Math.min(10,pool.length),'Practice - '+x.t,0,pool))}
+function mistakes(){const pool=[];jget('g9mis',[]).filter(id=>id.indexOf(CUR+'|')===0).forEach(id=>{const a=id.split('|'),s=a[1],t=a.slice(2).join('|'),q=(GR[CUR][s]||[]).find(x=>x[0]===t);if(q)pool.push(q)});if(pool.length)go(()=>quiz('Mistakes',Math.min(10,pool.length),'Mistakes notebook',0,pool))}
+function homeTop(){const s=document.querySelector('section');if(!s)return;
+const st=jget('g9st',{}),q=st.q||0,c=st.c||0,n=st.n||0,acc=q?Math.round(c/q*100):0,sk=streak(),ex=jget('g9exam',null),cont=jget('g9cont',null),ok=cont&&GR[cont.g]&&GR[cont.g][cont.s],h=document.createElement('div');
+const dl=ex&&daysTo(ex.d)>=0?daysTo(ex.d):null;
+h.innerHTML=`<div class="hero2"><div><small>Your progress</small><b class="big2">${q?acc+'% correct':'Ready to start'}</b><small>${sk?'🔥 '+sk+'-day streak':'Start a streak today'}${dl!==null?' · ⏳ '+dl+' days to '+ex.n:''}</small></div><div class="ringsm" style="--p:${acc}"><span>${n}</span><small>quizzes</small></div></div>`+(ok?`<button class="row" id="cn"><span class="ic" style="background:#0f2f2c">▶</span><div><b>Continue where you left off</b><small>Grade ${cont.g} · ${cont.s}</small></div><i>›</i></button>`:'')+(prem?'':'<button class="btn" id="gp">👑 Go Premium</button>')+`<div class="two"><button class="qa" id="qb"><span>✨</span>Quiz builder</button><button class="qa" id="pd"><span>🔮</span>Predictions</button></div><button class="row" id="mp"><span class="ic" style="background:#0f2f2c">📊</span><div><b>My progress</b><small>Badges, weak topics, mistakes and study plan</small></div><i>›</i></button><h3 class="th">Choose your grade</h3>`;
+s.prepend(h);const g=id=>h.querySelector('#'+id);
+if(g('cn'))g('cn').onclick=()=>{setGrade(cont.g);go(()=>modes(cont.s))};if(g('gp'))g('gp').onclick=()=>go(paywall);
+g('qb').onclick=()=>go(builder);g('pd').onclick=()=>go(predictions);g('mp').onclick=()=>go(myProgress)}
+function myProgress(){const st=jget('g9st',{}),q=st.q||0,c=st.c||0,acc=q?Math.round(c/q*100):0,sk=streak(),bd=badges(st,sk),M=jget('g9mis',[]).filter(id=>id.indexOf(CUR+'|')===0).length,W=weak(),S=jget('g9set',{}),ex=jget('g9exam',null),dl=ex&&daysTo(ex.d)>=0?daysTo(ex.d):null,cont=jget('g9cont',null),earned=bd.filter(b=>b[2]).length;
+const sub=cont&&GR[cont.g]&&GR[cont.g][cont.s]?cont:null;
+let plan='';
+if(dl!==null){plan=`<div class="hero2"><div><small>${ex.n}</small><b class="big2">${dl} days to go</b><small>${Math.ceil(dl/7)} weeks · ${ex.d}</small></div><div class="ringsm" style="--p:${Math.max(0,100-Math.min(100,dl))}"><span>${dl}</span><small>days</small></div></div><div class="card"><b>Today's plan</b>${M?`<button class="row" id="t1" style="margin-top:10px"><span class="ic">🧠</span><div><b>Revise your mistakes</b><small>${M} question${M>1?'s':''} waiting</small></div><i>›</i></button>`:''}${W[0]?`<button class="row" id="t2"><span class="ic">🎯</span><div><b>Practise your weakest topic</b><small>${W[0].s} · ${W[0].t}</small></div><i>›</i></button>`:''}${sub?`<button class="row" id="t3"><span class="ic">📘</span><div><b>10-question quiz</b><small>${sub.s}</small></div><i>›</i></button>`:''}${!M&&!W[0]&&!sub?'<p style="color:var(--mute)">Take a quiz to get a personal plan.</p>':''}</div><button class="btn ghost" id="exc">Change exam date</button>`}
+else plan=`<div class="card"><b>Set your exam date</b><p class="sm">Get a countdown and a daily study plan.</p><select id="exn" class="in"><option>KPSEA</option><option>KJSEA</option><option>My exam</option></select><input id="exd" type="date" class="in" style="margin-top:8px"><p id="exm" style="color:var(--bad);margin:6px 0"></p><button class="btn" id="exs">Save exam date</button></div>`;
+render('My progress',`<div class="hero2"><div><small>Streak</small><b class="big2">🔥 ${sk} day${sk===1?'':'s'}</b><small>${q?c+' of '+q+' questions correct ('+acc+'%)':'Answer a question to start your streak'}</small></div><div class="ringsm" style="--p:${acc}"><span>${earned}</span><small>badges</small></div></div>
+<h3 class="th">Badges</h3><div class="bgs">${bd.map(b=>`<div class="bg${b[2]?' on':''}"><span>${b[0]}</span><small>${b[1]}</small></div>`).join('')}</div>
+<h3 class="th">Weak topics</h3>${W.length?W.map((x,i)=>`<button class="row" data-w="${i}"><span class="ic">🎯</span><div><b>${x.t}</b><small>Grade ${x.g} · ${x.s} · ${x.p}% (${x.c}/${x.n})</small></div><i>›</i></button>`).join(''):'<p class="sm">Answer at least 3 questions in a topic and your weak topics will show here.</p>'}
+<h3 class="th">Mistakes notebook</h3><button class="row" id="mn"><span class="ic">🧠</span><div><b>Revise mistakes</b><small>${M?M+' question'+(M>1?'s':'')+' to fix in this grade':'Nothing to fix. Great work!'}</small></div><i>›</i></button>
+<h3 class="th">Exam countdown and plan</h3>${plan}
+<h3 class="th">Share</h3><a class="btn" target="_blank" rel="noopener" href="${shareHref('📚 Revising with Rhema CBC Revision\n🔥 '+sk+'-day streak\n✅ '+c+' of '+q+' questions correct ('+acc+'%)\n🏅 '+earned+' badges')}" style="display:block;text-align:center;text-decoration:none">Share my progress on WhatsApp</a>
+<h3 class="th">Settings</h3><div class="card"><b>Text size</b><div class="two" style="margin-top:8px">${['Normal','Large','Extra large'].map((x,i)=>`<button class="chip${(S.size||0)===i?' on':''}" data-z="${i}">${x}</button>`).join('')}</div><b style="display:block;margin-top:14px">Theme</b><div class="two" style="margin-top:8px">${['dark','light'].map(x=>`<button class="chip${(S.theme||'dark')===x?' on':''}" data-t="${x}">${x==='dark'?'Dark':'Light'}</button>`).join('')}</div></div>`,'Progress');
+const $=id=>document.getElementById(id);
+app.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>practiseTopic(W[+b.dataset.w]));
+if($('mn'))$('mn').onclick=()=>mistakes();if($('t1'))$('t1').onclick=()=>mistakes();if($('t2'))$('t2').onclick=()=>practiseTopic(W[0]);
+if($('t3'))$('t3').onclick=()=>{setGrade(sub.g);const pool=GR[sub.g][sub.s];go(()=>quiz(sub.s,Math.min(10,pool.length),'Quick quiz - '+sub.s,0,pool))};
+if($('exs'))$('exs').onclick=()=>{const d=$('exd').value;if(!d||daysTo(d)<0){$('exm').textContent='Pick a date in the future.';return}jset('g9exam',{n:$('exn').value,d});myProgress()};
+if($('exc'))$('exc').onclick=()=>{try{ls('g9exam','null')}catch(e){}myProgress()};
+app.querySelectorAll('[data-z]').forEach(b=>b.onclick=()=>{const v=jget('g9set',{});v.size=+b.dataset.z;jset('g9set',v);applySet();myProgress()});
+app.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{const v=jget('g9set',{});v.theme=b.dataset.t;jset('g9set',v);applySet();myProgress()})}
+
 const GR={9:Object.fromEntries(Object.entries(DATA).map(([k,v])=>[k,v.slice()])),6:DATA6,7:DATA7,8:DATA8};let CUR=9;
 function setGrade(n){CUR=n;ls('g9last',n);lockData();SUBS=Object.keys(DATA)}
 const FREE=5,SECRET='5e339d1e1d8a8444f4af0404';
@@ -1464,12 +1657,12 @@ render('Premium unlocked',`<div class="card"><b>Thank you!</b><p>Premium is acti
 const _L=learn,_C=cards,_M=mock,_G=grades,_S=subjects;
 learn=s=>prem?_L(s):go(paywall);cards=s=>prem?_C(s):go(paywall);mock=()=>prem?_M():go(paywall);
 const banner=()=>{const s=document.querySelector('section');if(s&&!prem){const b=document.createElement('button');b.className='btn';b.textContent='👑 Go Premium';b.onclick=()=>go(paywall);s.prepend(b)}};
-grades=()=>{_G();banner();qbBtn();predBtn()};subjects=t=>{_S(t);banner()};
+grades=()=>{_G();homeTop()};subjects=t=>{_S(t);banner()};
 const STATS_URL='';
 const STATS_FORM={url:'',id:'',g:'',p:''};
 function ping(force){const F=STATS_FORM;if(!STATS_URL&&!F.url)return;try{const d=new Date().toISOString().slice(0,10);if(!force&&ls('g9ping')===d)return;ls('g9ping',d);const gr=+(ls('g9last')||CUR);
 if(F.url){const q=new URLSearchParams();q.set(F.id,did);q.set(F.g,gr);q.set(F.p,prem?'Yes':'No');fetch(F.url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:q.toString()}).catch(()=>{})}
 else fetch(STATS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({id:did,g:gr,p:prem?1:0})}).catch(()=>{})}catch(e){}}
-lockData();splash();ping();
+applySet();lockData();splash();ping();
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
 </script></body></html>
