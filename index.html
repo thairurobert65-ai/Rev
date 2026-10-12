@@ -1235,7 +1235,92 @@ DATA6["Religious Education (CRE)"].push(
 ["The last book of the Bible is",["Revelation","Genesis","Psalms","John"],0,"Revelation is the final book."],
 ["Which of these is a way of showing love to others?",["Sharing and helping","Teasing","Boasting","Quarrelling"],0,"Love is shown by kind actions."]);
 
-const GR={9:Object.fromEntries(Object.entries(DATA).map(([k,v])=>[k,v.slice()])),6:DATA6};let CUR=9;
+const DATA7={"Mathematics":[
+["−8 + 5 =",["−13","−3","3","13"],1,"Start at −8 and move 5 up the number line."],
+["−4 × −6 =",["−24","−10","10","24"],3,"A negative times a negative is positive."],
+["3/4 + 1/8 =",["4/12","7/8","1","3/32"],1,"3/4 = 6/8, so 6/8 + 1/8 = 7/8."],
+["2/3 of 90 is",["30","45","60","75"],2,"90 ÷ 3 = 30; 30 × 2 = 60."],
+["3.5 × 0.4 =",["0.14","1.4","14","1.04"],1,"35 × 4 = 140; one decimal place in each gives 1.40."],
+["The square root of 81 is",["8","9","18","40.5"],1,"9 × 9 = 81."],
+["KSh 600 is shared in the ratio 2 : 3. The larger share is",["KSh 240","KSh 300","KSh 360","KSh 400"],2,"600 ÷ 5 = 120 per part; 3 × 120 = 360."],
+["25% of 480 is",["96","120","125","240"],1,"480 ÷ 4 = 120."],
+["A tap fills 12 litres in 4 minutes. How many litres does it fill in 10 minutes?",["30","36","40","48"],0,"Rate = 3 litres a minute; 3 × 10 = 30."],
+["Which is the largest number?",["0.45","0.405","0.5","0.054"],2,"0.5 = 0.500 is larger than 0.450."],
+["4,367 rounded to the nearest hundred is",["4,300","4,400","4,370","4,000"],1,"The tens digit 6 rounds up to 4,400."],
+["Which is a prime number?",["9","15","13","21"],2,"13 has only two factors, 1 and 13."],
+["Simplify 3a + 5a − 2a",["6a","10a","6","8a"],0,"3 + 5 − 2 = 6, so 6a."],
+["Solve x + 7 = 15",["7","8","22","9"],1,"Subtract 7 from both sides: x = 8."],
+["Solve 3y = 21",["18","24","63","7"],3,"Divide both sides by 3: y = 7."],
+["If n = 4, the value of 2n + 3 is",["9","10","11","24"],2,"2 × 4 + 3 = 11."],
+["Expand 4(x + 2)",["4x + 2","4x + 8","x + 8","8x"],1,"Multiply each term inside by 4."],
+["Which number satisfies x < 5?",["5","6","4","7"],2,"Only 4 is less than 5."],
+["Two angles on a straight line are 115° and x. The value of x is",["55°","65°","75°","245°"],1,"Angles on a straight line add up to 180°."],
+["The sum of the angles in a triangle is",["90°","180°","270°","360°"],1,"The angles of any triangle add up to 180°."],
+["A triangle with three equal sides is",["Isosceles","Scalene","Equilateral","Right-angled"],2,"Equilateral means all sides are equal."],
+["How many faces does a triangular prism have?",["3","4","5","6"],2,"Two triangles and three rectangles."],
+["Two angles are complementary. One is 40°. The other is",["50°","140°","60°","90°"],0,"Complementary angles add up to 90°."],
+["On a scale of 1 : 100, a drawing of 5 cm represents an actual length of",["50 m","5 m","0.5 m","500 m"],1,"5 × 100 = 500 cm = 5 m."],
+["The area of a rectangle 9 cm long and 6 cm wide is",["15 cm²","30 cm²","54 cm²","108 cm²"],2,"9 × 6 = 54."],
+["The perimeter of a square of side 7 cm is",["14 cm","28 cm","49 cm","21 cm"],1,"4 × 7 = 28."],
+["The area of a triangle with base 10 cm and height 6 cm is",["16 cm²","30 cm²","60 cm²","120 cm²"],1,"½ × 10 × 6 = 30."],
+["A film starts at 1:45 p.m. and ends at 3:20 p.m. How long does it last?",["1 h 25 min","1 h 35 min","2 h 25 min","1 h 45 min"],1,"From 1:45 to 3:20 is 1 hour 35 minutes."],
+["The volume of a cuboid 5 cm by 4 cm by 3 cm is",["12 cm³","47 cm³","60 cm³","120 cm³"],2,"5 × 4 × 3 = 60."],
+["1 litre is equal to how many millilitres?",["10","100","1,000","10,000"],2,"1 litre = 1,000 ml."],
+["The mean of 3, 5, 7 and 9 is",["5","6","7","24"],1,"24 ÷ 4 = 6."],
+["The mode of 2, 3, 3, 5, 3, 6 is",["2","3","5","6"],1,"3 appears most often."],
+["The probability of getting a head when a fair coin is tossed is",["1/4","1/3","1/2","1"],2,"One head out of two equally likely outcomes."],
+["The median of 4, 9, 2, 7 and 5 is",["4","5","7","9"],1,"Ordered: 2, 4, 5, 7, 9. The middle value is 5."]]};
+const DATA8={"Mathematics":[
+["The cube of 4 is",["12","16","64","81"],2,"4 × 4 × 4 = 64."],
+["The cube root of 27 is",["3","9","6","13.5"],0,"3 × 3 × 3 = 27."],
+["2³ × 2² =",["64","32","10","16"],1,"Add the indices: 2⁵ = 32."],
+["5⁰ =",["0","1","5","50"],1,"Any non-zero number to the power 0 is 1."],
+["−3/4 + 1/2 =",["−5/4","−1/4","1/4","5/4"],1,"−3/4 + 2/4 = −1/4."],
+["5 pens cost KSh 150. How much do 8 pens cost?",["KSh 180","KSh 210","KSh 240","KSh 300"],2,"One pen costs 30; 8 × 30 = 240."],
+["A trader bought an item for KSh 800 and sold it for KSh 1,000. The percentage profit is",["20%","25%","200%","80%"],1,"200 ÷ 800 × 100 = 25%."],
+["Shoes marked KSh 2,000 are sold with a 15% discount. A customer pays",["KSh 1,985","KSh 1,700","KSh 1,800","KSh 300"],1,"15% of 2,000 = 300; 2,000 − 300 = 1,700."],
+["The simple interest on KSh 5,000 at 8% per year for 2 years is",["KSh 400","KSh 800","KSh 1,600","KSh 5,800"],1,"5,000 × 8 × 2 ÷ 100 = 800."],
+["An agent earns 5% commission on sales of KSh 80,000. The commission is",["KSh 400","KSh 4,000","KSh 40,000","KSh 8,000"],1,"5% of 80,000 = 4,000."],
+["Factorise 6x + 9",["3(2x + 3)","6(x + 9)","3(2x + 9)","9(x + 1)"],0,"Both terms share a factor of 3."],
+["Solve 2x − 5 = 11",["3","8","16","6"],1,"2x = 16, so x = 8."],
+["Expand (x + 3)(x + 2)",["x² + 6","x² + 5x + 6","x² + 5x + 5","2x + 5"],1,"x² + 2x + 3x + 6."],
+["Solve the inequality 2x + 1 < 9",["x < 4","x > 4","x < 5","x < 8"],0,"2x < 8, so x < 4."],
+["A number n is multiplied by 3 and then 4 is added. The expression is",["3(n + 4)","3n + 4","n + 12","3n − 4"],1,"Multiply first, then add."],
+["If a = −2, the value of a² + 3 is",["1","5","7","−1"],2,"(−2)² = 4; 4 + 3 = 7."],
+["The sum of the interior angles of a pentagon is",["360°","450°","540°","720°"],2,"(5 − 2) × 180° = 540°."],
+["Corresponding angles are equal when the two lines are",["Parallel","Perpendicular","Intersecting","Equal in length"],0,"This is a property of parallel lines cut by a transversal."],
+["The image of the point (2, 3) after reflection in the y-axis is",["(2, −3)","(−2, 3)","(−2, −3)","(3, 2)"],1,"The x-coordinate changes sign."],
+["The image of (3, −1) after a rotation of 180° about the origin is",["(3, 1)","(−3, −1)","(−3, 1)","(1, −3)"],2,"Both coordinates change sign."],
+["A line of 4 cm is enlarged by a scale factor of 3. The new length is",["7 cm","12 cm","16 cm","64 cm"],1,"4 × 3 = 12."],
+["A square has rotational symmetry of order",["2","3","4","8"],2,"It fits onto itself 4 times in a full turn."],
+["The two shorter sides of a right-angled triangle are 5 cm and 12 cm. The hypotenuse is",["13 cm","17 cm","60 cm","7 cm"],0,"√(25 + 144) = 13."],
+["The area of a circle of radius 7 cm (π = 22/7) is",["44 cm²","154 cm²","49 cm²","22 cm²"],1,"22/7 × 7 × 7 = 154."],
+["The circumference of a circle of radius 7 cm (π = 22/7) is",["22 cm","44 cm","154 cm","14 cm"],1,"2 × 22/7 × 7 = 44."],
+["The volume of a cylinder of radius 7 cm and height 10 cm (π = 22/7) is",["440 cm³","1,540 cm³","154 cm³","3,080 cm³"],1,"22/7 × 49 × 10 = 1,540."],
+["The total surface area of a cube of side 4 cm is",["64 cm²","96 cm²","48 cm²","16 cm²"],1,"6 × 4² = 96."],
+["A car covers 150 km in 2.5 hours. Its average speed is",["50 km/h","60 km/h","65 km/h","375 km/h"],1,"150 ÷ 2.5 = 60."],
+["A tank is 2 m long, 1 m wide and 1 m high. Its capacity in litres is",["20","200","2,000","20,000"],2,"2 m³ = 2,000 litres."],
+["The range of 12, 7, 20 and 15 is",["8","13","15","27"],1,"20 − 7 = 13."],
+["The mean of 6, 8, 10, 12 and 14 is",["8","9","10","11"],2,"50 ÷ 5 = 10."],
+["A die is rolled. The probability of getting a number greater than 4 is",["1/6","1/3","1/2","2/3"],1,"5 and 6 give 2 out of 6 = 1/3."],
+["In a pie chart of 80 learners, 20 chose football. The angle for football is",["20°","45°","90°","180°"],2,"20/80 × 360° = 90°."],
+["The legs of a right-angled triangle are 9 cm and 12 cm. The hypotenuse is",["15 cm","21 cm","108 cm","3 cm"],0,"√(81 + 144) = 15."]]};
+TOP[7]={"Mathematics":[
+{t:"Data Handling & Probability",k:/mean|median|mode|probab|graph|data|tally|pie/i,n:["<b>Mean</b> = total ÷ number of items. <b>Median</b> = middle value when the data is in order. <b>Mode</b> = the value that appears most often.","<b>Probability</b> = favourable outcomes ÷ total outcomes. A fair coin has probability 1/2 for a head.","Read bar graphs and tables carefully; check the scale."]},
+{t:"Algebra",k:/simplif|solve|expression|equation|inequal|satisf|\bn = |expand/i,n:["<b>Like terms:</b> add or subtract terms with the same letter. 3a + 5a − 2a = 6a.","<b>Equations:</b> do the same to both sides. x + 7 = 15 gives x = 8; 3y = 21 gives y = 7.","<b>Substitution:</b> replace the letter with its value. If n = 4, then 2n + 3 = 11.","<b>Brackets:</b> multiply every term inside. 4(x + 2) = 4x + 8.","<b>Inequalities:</b> x < 5 means all numbers less than 5."]},
+{t:"Geometry",k:/angle|triangle|prism|faces|scale|equilateral|complementary/i,n:["<b>Angle facts:</b> angles on a straight line add up to 180°; angles in a triangle add up to 180°; complementary angles add up to 90°.","<b>Triangles:</b> equilateral (3 equal sides), isosceles (2 equal sides), scalene (no equal sides).","<b>Solids:</b> a triangular prism has 5 faces; a cube has 6 faces, 12 edges and 8 vertices.","<b>Scale:</b> 1 : 100 means 1 cm on the drawing is 100 cm (1 m) in real life."]},
+{t:"Measurement",k:/area|perimeter|volume|litre|film|\bml\b|cuboid/i,n:["<b>Area:</b> rectangle = length × width; triangle = ½ × base × height.","<b>Perimeter</b> is the distance around: square = 4 × side.","<b>Volume of a cuboid</b> = length × width × height. 1 litre = 1,000 ml.","<b>Time:</b> find the difference between the end time and the start time."]},
+{t:"Numbers, Ratios & Percentages",k:/./,n:["<b>Integers:</b> a negative times a negative is positive; −8 + 5 = −3.","<b>Fractions:</b> use a common denominator to add. 3/4 + 1/8 = 6/8 + 1/8 = 7/8. To find a fraction of an amount, divide then multiply.","<b>Decimals:</b> multiply as whole numbers, then place the decimal point. Compare decimals by writing the same number of places.","<b>Ratio:</b> add the parts, find one part, then multiply. <b>Percent:</b> out of 100; 25% = a quarter.","<b>Rate:</b> find the amount for one unit, then scale up. <b>Squares and roots:</b> √81 = 9. A <b>prime number</b> has exactly two factors."]}]};
+TOP[8]={"Mathematics":[
+{t:"Data Handling & Probability",k:/mean|range|probab|pie|data/i,n:["<b>Range</b> = largest − smallest. <b>Mean</b> = total ÷ number of items.","<b>Probability</b> = favourable outcomes ÷ total outcomes. Rolling a number greater than 4 on a die is 2/6 = 1/3.","<b>Pie chart angle</b> = (frequency ÷ total) × 360°."]},
+{t:"Algebra",k:/factoris|solve|expand|inequal|multiplied by 3|a = −2/i,n:["<b>Factorising:</b> take out the common factor. 6x + 9 = 3(2x + 3).","<b>Expanding two brackets:</b> (x + 3)(x + 2) = x² + 2x + 3x + 6 = x² + 5x + 6.","<b>Equations:</b> undo operations in reverse. 2x − 5 = 11 gives x = 8.","<b>Inequalities:</b> solve like equations; 2x + 1 < 9 gives x < 4.","<b>Forming expressions:</b> 'multiply n by 3 then add 4' is 3n + 4."]},
+{t:"Geometry & Transformations",k:/angle|pentagon|reflection|rotation|enlargement|symmetry|parallel|corresponding/i,n:["<b>Interior angles of a polygon</b> add up to (n − 2) × 180°. A pentagon: 540°.","<b>Parallel lines:</b> corresponding angles are equal.","<b>Reflection</b> in the y-axis changes the sign of x. <b>Rotation</b> of 180° about the origin changes both signs.","<b>Enlargement:</b> multiply all lengths by the scale factor.","<b>Rotational symmetry:</b> the order is how many times a shape fits onto itself in a full turn (a square has order 4)."]},
+{t:"Measurement",k:/area|circumference|volume|cube|speed|tank|hypotenuse|right-angled/i,n:["<b>Pythagoras:</b> in a right-angled triangle a² + b² = c². The 3-4-5, 5-12-13 and 9-12-15 triangles are common.","<b>Circle:</b> area = πr², circumference = 2πr (π = 22/7 when r is a multiple of 7).","<b>Cylinder volume</b> = πr²h. <b>Cube surface area</b> = 6a².","<b>Speed</b> = distance ÷ time. <b>Capacity:</b> 1 m³ = 1,000 litres."]},
+{t:"Numbers & Commercial Arithmetic",k:/./,n:["<b>Cubes and cube roots:</b> 4³ = 64 and ∛27 = 3.","<b>Indices:</b> aᵐ × aⁿ = aᵐ⁺ⁿ and a⁰ = 1.","<b>Rational numbers:</b> use a common denominator. −3/4 + 1/2 = −1/4.","<b>Proportion:</b> find the cost of one item, then multiply.","<b>Profit %</b> = profit ÷ cost × 100. <b>Discount</b> = % × marked price. <b>Commission</b> = % of sales. <b>Simple interest</b> = PRT ÷ 100."]}]};
+DISP[7]={"Mathematics":["Numbers, Ratios & Percentages","Algebra","Geometry","Measurement","Data Handling & Probability"]};
+DISP[8]={"Mathematics":["Numbers & Commercial Arithmetic","Algebra","Geometry & Transformations","Measurement","Data Handling & Probability"]};
+
+const GR={9:Object.fromEntries(Object.entries(DATA).map(([k,v])=>[k,v.slice()])),6:DATA6,7:DATA7,8:DATA8};let CUR=9;
 function setGrade(n){CUR=n;ls('g9last',n);lockData();SUBS=Object.keys(DATA)}
 const FREE=5,SECRET='5e339d1e1d8a8444f4af0404';
 // ---- EDIT THESE ----
