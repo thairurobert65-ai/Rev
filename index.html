@@ -158,6 +158,12 @@ html[data-size="1"]{font-size:18px}html[data-size="2"]{font-size:20px}
 :root[data-theme="light"] .splash .btn{background:#14b8a6;color:#031a18}
 :root[data-theme="light"] .hero2 small,:root[data-theme="light"] .ringsm small{color:#a7f3e5}
 :root[data-theme="light"] .hero2,:root[data-theme="light"] .hero2 b{color:#fff}
+
+.logo2{width:124px;height:124px;border-radius:32px;background:#1F2A6B;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 8px rgba(242,177,52,.2)}
+.splash h1.wm{font-size:2.7rem;letter-spacing:-.5px;margin:4px 0}
+.splash b{color:#F2B134;letter-spacing:.34em;font-size:.8rem}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:14px}.brand b{font-size:1.25rem}.brand small{color:#F2B134;letter-spacing:.22em;font-size:.62rem;font-weight:700;margin-top:3px}
+:root[data-theme="light"] .brand small{color:#9A6700}
 </style><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#000000"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"></head><body><div id="app"></div>
 <script>
 const DATA={
@@ -478,7 +484,7 @@ function render(title,body,tab,nb){clearInterval(tmr);
 app.innerHTML=`<header>${nb?'':'<button class="bk" id="bk" aria-label="Back">‹</button>'}<h2>${title}</h2>${nb?'':'<span style="width:32px"></span>'}</header><section>${body}</section>`+(tab?`<nav>${[['Home','🏠'],['Subjects','📚'],['Progress','📊']].map(([n,i])=>`<button data-t="${n}" class="${tab===n?'on':''}"><span>${i}</span>${n}</button>`).join('')}</nav>`:'');
 const b=document.getElementById('bk');if(b)b.onclick=back;
 app.querySelectorAll('nav button').forEach(x=>x.onclick=()=>{const t=x.dataset.t;t==='Home'?go(grades,1):t==='Progress'?go(myProgress,1):go(()=>subjects('s'),1)});scrollTo(0,0)}
-function splash(){app.innerHTML=`<section class="splash"><div class="logo">📖</div><h1>RHEMA</h1><b>CBC REVISION</b><p>Preparing learners for KPSEA &amp; KJSEA</p><button class="btn" id="gs">Get Started</button>${(STATS_URL||STATS_FORM.url)?'<p style="font-size:.75rem;opacity:.8;margin-top:18px">This app counts installs anonymously. No names or phone numbers are collected.</p>':''}</section>`;document.getElementById('gs').onclick=()=>go(grades,1)}
+function splash(){app.innerHTML=`<section class="splash"><div class="logo2">${MARK(84)}</div><h1 class="wm">Rhema</h1><b>CBC REVISION</b><p>Preparing learners for KPSEA &amp; KJSEA</p><button class="btn" id="gs">Get Started</button>${(STATS_URL||STATS_FORM.url)?'<p style="font-size:.75rem;opacity:.8;margin-top:18px">This app counts installs anonymously. No names or phone numbers are collected.</p>':''}</section>`;document.getElementById('gs').onclick=()=>go(grades,1)}
 function grades(){const G=[[4,'CBC','#2e9e5b','🧒'],[5,'CBC','#f28c1e','👦'],[6,'KPSEA','#1f6fd1','🎓'],[7,'CBC','#7b3fc4','🧑‍🎓'],[8,'CBC','#12a3a3','📚'],[9,'KJSEA','#e8474c','🏫']];
 render('Select Grade',G.map(([n,t,c,e])=>`<button class="gr ${GR[n]?'':'off'}" style="background:${c}" data-g="${n}"><span>${e}</span><div><b>Grade ${n}</b><small>${t}${GR[n]?'':' · coming soon'}</small></div><i>›</i></button>`).join(''),'Home',1);
 app.querySelectorAll('.gr').forEach(b=>b.onclick=()=>{if(GR[b.dataset.g]){setGrade(+b.dataset.g);go(()=>subjects('s'))}else b.querySelector('small').textContent='Grade '+b.dataset.g+' content is coming soon'})}
@@ -1572,7 +1578,7 @@ function homeTop(){const s=document.querySelector('section');if(!s)return;
 let st={};try{st=JSON.parse(ls('g9st')||'{}')}catch(e){}
 const q=st.q||0,c=st.c||0,n=st.n||0,acc=q?Math.round(c/q*100):0;let cont=null;try{cont=JSON.parse(ls('g9cont')||'null')}catch(e){}
 const ok=cont&&GR[cont.g]&&GR[cont.g][cont.s],h=document.createElement('div');
-h.innerHTML=`<div class="hero2"><div><small>Your progress</small><b class="big2">${q?acc+'% correct':'Ready to start'}</b><small>${q?c+' of '+q+' questions':'Pick a grade below'}</small></div><div class="ringsm" style="--p:${acc}"><span>${n}</span><small>quizzes</small></div></div>`+(ok?`<button class="row" id="cn"><span class="ic" style="background:#0f2f2c">▶</span><div><b>Continue where you left off</b><small>Grade ${cont.g} · ${cont.s}</small></div><i>›</i></button>`:'')+(prem?'':'<button class="btn" id="gp">👑 Go Premium</button>')+`<div class="two"><button class="qa" id="qb"><span>✨</span>Quiz builder</button><button class="qa" id="pd"><span>🔮</span>Predictions</button></div><h3 class="th">Choose your grade</h3>`;
+h.innerHTML=`<div class="brand">${MARK(30)}<b>Rhema</b><small>CBC REVISION</small></div><div class="hero2"><div><small>Your progress</small><b class="big2">${q?acc+'% correct':'Ready to start'}</b><small>${q?c+' of '+q+' questions':'Pick a grade below'}</small></div><div class="ringsm" style="--p:${acc}"><span>${n}</span><small>quizzes</small></div></div>`+(ok?`<button class="row" id="cn"><span class="ic" style="background:#0f2f2c">▶</span><div><b>Continue where you left off</b><small>Grade ${cont.g} · ${cont.s}</small></div><i>›</i></button>`:'')+(prem?'':'<button class="btn" id="gp">👑 Go Premium</button>')+`<div class="two"><button class="qa" id="qb"><span>✨</span>Quiz builder</button><button class="qa" id="pd"><span>🔮</span>Predictions</button></div><h3 class="th">Choose your grade</h3>`;
 s.prepend(h);const g=id=>h.querySelector('#'+id);
 if(g('cn'))g('cn').onclick=()=>{setGrade(cont.g);go(()=>modes(cont.s))};if(g('gp'))g('gp').onclick=()=>go(paywall);
 g('qb').onclick=()=>go(builder);g('pd').onclick=()=>go(predictions)}
@@ -1599,7 +1605,7 @@ function mistakes(){const pool=[];jget('g9mis',[]).filter(id=>id.indexOf(CUR+'|'
 function homeTop(){const s=document.querySelector('section');if(!s)return;
 const st=jget('g9st',{}),q=st.q||0,c=st.c||0,n=st.n||0,acc=q?Math.round(c/q*100):0,sk=streak(),ex=jget('g9exam',null),cont=jget('g9cont',null),ok=cont&&GR[cont.g]&&GR[cont.g][cont.s],h=document.createElement('div');
 const dl=ex&&daysTo(ex.d)>=0?daysTo(ex.d):null;
-h.innerHTML=`<div class="hero2"><div><small>Your progress</small><b class="big2">${q?acc+'% correct':'Ready to start'}</b><small>${sk?'🔥 '+sk+'-day streak':'Start a streak today'}${dl!==null?' · ⏳ '+dl+' days to '+ex.n:''}</small></div><div class="ringsm" style="--p:${acc}"><span>${n}</span><small>quizzes</small></div></div>`+(ok?`<button class="row" id="cn"><span class="ic" style="background:#0f2f2c">▶</span><div><b>Continue where you left off</b><small>Grade ${cont.g} · ${cont.s}</small></div><i>›</i></button>`:'')+(prem?'':'<button class="btn" id="gp">👑 Go Premium</button>')+`<div class="two"><button class="qa" id="qb"><span>✨</span>Quiz builder</button><button class="qa" id="pd"><span>🔮</span>Predictions</button></div><button class="row" id="mp"><span class="ic" style="background:#0f2f2c">📊</span><div><b>My progress</b><small>Badges, weak topics, mistakes and study plan</small></div><i>›</i></button><h3 class="th">Choose your grade</h3>`;
+h.innerHTML=`<div class="brand">${MARK(30)}<b>Rhema</b><small>CBC REVISION</small></div><div class="hero2"><div><small>Your progress</small><b class="big2">${q?acc+'% correct':'Ready to start'}</b><small>${sk?'🔥 '+sk+'-day streak':'Start a streak today'}${dl!==null?' · ⏳ '+dl+' days to '+ex.n:''}</small></div><div class="ringsm" style="--p:${acc}"><span>${n}</span><small>quizzes</small></div></div>`+(ok?`<button class="row" id="cn"><span class="ic" style="background:#0f2f2c">▶</span><div><b>Continue where you left off</b><small>Grade ${cont.g} · ${cont.s}</small></div><i>›</i></button>`:'')+(prem?'':'<button class="btn" id="gp">👑 Go Premium</button>')+`<div class="two"><button class="qa" id="qb"><span>✨</span>Quiz builder</button><button class="qa" id="pd"><span>🔮</span>Predictions</button></div><button class="row" id="mp"><span class="ic" style="background:#0f2f2c">📊</span><div><b>My progress</b><small>Badges, weak topics, mistakes and study plan</small></div><i>›</i></button><h3 class="th">Choose your grade</h3>`;
 s.prepend(h);const g=id=>h.querySelector('#'+id);
 if(g('cn'))g('cn').onclick=()=>{setGrade(cont.g);go(()=>modes(cont.s))};if(g('gp'))g('gp').onclick=()=>go(paywall);
 g('qb').onclick=()=>go(builder);g('pd').onclick=()=>go(predictions);g('mp').onclick=()=>go(myProgress)}
@@ -1624,6 +1630,7 @@ if($('exc'))$('exc').onclick=()=>{try{ls('g9exam','null')}catch(e){}myProgress()
 app.querySelectorAll('[data-z]').forEach(b=>b.onclick=()=>{const v=jget('g9set',{});v.size=+b.dataset.z;jset('g9set',v);applySet();myProgress()});
 app.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{const v=jget('g9set',{});v.theme=b.dataset.t;jset('g9set',v);applySet();myProgress()})}
 
+const MARK=(w,pg)=>`<svg width="${w}" height="${w}" viewBox="0 0 64 64" role="img" aria-label="Rhema CBC mark"><path d="M32 3 C37 9 41 12 41 17 C41 21 37 23 32 23 C27 23 23 21 23 17 C23 12 27 9 32 3Z" fill="#F2B134"/><path d="M32 52 C26 47 16 46 7 48 L7 26 C16 24 26 25 32 29Z" fill="${pg||'#fff'}"/><path d="M32 52 C38 47 48 46 57 48 L57 26 C48 24 38 25 32 29Z" fill="${pg||'#fff'}" opacity=".82"/></svg>`;
 const GR={9:Object.fromEntries(Object.entries(DATA).map(([k,v])=>[k,v.slice()])),6:DATA6,7:DATA7,8:DATA8};let CUR=9;
 function setGrade(n){CUR=n;ls('g9last',n);lockData();SUBS=Object.keys(DATA)}
 const FREE=5,SECRET='5e339d1e1d8a8444f4af0404';
